@@ -1,3 +1,6 @@
+.. toctree::
+   :titlesonly:
+
 ============
 Overview
 ============
@@ -29,9 +32,9 @@ Verify
 Launch the application
 ----------------------
 
-============
-Start
-============
+==============
+Start the fun
+==============
 
 VCF Annotation procedure
 ------------------------
