@@ -14,7 +14,7 @@ Contents
    Installation <install>
 
 
-Installation
+Install
 ============
 
 
