@@ -1,25 +1,19 @@
-.. toctree::
-
-   install
-
-
-#########################
 myVCF
 #########################
 
 Welcome to **myVCF** manual page
 
-============
+
 Installation
 ============
 
-------------------
+
 Requirements
 ------------------
 
 python > 2.7
 
------------------------
+
 Install python packages
 -----------------------
 
@@ -29,23 +23,23 @@ Install python packages
 
 End
 
-------------------
+
 Verify
 ------------------
 
-----------------------
+
 Launch the application
 ----------------------
 
-==============
+
 Start the fun
 ==============
 
-------------------------
+
 VCF Annotation procedure
 ------------------------
 
-----------------------
+
 Load new data
 ----------------------
 
