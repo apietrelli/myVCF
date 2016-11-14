@@ -4,11 +4,17 @@ Overview
 
 Welcome to **myVCF** manual page
 
-***************
-Chapter 1
-***************
+============
+Installation
+============
 
-testo 1
+Requirements
+------------------
+
+python > 2.7
+
+Install python packages
+-----------------------
 
 ::
 
@@ -16,8 +22,22 @@ testo 1
 
 End
 
-***************
-Chapter 2
-***************
 
-testo per capitolo 2
+Verify
+------------------
+
+Launch the application
+----------------------
+
+============
+Start
+============
+
+VCF Annotation procedure
+------------------------
+
+Load new data
+----------------------
+
+Notes
+----------------------
