@@ -1,3 +1,5 @@
+.. _setup_label:
+
 Setup the application
 =====================
 
