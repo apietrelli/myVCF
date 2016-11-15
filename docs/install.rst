@@ -13,6 +13,7 @@ You can download **myVCF** package from:
 1. Go to `myVCF homepage <https://apietrelli.github.io/myVCF/>`_
 2. Click on one of the button present in the header page
 3. Extract the compressed file into your working directory
+4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application 
 
 - **GitHub**
 
@@ -22,9 +23,10 @@ If you have GitHub installed in your computer, you can clone the project directl
 
 .. code-block:: shell
 
+  cd path/to/working/dir
   git clone https://github.com/apietrelli/myVCF.git
 
-The command will download the entire package and you will be ready to install requirements
+The command will create a directory named :code:`myVCF/` containing the desktop application
 
 .. note::
     To download :code:`git` tool for Unix/MAC operating system
