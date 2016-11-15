@@ -46,8 +46,8 @@ Unix/MAC
 ^^^^^^^^
 
 1. Open terminal
-1. Go to myVCF dir
-2. Execute this command:
+2. Go to myVCF dir
+3. Execute this command:
 
 .. code-block:: shell
 
