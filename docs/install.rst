@@ -73,9 +73,6 @@ Testing the installation
 sqlite
 ^^^^^^
 
-
-Tested and developed under Linux/MAC operating system, but also suitable for Windows user with some modification
-
 Python Library
 ^^^^^^^^^^^^^^
 
@@ -89,15 +86,15 @@ Python Library
 
   pip install -r requirements.txt
 
-Verify the installation by typing this
-
-.. code-block:: shell
+Verify the installation by typing::
 
   python manage.py shell
 
-Windows
-^^^^^^^
-
-
 Launch the application
 ----------------------
+
+Finally, you're ready to start the webserver::
+
+    python manage.py runserver
+
+Visit http://127.0.0.1:8000/ in your browser to see how it looks.
