@@ -14,15 +14,15 @@ myVCF will help end-users to browse and analyze VCF coming from exome and target
 Want to try myVCF?
 ==================
 
-Please download **myVCF** package from:
+You can download **myVCF** package from:
 
 - Project `homepage <https://apietrelli.github.io/myVCF/>`_ (.zip and tar.gz)
 - `GitHub project <https://github.com/apietrelli/myVCF>`_ (cloning the project)
 
 and follow the instructions contained in the :ref:`installation page <install_label>`
 
-Contents
-========
+Documentation contents
+======================
 
 .. toctree::
    :maxdepth: 2
