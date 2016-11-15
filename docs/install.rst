@@ -43,10 +43,43 @@ The command will create a directory named :code:`myVCF/` containing the desktop 
 Install requirements
 --------------------
 
+The application is developed using Python/Django framework and use :code:`sqlite` as database platform.
+Please verify the installation of Python and sqlite on your computer.
+
+Python 2.7
+^^^^^^^^^^
+
+**Unix (Debian system)**
+
+.. code-block:: shell
+
+  sudo apt-get install python2.7
+
+Testing the installation
+
+.. code-block:: shell
+
+  $> python
+  Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+  [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>>
+
+
+**MAC**
+
+**Windows**
+
+sqlite
+^^^^^^
+
+
 Tested and developed under Linux/MAC operating system, but also suitable for Windows user with some modification
 
-Unix/MAC
-^^^^^^^^
+Python Library
+^^^^^^^^^^^^^^
+
+**Unix/MAC**
 
 1. Open terminal
 2. Go to :code:`myVCF/` dir
