@@ -1,6 +1,12 @@
 Install
 =======
 
+Download myVCF
+--------------
 
-sotto paragrafo
----------------
+Requirements
+------------
+
+
+Launch the application
+----------------------
