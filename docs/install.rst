@@ -13,7 +13,7 @@ You can download **myVCF** package from:
 1. Go to `myVCF homepage <https://apietrelli.github.io/myVCF/>`_
 2. Click on one of the button present in the header page
 3. Extract the compressed file into your working directory
-4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application 
+4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application
 
 - **GitHub**
 
@@ -49,12 +49,12 @@ Unix/MAC
 ^^^^^^^^
 
 1. Open terminal
-2. Go to myVCF dir
+2. Go to :code:`myVCF/` dir
 3. Execute this command:
 
 .. code-block:: shell
 
-  pip install -r /path/to/requirements.txt
+  pip install -r requirements.txt
 
 Verify the installation by typing this
 
