@@ -7,11 +7,19 @@ myVCF is a user-friendly platform that helps end-users,
 without programming skills, to analyze and visualize mutations data
 to guide strategies for further downstream analysis.
 
+This tool will help end-users to browse and analyze VCF coming from exome and targeted sequencing projects. myVCF can handle multiple-sample VCF and multiple projects can be created as separate environment in order to manage different VCFs with the same application.
+
 `VCF (Variant Call Format)  <http://www.internationalgenome.org/wiki/Analysis/vcf4.0/>`_ file is the standard format for storing mutation data coming from different sources that used NGS technology (Whole Exome/Genome sequencing, Public database...)
 
-This tool will help end-users to browse and analyze VCF coming from exome and targeted sequencing projects.
+Want to try myVCF?
+==================
 
-myVCF can handle multiple-sample VCF and multiple projects can be created as separate environment in order to manage different VCFs with the same application.
+Please download the **myVCF** package
+
+- from the project `homepage <https://apietrelli.github.io/myVCF/>`_ (compressed package)
+- from the GitHub project `here <https://github.com/apietrelli/myVCF>`_
+
+and follow the :ref:`Installation page <install>` 
 
 Contents
 ========
