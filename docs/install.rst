@@ -8,17 +8,17 @@ Download myVCF
 
 You can download **myVCF** package from:
 
-- Compressed package
+- **Compressed package**
 
-1. Go to the project `homepage <https://apietrelli.github.io/myVCF/>`_
-2. Click on one of the button
+1. Go to `myVCF homepage <https://apietrelli.github.io/myVCF/>`_
+2. Click on one of the button present in the header page
 3. Extract the compressed file into your working directory
 
-- GitHub
+- **GitHub**
 
 If you have GitHub installed in your computer, you can clone the project directly on your working directory
 
-1. Open the terminal/CGWin and type:
+1. Open the terminal and type:
 
 .. code-block:: shell
 
@@ -35,6 +35,8 @@ The command will download the entire package and you will be ready to install re
       brew install git
       # Ubuntu/Debian Unix OS
       apt-get install git
+    for Windows users, you can download the git software from the `Git homepage <https://git-scm.com/download/win>`_
+
 
 Install requirements
 --------------------
