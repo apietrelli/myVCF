@@ -8,14 +8,13 @@ Download myVCF
 
 You can download **myVCF** package from:
 
-Compressed package
-^^^^^^^^^^^^^^^^^^
+- Compressed package
+
 1. Go to the project `homepage <https://apietrelli.github.io/myVCF/>`_
 2. Click on one of the button
 3. Extract the compressed file into your working directory
 
-GitHub
-^^^^^^
+- GitHub
 
 If you have GitHub installed in your computer, you can clone the project directly on your working directory
 
