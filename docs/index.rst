@@ -3,6 +3,12 @@ myVCF
 
 Welcome to **myVCF** manual page
 
+myVCF is a user-friendly platform that helps end-users,
+without programming skills, to analyze and visualize mutations data
+to guide strategies for further downstream analysis.
+
+Overview
+========
 
 Contents
 ========
