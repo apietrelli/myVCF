@@ -35,7 +35,7 @@ The command will download the entire package and you will be ready to install re
       brew install git
       # Ubuntu/Debian Unix OS
       apt-get install git
-    for Windows users, you can download the git software from the `Git homepage <https://git-scm.com/download/win>`_
+    for Windows users, you can download the git software from the `Git homepage <https://git-scm.com/download/win>`_ and use the same command as for Unix/MAC user by using `GitBASH <https://git-for-windows.github.io/>`_
 
 
 Install requirements
