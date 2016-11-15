@@ -26,6 +26,7 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+   :numbered:
 
    Install the package <install>
    Setup a project <setup>

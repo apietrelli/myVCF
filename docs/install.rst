@@ -1,7 +1,7 @@
 .. _install_label:
 
-Install
-=======
+How to install myVCF
+====================
 
 Download myVCF
 --------------
