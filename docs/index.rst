@@ -7,8 +7,11 @@ myVCF is a user-friendly platform that helps end-users,
 without programming skills, to analyze and visualize mutations data
 to guide strategies for further downstream analysis.
 
-Overview
-========
+VCF (Variant Call Format) file is the standard file for storing mutation data coming from different sources (Exome/Genome sequencing, Public database...) 
+This tool will help end-users to browse and analyze their own VCF
+
+Citation
+--------
 
 Contents
 ========
