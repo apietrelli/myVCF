@@ -14,7 +14,7 @@ This tool will help end-users to browse and analyze VCF coming from exome and ta
 Want to try myVCF?
 ==================
 
-Please download the **myVCF** package from:
+Please download **myVCF** package from:
 
 - Project `homepage <https://apietrelli.github.io/myVCF/>`_ (.zip and tar.gz)
 - `GitHub project <https://github.com/apietrelli/myVCF>`_ (cloning the project)
