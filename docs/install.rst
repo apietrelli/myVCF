@@ -49,7 +49,13 @@ Please verify the installation of Python and sqlite on your computer.
 Python 2.7
 ^^^^^^^^^^
 
+All the myVCF tool is based on **Python 2.7** language. Please verify the installation of python.
+
+If you are not sure or you need to install it, please follow the notes below about the installation depending on your operating system.
+
 **Unix (Debian system)**
+
+Using terminal, install :code:`python2.7`
 
 .. code-block:: shell
 
@@ -67,7 +73,7 @@ You can test the installation in terminal
 
 **MAC**
 
-Open the terminal and install python 2.7 with :code:`brew`
+Open the terminal and install :code:`python2.7` with :code:`brew`
 
 .. code-block:: shell
 
@@ -85,12 +91,13 @@ You can test the installation in terminal
 
 **Windows**
 
-You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/ >`_
+You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/>`_
 
 .. warning:: Please download the **Python2.7** package NOT the Python3
 
 sqlite
 ^^^^^^
+
 
 Python Library
 ^^^^^^^^^^^^^^
