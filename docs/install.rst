@@ -85,7 +85,9 @@ You can test the installation in terminal
 
 **Windows**
 
-You can download the :code:`python` pa
+You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/ >`_
+
+.. warning:: Please download the **Python2.7** package NOT the Python3
 
 sqlite
 ^^^^^^
