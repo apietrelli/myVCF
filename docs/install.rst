@@ -56,7 +56,7 @@ All the myVCF tool is based on **Python 2.7** language. Please verify the instal
 
 If you are not sure or you need to install it, please follow the notes below about the installation depending on your operating system.
 
-**Unix (Debian system)**
+**Unix (Ubuntu/Debian system)**
 
 Using terminal, install :code:`python2.7` using :code:`apt-get`
 
@@ -96,7 +96,49 @@ You can download the :code:`python2.7` package from `Python project site <https:
 sqlite
 ^^^^^^
 
-The storage od VCF data has been implemented by using :code:`sqlite` database.
+The storage of VCF data has been implemented by using :code:`sqlite` as backend database. This cross-platform solution allows the end-user to workaround some configuration steps mandatory with other database system.
+
+Please following this instructions to install :code:`sqlite` depending on your operating system
+
+**Unix (Ubuntu/Debian system)/MAC**
+
+1. Open the :code:`terminal`
+2. Install :code:`sqlite3` package
+
+.. code-block:: shell
+
+  # Ubuntu/Debian Unix OS
+  $> sudo apt-get install sqlite3
+  # MAC OS
+  $> brew install sqlite3
+
+3. Launch :code:`sqlite3` from shell
+
+.. code-block:: shell
+
+  $> sqlite3
+  SQLite version 3.7.13 2012-07-17 17:46:21
+  Enter ".help" for instructions
+  Enter SQL statements terminated with a ";"
+  sqlite>
+  # Quit from the sqlite3 shell
+  sqlite> .q
+
+**Windows**
+
+1. Download the :code:`sqlite` from the web site https://sqlite.org/download.html
+
+.. warning::
+
+  Check your Windows version installed (32 or 64 bit) to correctely download the right :code:`sqlite3` package from the web site
+
+  To check your system click on:
+
+  **Start** > **Control panel** > **System**
+
+  and check the version.
+
+
 
 Python Library
 ^^^^^^^^^^^^^^
