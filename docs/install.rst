@@ -61,23 +61,13 @@ Using terminal, install :code:`python2.7`
 
   sudo apt-get install python2.7
 
-You can test the installation in terminal
-
-.. code-block:: shell
-
-  $> python
-  Python 2.7.5 (default, Mar  9 2014, 22:15:05)
-  [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
-  Type "help", "copyright", "credits" or "license" for more information.
-  >>>
-
 **MAC**
 
-Open the terminal and install :code:`python2.7` with :code:`brew`
+  Open the terminal and install :code:`python2.7` with :code:`brew`
 
-.. code-block:: shell
+  .. code-block:: shell
 
-  brew install python2.7
+    brew install python2.7
 
 You can test the installation in terminal
 
@@ -88,6 +78,7 @@ You can test the installation in terminal
   [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
   Type "help", "copyright", "credits" or "license" for more information.
   >>>
+  >>>quit()
 
 **Windows**
 
