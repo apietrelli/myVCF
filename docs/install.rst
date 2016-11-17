@@ -128,6 +128,12 @@ Please following this instructions to install :code:`sqlite` depending on your o
 
 1. Download the :code:`sqlite` from the web site https://sqlite.org/download.html
 
+  * sqlite-dll-win32-x86-{VERSION}.zip
+
+  or
+
+  * sqlite-dll-win64-x64-{VERSION}.zip	
+
 .. warning::
 
   Check your Windows version installed (32 or 64 bit) to correctely download the right :code:`sqlite3` package from the web site
@@ -137,8 +143,7 @@ Please following this instructions to install :code:`sqlite` depending on your o
   **Start** > **Control panel** > **System**
 
   and check the version.
-
-
+2. Unpack the :code:`.zip`
 
 Python Library
 ^^^^^^^^^^^^^^
