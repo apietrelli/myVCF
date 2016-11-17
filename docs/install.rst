@@ -21,10 +21,13 @@ If you have GitHub installed in your computer, you can clone the project directl
 
 1. Open the terminal and type:
 
+.. note::
+  For MAC users, you can fin the terminal app by searching through Spotlight and type :code:`terminal` and click on the application
+
 .. code-block:: shell
 
-  cd path/to/working/dir
-  git clone https://github.com/apietrelli/myVCF.git
+  $>cd path/to/working/dir
+  $>git clone https://github.com/apietrelli/myVCF.git
 
 The command will create a directory named :code:`myVCF/` containing the desktop application
 
