@@ -96,7 +96,7 @@ You can download the :code:`python2.7` package from `Python project site <https:
 sqlite
 ^^^^^^
 
-The storage of VCF data has been implemented by using :code:`sqlite` as backend database. This cross-platform solution allows the end-user to workaround some configuration steps mandatory with other database system.
+The storage of VCF data has been implemented by using :code:`sqlite` as backend database. This cross-platform solution allows the end-user to workaround some complex configuration setups which are mandatory with other database system.
 
 Please following this instructions to install :code:`sqlite` depending on your operating system
 
@@ -126,13 +126,11 @@ Please following this instructions to install :code:`sqlite` depending on your o
 
 **Windows**
 
-1. Download the :code:`sqlite` from the web site https://sqlite.org/download.html
+1. Go to sqlite web site https://sqlite.org/download.html and download precompiled binaries from Windows section.
 
-  * sqlite-dll-win32-x86-{VERSION}.zip
-
+  * sqlite-dll-win32-x86-\*.zip
   or
-
-  * sqlite-dll-win64-x64-{VERSION}.zip	
+  * **sqlite-dll-win64-x64-\*.zip**
 
 .. warning::
 
@@ -143,7 +141,7 @@ Please following this instructions to install :code:`sqlite` depending on your o
   **Start** > **Control panel** > **System**
 
   and check the version.
-2. Unpack the :code:`.zip`
+2. Unpack the :code:`.zip` file
 
 Python Library
 ^^^^^^^^^^^^^^
