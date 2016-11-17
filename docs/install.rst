@@ -33,10 +33,10 @@ The command will create a directory named :code:`myVCF/` containing the desktop 
 
     .. code:: shell
 
-      # MAC
-      brew install git
       # Ubuntu/Debian Unix OS
-      apt-get install git
+      $> sudo apt-get install git
+      # MAC
+      $> brew install git
     for Windows users, you can download the git software from the `Git homepage <https://git-scm.com/download/win>`_ and use the same command as for Unix/MAC user by using `GitBASH <https://git-for-windows.github.io/>`_
 
 
@@ -55,21 +55,25 @@ If you are not sure or you need to install it, please follow the notes below abo
 
 **Unix (Debian system)**
 
-Using terminal, install :code:`python2.7`
+Using terminal, install :code:`python2.7` using :code:`apt-get`
 
 .. code-block:: shell
 
-  sudo apt-get install python2.7
+  $> sudo apt-get install python2.7
 
 **MAC**
 
-  Open the terminal and install :code:`python2.7` with :code:`brew`
+Open the terminal and install :code:`python2.7` with :code:`brew`
 
-  .. code-block:: shell
+.. Note::
+  You can find the shell terminal in MAC OS by typing :code:`terminal` in Spotlight textbox and click on the application.
 
-    brew install python2.7
+.. code-block:: shell
 
-You can test the installation in terminal
+  # Terminal application
+  $> brew install python2.7
+
+You can test the installation in the terminal
 
 .. code-block:: shell
 
