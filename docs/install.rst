@@ -26,8 +26,8 @@ If you have GitHub installed in your computer, you can clone the project directl
 
 .. code-block:: shell
 
-  $>cd path/to/working/dir
-  $>git clone https://github.com/apietrelli/myVCF.git
+  $> cd path/to/working/dir
+  $> git clone https://github.com/apietrelli/myVCF.git
 
 The command will create a directory named :code:`myVCF/` containing the desktop application
 
@@ -91,11 +91,12 @@ You can test the installation in the terminal
 
 You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/>`_
 
-.. warning:: Please download the **Python2.7** package NOT the Python3
+.. warning:: Please download the **Python2.7** package **NOT** Python3.x
 
 sqlite
 ^^^^^^
 
+The storage od VCF data has been implemented by using :code:`sqlite` database.
 
 Python Library
 ^^^^^^^^^^^^^^
