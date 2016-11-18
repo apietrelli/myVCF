@@ -92,7 +92,7 @@ You can test the installation in the terminal
 You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/>`_
 
 Follow the installation process.
-By default Python2.7 will be installed in :code:`C:\Python27`
+By default Python2.7 will be installed in :code:`C:\Python27`. Please **DO NOT** modify the Python path and leave the default installation destination directory.
 
 .. warning:: Please download the **Python2.7** package **NOT** Python3.x
 
@@ -158,7 +158,7 @@ Now we are going to install all the dependencies in one-shot using :code:`pip`
 
 **Unix (Ubuntu/Debian system)/MAC**
 
-1. Open terminal
+1. Open the terminal
 2. Go to :code:`myVCF/` dir
 3. Execute this command:
 
@@ -189,6 +189,22 @@ If you see something like..
 
   # ..and exit from the python shell
   In [1]: quit
+
+**Windows**
+
+1. Open the MS-DOS prompt (:code:`cmd.exe`) *See Note below
+2. Go to :code:`myVCF\` dir
+3. Execute this command:
+
+.. code-block:: shell
+
+  c:\Python27\python.exe pip -m install -r requirements.txt
+
+.. warning::
+  If you followed the Pyhon installation chapter, you shold have the all Python command in :cpde:`c:\Python27\`
+
+.. Note::
+  To open CMD shell in Windows click on **Start** > type on the search box "**prompt**" > click on **MS-DOS prompt**
 
 Launch the application
 ----------------------
