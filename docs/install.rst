@@ -194,15 +194,15 @@ Now exit from the python shell.
 **Windows**
 
 1. Open the MS-DOS prompt (:code:`cmd.exe`)
-2. Go to :code:`myVCF\\` directory
+2. Go to :code:`myVCF\` directory
 3. Execute this command:
 
 .. code-block:: shell
 
-  c:\\Python27\\python.exe pip -m install -r requirements.txt
+  c:\/Python27\/python.exe pip -m install -r requirements.txt
 
 .. warning::
-  If you followed the Pyhon installation chapter, you shold have the all Python command in :code:`c:\\Python27\\`
+  If you followed the Pyhon installation chapter, you shold have the all Python command in :code:`c:\Python27\`
 
 .. Note::
   To open CMD shell in Windows click on
