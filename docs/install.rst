@@ -134,7 +134,9 @@ Please following this instructions to install :code:`sqlite` depending on your o
 1. Go to sqlite web site https://sqlite.org/download.html and download precompiled binaries from Windows section.
 
   * **sqlite-dll-win32-x86-\*.zip**
+
   or
+
   * **sqlite-dll-win64-x64-\*.zip**
 
 .. warning::
@@ -146,8 +148,7 @@ Please following this instructions to install :code:`sqlite` depending on your o
   **Start** > **Control panel** > **System**
 
   and check the version.
-2. Unpack the :code:`.zip` file
-3. Install it!
+2. Unpack the :code:`.zip` file and follow the installation
 
 Python library dependecies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -178,20 +179,14 @@ If you see something like..
 
   Python 2.7.5 (default, Mar  9 2014, 22:15:05)
   Type "copyright", "credits" or "license" for more information.
-
-  IPython 4.1.1 -- An enhanced Interactive Python.
-  ?         -> Introduction and overview of IPython's features.
-  %quickref -> Quick reference.
-  help      -> Python's own help system.
-  object?   -> Details about 'object', use 'object??' for extra details.
+  >>>
 
 ..everithing went fine!
 Now exit from the python shell.
 
 .. code-block:: python
 
-
-  In [1]: quit
+  >>> quit
 
 **Windows**
 
@@ -200,7 +195,7 @@ Now exit from the python shell.
 .. Note::
   To open CMD shell in Windows click on
 
-  **Start** > type on the search box "**prompt**" > click on **MS-DOS prompt**
+  **Start** > type on the search box "**cmd**" > click on **cmd.exe**
 
 2. Go to :code:`myVCF/` directory
 3. Execute this command:
@@ -211,15 +206,15 @@ Now exit from the python shell.
   $> C:\Python27\python.exe pip -m install -r requirements.txt
 
 .. warning::
-  If you followed the :ref:`Pyhon 2.7 Windows installation chapter <install_python_win>`, you shold have the all Python command in :code:`C:/Python27/`
-
-
+  If you followed the :ref:`Python 2.7 Windows installation chapter <install_python_win>`, you shold have the all Python command in :code:`C:/Python27/`
 
 Launch the application
 ----------------------
 
 Finally, you're ready to start the webserver::
 
-    python manage.py runserver
+    # UNIX
+    $> cd path/to/myVCF/
+    $> python manage.py runserver
 
 Visit http://127.0.0.1:8000/ in your browser to see how it looks.
