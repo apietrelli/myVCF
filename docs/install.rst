@@ -194,7 +194,7 @@ Now exit from the python shell.
 **Windows**
 
 1. Open the MS-DOS prompt (:code:`cmd.exe`)
-2. Go to :code:` myVCF/ ` directory
+2. Go to :code:`myVCF/` directory
 3. Execute this command:
 
 .. code-block:: dos
