@@ -159,7 +159,7 @@ Now we are going to install all the dependencies in one-shot using :code:`pip`
 **Unix (Ubuntu/Debian system)/MAC**
 
 1. Open the terminal
-2. Go to :code:`myVCF/` dir
+2. Go to :code:`myVCF/` directory
 3. Execute this command:
 
 .. code-block:: shell
@@ -184,16 +184,17 @@ If you see something like..
   object?   -> Details about 'object', use 'object??' for extra details.
 
 ..everithing went fine!
+Now exit from the python shell.
 
 .. code-block:: python
 
-  # ..and exit from the python shell
+
   In [1]: quit
 
 **Windows**
 
-1. Open the MS-DOS prompt (:code:`cmd.exe`) *See Note below
-2. Go to :code:`myVCF\` dir
+1. Open the MS-DOS prompt (:code:`cmd.exe`)
+2. Go to :code:`myVCF\\` directory
 3. Execute this command:
 
 .. code-block:: shell
@@ -201,10 +202,12 @@ If you see something like..
   c:\Python27\python.exe pip -m install -r requirements.txt
 
 .. warning::
-  If you followed the Pyhon installation chapter, you shold have the all Python command in :cpde:`c:\Python27\`
+  If you followed the Pyhon installation chapter, you shold have the all Python command in :code:`c:\\Python27\\`
 
 .. Note::
-  To open CMD shell in Windows click on **Start** > type on the search box "**prompt**" > click on **MS-DOS prompt**
+  To open CMD shell in Windows click on
+
+  **Start** > type on the search box "**prompt**" > click on **MS-DOS prompt**
 
 Launch the application
 ----------------------
