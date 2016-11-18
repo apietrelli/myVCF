@@ -194,6 +194,12 @@ Now exit from the python shell.
 **Windows**
 
 1. Open the MS-DOS prompt (:code:`cmd.exe`)
+
+.. Note::
+  To open CMD shell in Windows click on
+
+  **Start** > type on the search box "**prompt**" > click on **MS-DOS prompt**
+
 2. Go to :code:`myVCF/` directory
 3. Execute this command:
 
@@ -205,10 +211,7 @@ Now exit from the python shell.
 .. warning::
   If you followed the Pyhon installation chapter, you shold have the all Python command in :code:`C:/Python27/`
 
-.. Note::
-  To open CMD shell in Windows click on
 
-  **Start** > type on the search box "**prompt**" > click on **MS-DOS prompt**
 
 Launch the application
 ----------------------
