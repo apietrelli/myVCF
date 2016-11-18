@@ -87,6 +87,8 @@ You can test the installation in the terminal
   >>>
   >>>quit()
 
+.. _install_python_win:
+
 **Windows**
 
 You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/>`_
@@ -209,7 +211,7 @@ Now exit from the python shell.
   $> C:\Python27\python.exe pip -m install -r requirements.txt
 
 .. warning::
-  If you followed the Pyhon installation chapter, you shold have the all Python command in :code:`C:/Python27/`
+  If you followed the :ref:`Pyhon 2.7 Windows installation chapter <install_python_windows>`, you shold have the all Python command in :code:`C:/Python27/`
 
 
 
