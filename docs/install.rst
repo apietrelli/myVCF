@@ -211,7 +211,7 @@ Now exit from the python shell.
   $> C:\Python27\python.exe pip -m install -r requirements.txt
 
 .. warning::
-  If you followed the :ref:`Pyhon 2.7 Windows installation chapter <install_python_windows>`, you shold have the all Python command in :code:`C:/Python27/`
+  If you followed the :ref:`Pyhon 2.7 Windows installation chapter <install_python_win>`, you shold have the all Python command in :code:`C:/Python27/`
 
 
 
