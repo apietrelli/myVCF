@@ -188,7 +188,8 @@ Now exit from the python shell.
 
   >>> quit
 
-.. _cmd:
+.. _cmd_label:
+
 **Windows**
 
 1. Open the MS-DOS prompt (:code:`cmd.exe`)
