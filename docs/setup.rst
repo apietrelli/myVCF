@@ -22,10 +22,12 @@ Let's definde which are the mandatory fields for myVCF tool
 - The VCF file **must** contain at least 1 sample genotyped (IMG EXAMPLE)
 
 - For **Annovar** annotated VCF the mandatory field within the file would be:
+
   1. EnsGene
   2. ExonicFunc_ensGene
 
 - For **VEP** annotated VCF the mandatory field within the file would be:
+
   1. Gene
 
 .. Note::
