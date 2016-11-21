@@ -7,36 +7,9 @@
 
 ### How do I get set up? ###
 
-## Requirements
-
-requirements.txt
-
-## Python version
-
-## Setup a vitrual environment
-
-* Download virtualenv
-* Install
-* Activate
-
-## Install the packages
-
-## Run the server
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+You will find the instructions for installation and setup at http://myvcf.readthedocs.io/
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Alessandro Pietrell pietrelli@ingm.org
+
