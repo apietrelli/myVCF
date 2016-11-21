@@ -210,6 +210,8 @@ Now exit from the python shell.
 .. warning::
   If you followed the :ref:`Python 2.7 Windows installation chapter <install_python_win>`, you shold have the all Python command in :code:`C:/Python27/`
 
+.. _launch_app:
+
 Launch the application
 ----------------------
 

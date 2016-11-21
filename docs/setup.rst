@@ -92,7 +92,7 @@ Annovar
   # buildver = hg19/hg38 depending on what reference assembly you used during the read mapping
   table_annovar.pl -downdb -webfrom annovar -buildver hg19 ensGene
 
-  ## Optional but useful
+  ## Optional but useful annotation
   # dbSNP147
   table_annovar.pl -downdb -webfrom annovar -buildver hg19 avsnp147
   # dbnsfp30a - non-synonimous variants annotation compendium (it takes lot for download)
@@ -117,13 +117,26 @@ Simplier than Annovar, once downloaded the tool and the human assembly containin
 
 .. code-block:: shell
 
-  perl variant_effect_predictor.pl -i example.vcf --cache --force_overwrite --vcf
+  perl variant_effect_predictor.pl -i example.vcf --cache --force_overwrite --vcf -o example_VEP.vcf
 
+At the end of the process you will have file named :code:`example_VEP.vcf` with all the information suitable for myVCF
 
 .. _load_vcf:
 
 Load new data
 -------------
+
+1. Copy/move the VCF files you want to load into the system in :code:`/path/to/myVCF/data/VCFs`
+2. Launch the application (See how to :ref:`launch the app <launch_app>`) and load http://127.0.0.1:8000/ in your browser
+3. Click on the **Upload new project** link in the myVCF homepage
+4. Give a name to the project and select the VCF to load (IMG)
+
+.. Note:: If you don't find your VCF in the dropdown menu, please verify that you have copied the file into :code:`myVCF/data/VCFs` directory and restart the application
+
+5. Click on submit button (IMG)
+
+.. Note:: The storing process of very large VCF files (above 50 MB) will takes long time.
+Don't Panic and do **NOT refresh** the page until the **Upload completed** page will be showed.
 
 Notes
 -----
