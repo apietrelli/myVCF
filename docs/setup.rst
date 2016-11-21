@@ -46,8 +46,14 @@ How to install the tools
 Annovar
 ^^^^^^^
 
+**Unix (Ubuntu/Debian system)/MAC**
+
+**Windows**
+
 VEP
 ^^^
+
+**Unix (Ubuntu/Debian system)/MAC**
 
 **Windows**
 
@@ -55,8 +61,49 @@ Please follow this `instuctions <http://www.ensembl.org/info/docs/tools/vep/scri
 
 .. Note:: The easiest way is the **Cygwin** installation procedure.
 
-.. _load_vcf:
+------------------------------
+Launch the code for annotation
+------------------------------
 
+Here it is reported the *minimum code* to run for a correct annotation compatible with myVCF. The tutorial contains both the *Annovar* and *VEP* annotation procedure.
+
+For **Windows users** please launch the commands using **Cygwin** downloaded in previous section or **CMD shell** (:ref:`find CMD <cmd>`)
+
+Annovar
+^^^^^^^
+
+1. Download the ENSEMBL transcript reference database required for myVCF compatibility
+
+.. code-block:: shell
+
+  # Download the ensembl DB (example: hg19)
+  # buildver = hg19/hg38 depending on what reference assembly you used during the read mapping
+  table_annovar.pl -downdb -webfrom annovar -buildver hg19 ensGene
+
+  ## Optional but useful
+  # dbSNP147
+  table_annovar.pl -downdb -webfrom annovar -buildver hg19 avsnp147
+  # dbnsfp30a - non-synonimous variants annotation compendium (it takes lot for download)
+  #http://annovar.openbioinformatics.org/en/latest/user-guide/filter/#ljb42-dbnsfp-non-synonymous-variants-annotation
+  table_annovar.pl -downdb -webfrom annovar -buildver hg19 dbnsfp30a
+
+.. Note:: To see all the database availabe for annovar, pleas click on `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/>`_
+
+2. Launch the annotation process following `Annovar tutorial <http://annovar.openbioinformatics.org/en/latest/user-guide/startup/#table_annovarpl>`_.
+
+.. code-block:: shell
+
+  # Launch the annotation
+  table_annovar.pl example/ex2.vcf humandb/ -buildver hg19 -out myanno -remove -protocol ensGene,avsnp142,dbnsfp30a -operation g,f,f -nastring . -vcfinput
+
+.. Note:: To download additional databases to enrich the annotation for your mutations, please see `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/#additional-databases>`_ and modify the *Lunch the application* command line by adding the name of the database in :code:`-protocol` and an :code:`f` in :code:`-operation` for every database
+
+VEP
+^^^
+
+
+
+.. _load_vcf:
 
 Load new data
 -------------
