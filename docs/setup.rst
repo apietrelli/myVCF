@@ -53,7 +53,19 @@ Annovar
 VEP
 ^^^
 
+Main resource
+http://www.ensembl.org/info/docs/tools/vep/index.html
+
+Main tutorial
+http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html
+
 **Unix (Ubuntu/Debian system)/MAC**
+
+Following the example in this page (http://www.ensembl.org/info/docs/tools/vep/script/index.html)
+
+1. Download the :code:`ensembl-tools-release-*.zip` file
+2. Unpack the archive
+3. Install it
 
 **Windows**
 
@@ -101,6 +113,11 @@ Annovar
 VEP
 ^^^
 
+Simplier than Annovar, once downloaded the tool and the human assembly containing the annotations, launch this command to annotate your vcf
+
+.. code-block:: shell
+
+  perl variant_effect_predictor.pl -i example.vcf --cache --force_overwrite --vcf
 
 
 .. _load_vcf:
