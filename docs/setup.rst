@@ -72,9 +72,9 @@ How to annotate your VCF
 
 If you don't have the genomic/transcript annotation for your VCF file, or the VCF is not suitable for myVCF please consider to annotate it using the following instructions.
 
-------------------------
-How to install the tools
-------------------------
+-----------------------------------
+How to install the annotation tools
+-----------------------------------
 
 Annovar
 ^^^^^^^
