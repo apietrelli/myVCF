@@ -12,12 +12,12 @@ To verify if your :code:`.vcf` file is compatible with myVCF, please read the fo
 VCF fields and requirements
 ---------------------------
 
-Basically myVCF read VCF files coming from **Annovar** of **VEP** systems. Those softwares are the most common tool used for VCF annotation after the SNP call step.
+myVCF can read VCF files coming from **Annovar** of **VEP** annotation systems. Those softwares are the most common tool used for VCF annotation after the SNP call step.
 
 .. Note::
   If you are not sure if your VCF file respect the mandatory field and requirements, try to load it by following the :ref:`Load new data section <load_vcf>`
 
-Let's definde which are the mandatory fields for myVCF tool
+Let's define which are the mandatory fields that a VCF must contains for myVCF tool
 
 - The VCF file **must** contain at least 1 sample genotyped (IMG EXAMPLE)
 
@@ -34,7 +34,7 @@ Let's definde which are the mandatory fields for myVCF tool
 
 .. Note::
   To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
-  (Example images)
+  (IMG example)
 
 How to annotate your VCF
 ------------------------
@@ -148,6 +148,7 @@ Load new data
    :scale: 50 %
    :alt: Saving VCF..
    :align: center
+   
    The storing process of very large VCF files (above 50 MB) will takes long time.
 
 Don't Panic and do **NOT refresh** the page until the **Upload completed** page will be showed.
