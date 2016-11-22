@@ -46,8 +46,8 @@ The command will create a directory named :code:`myVCF/` containing the desktop 
 Install requirements
 --------------------
 
-The application is developed using Python/Django framework and use :code:`sqlite` as database platform.
-Please verify the installation of Python and sqlite on your computer.
+The application is developed using `Python/Django <https://www.djangoproject.com/>`_ framework and use `sqlite <https://sqlite.org/>`_ as database platform.
+Please verify the installation of :code:`python2.7` and :code:`sqlite` on your computer.
 
 Python 2.7
 ^^^^^^^^^^
