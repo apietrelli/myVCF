@@ -11,8 +11,8 @@ You can download **myVCF** package from:
 - **Compressed package**
 
 1. Go to `myVCF homepage <https://apietrelli.github.io/myVCF/>`_
-2. Click on one of the button present in the header page
-3. Extract the compressed file into your working directory
+2. Click on one of the button present in the header of the page
+3. Extract the compressed file in your working directory
 4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application
 
 - **GitHub**
@@ -42,6 +42,7 @@ The command will create a directory named :code:`myVCF/` containing the desktop 
       $> brew install git
     for Windows users, you can download the git software from the `Git homepage <https://git-scm.com/download/win>`_ and use the same command as for Unix/MAC user by using `GitBASH <https://git-for-windows.github.io/>`_
 
+.. warning:: Remember the path to myVCF application because will be useful in requirements installation and :ref:`VCF file loading <load_vcf>`
 
 Install requirements
 --------------------
