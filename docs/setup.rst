@@ -133,7 +133,7 @@ Annovar
   # Launch the annotation
   table_annovar.pl example/ex2.vcf humandb/ -buildver hg19 -out myanno -remove -protocol ensGene,avsnp142,dbnsfp30a -operation g,f,f -nastring . -vcfinput
 
-.. Note:: To download additional databases to enrich the annotation for your mutations, please see `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/#additional-databases>`_ and modify the *Lunch the annotation* command line by adding the name of the database in :code:`-protocol` and an :code:`f` in :code:`-operation` for every database you want to add.
+.. Note:: To download additional databases to enrich the annotation for your mutations, please see `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/#additional-databases>`_ and modify the **Lunch the annotation** command line by adding the name of the database in :code:`-protocol` and an :code:`f` in :code:`-operation` for every database you want to add.
 
 VEP
 ^^^
