@@ -19,7 +19,7 @@ myVCF can read VCF files coming from **Annovar** or **VEP** annotation systems. 
 
 Let's define which are the mandatory fields that a VCF must contains for myVCF tool
 
-- Since myVCF is a tool fro browse and visualize mutations genotyped with NGS technology, the VCF file **must** contain at least 1 genotyped sample
+- Since myVCF is a tool for browse and visualize mutations genotyped with NGS technology, the VCF file **must** contain at least 1 genotyped sample
 See example below:
 
 .. code-block:: shell
