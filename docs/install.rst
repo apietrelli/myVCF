@@ -222,3 +222,8 @@ Finally, you're ready to start the webserver::
     $> python manage.py runserver
 
 Visit http://127.0.0.1:8000/ in your browser to see how it looks.
+
+.. figure:: img/myVCF_homepage.png
+   :scale: 50 %
+   :alt: Homepage myVCF
+   :align: center
