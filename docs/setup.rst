@@ -132,7 +132,7 @@ Annovar
   #http://annovar.openbioinformatics.org/en/latest/user-guide/filter/#ljb42-dbnsfp-non-synonymous-variants-annotation
   table_annovar.pl -downdb -webfrom annovar -buildver hg19 dbnsfp30a
 
-.. Note:: To see all the database availabe for annovar, pleas click on `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/>`_
+.. Note:: To see all the database availabe for annovar, please click on `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/>`_
 
 2. Launch the annotation process following `Annovar tutorial <http://annovar.openbioinformatics.org/en/latest/user-guide/startup/#table_annovarpl>`_.
 
