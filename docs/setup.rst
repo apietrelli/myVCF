@@ -79,26 +79,20 @@ How to install the annotation tools
 Annovar
 ^^^^^^^
 
-**Unix (Ubuntu/Debian system)/MAC**
+The installation of Annovar is very well-described on `ANNOVAR Manual pages <http://annovar.openbioinformatics.org/en/latest/user-guide/download/>`_
 
-**Windows**
+Since is a :code:`perl` script, the software can be run on diverse operating systems including Unix and Windows.
 
 VEP
 ^^^
 
-Main resource
-http://www.ensembl.org/info/docs/tools/vep/index.html
+The installation of VEP is described on `VEP main page <http://www.ensembl.org/info/docs/tools/vep/index.html>`_
 
-Main tutorial
-http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html
+Please follow the instructions below to install the software based on your operating system.
 
 **Unix (Ubuntu/Debian system)/MAC**
 
-Following the example in this page (http://www.ensembl.org/info/docs/tools/vep/script/index.html)
-
-1. Download the :code:`ensembl-tools-release-*.zip` file
-2. Unpack the archive
-3. Install it
+For UNIX/MAC users, there is available this `tutorial <http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html>`_ that describe the download and the installation step ina a very easy way.
 
 **Windows**
 
