@@ -148,10 +148,10 @@ Load new data
    :scale: 50 %
    :alt: Saving VCF..
    :align: center
-   
+
    The storing process of very large VCF files (above 50 MB) will takes long time.
 
-Don't Panic and do **NOT refresh** the page until the **Upload completed** page will be showed.
+.. warning:: Don't panic if the saving process takes very long time. Do **NOT refresh** the page until the **Upload completed** page will be showed.
 
 Notes
 -----
