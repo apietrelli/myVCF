@@ -19,7 +19,7 @@ myVCF can read VCF files coming from **Annovar** of **VEP** annotation systems. 
 
 Let's define which are the mandatory fields that a VCF must contains for myVCF tool
 
-- The VCF file **must** contain at least 1 sample genotyped (IMG EXAMPLE)
+- The VCF file **must** contain at least 1 sample genotyped
 
 .. code-block:: shell
 
@@ -39,12 +39,14 @@ Let's define which are the mandatory fields that a VCF must contains for myVCF t
   #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
   1	762273	rs3115849	G	A	37374.7	LowQual	AC=129;AF=0.806;AN=160;ANNOVAR_DATE=2015-12-14;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
 
-- For **Annovar** annotated VCF the mandatory field within the file would be:
+In this example we have 1 sample (Sample1) genotyped for one mutation.
+
+- For **Annovar** annotated VCFs, the mandatory field within the file would be:
 
   1. Gene_ensGene
   2. ExonicFunc_ensGene
 
-- For **VEP** annotated VCF the mandatory field within the file would be:
+- For **VEP** annotated VCFs, the mandatory field within the file would be:
 
   1. CSQ
 
@@ -52,10 +54,12 @@ Let's define which are the mandatory fields that a VCF must contains for myVCF t
 
 .. Note::
   To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
-  .... code-block:: shell
+  .. code-block:: shell
 
   ##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
   ##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
+
+  or copy the VCF in :code:`myVCF/data/VCFs/` directory and try to load the VCF through the :ref:`Upload page <load_vcf>`
 
 How to annotate your VCF
 ------------------------
