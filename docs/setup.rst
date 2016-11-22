@@ -54,6 +54,7 @@ In this example we have 1 sample (Sample1) genotyped for one mutation.
 
 .. Note::
   To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
+
   .. code-block:: shell
 
     ##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
