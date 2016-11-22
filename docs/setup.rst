@@ -23,21 +23,21 @@ Let's define which are the mandatory fields that a VCF must contains for myVCF t
 
 .. code-block:: shell
 
-##contig=<ID=17,length=81195210,assembly=b37>
-##contig=<ID=18,length=78077248,assembly=b37>
-##contig=<ID=19,length=59128983,assembly=b37>
-##contig=<ID=20,length=63025520,assembly=b37>
-##contig=<ID=21,length=48129895,assembly=b37>
-##contig=<ID=22,length=51304566,assembly=b37>
-##contig=<ID=X,length=155270560,assembly=b37>
-##contig=<ID=Y,length=59373566,assembly=b37>
-##contig=<ID=MT,length=16569,assembly=b37>
-##INFO=<ID=Func_ensGene,Number=.,Type=String,Description="Func_ensGene annotation provided by ANNOVAR">
-##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
-##INFO=<ID=GeneDetail_ensGene,Number=.,Type=String,Description="GeneDetail_ensGene annotation provided by ANNOVAR">
-##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
-1	762273	rs3115849	G	A	37374.7	LowQual	AC=129;AF=0.806;AN=160;ANNOVAR_DATE=2015-12-14;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
+  ##contig=<ID=17,length=81195210,assembly=b37>
+  ##contig=<ID=18,length=78077248,assembly=b37>
+  ##contig=<ID=19,length=59128983,assembly=b37>
+  ##contig=<ID=20,length=63025520,assembly=b37>
+  ##contig=<ID=21,length=48129895,assembly=b37>
+  ##contig=<ID=22,length=51304566,assembly=b37>
+  ##contig=<ID=X,length=155270560,assembly=b37>
+  ##contig=<ID=Y,length=59373566,assembly=b37>
+  ##contig=<ID=MT,length=16569,assembly=b37>
+  ##INFO=<ID=Func_ensGene,Number=.,Type=String,Description="Func_ensGene annotation provided by ANNOVAR">
+  ##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
+  ##INFO=<ID=GeneDetail_ensGene,Number=.,Type=String,Description="GeneDetail_ensGene annotation provided by ANNOVAR">
+  ##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
+  #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
+  1	762273	rs3115849	G	A	37374.7	LowQual	AC=129;AF=0.806;AN=160;ANNOVAR_DATE=2015-12-14;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
 
 - For **Annovar** annotated VCF the mandatory field within the file would be:
 
