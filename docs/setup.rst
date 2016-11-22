@@ -28,7 +28,9 @@ Let's definde which are the mandatory fields for myVCF tool
 
 - For **VEP** annotated VCF the mandatory field within the file would be:
 
-  1. Gene
+  1. CSQ
+
+  This field is added by default during VEP annotation
 
 .. Note::
   To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
