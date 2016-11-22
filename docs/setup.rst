@@ -134,13 +134,11 @@ Load new data
 4. Give a name to the project and select the VCF to load
 
 .. figure:: img/myVCF_upload_page.png
-   :height: 100px
-   :width: 200 px
-   :scale: 100 %
+   :scale: 50 %
    :alt: Upload page picture
    :align: center
 
-   New Project upload page example. :code:`mini_VEP.vcf` is the mutation file to upload into :code:`testVEP` project. 
+   New Project upload page example. :code:`mini_VEP.vcf` is the mutation file to upload into :code:`testVEP` project.
 
 .. Note:: If you don't find your VCF in the dropdown menu, please verify that you have copied the file into :code:`myVCF/data/VCFs` directory and restart the application
 
