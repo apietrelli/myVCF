@@ -217,9 +217,13 @@ Launch the application
 
 Finally, you're ready to start the webserver::
 
-    # UNIX
+    # UNIX on terminal
     $> cd path/to/myVCF/
     $> python manage.py runserver
+
+    # Windows on MS-DOS cmd
+    $> cd C:\path\to\myVCF\
+    $> C:\Python27\python.exe manage.py runserver
 
 Visit http://127.0.0.1:8000/ in your browser to see how it looks.
 

@@ -23,8 +23,8 @@ Let's define which are the mandatory fields that a VCF must contains for myVCF t
 
 - For **Annovar** annotated VCF the mandatory field within the file would be:
 
-  1. Gene_ensgene
-  2. ExonicFunc_ensgene
+  1. Gene_ensGene
+  2. ExonicFunc_ensGene
 
 - For **VEP** annotated VCF the mandatory field within the file would be:
 
@@ -34,7 +34,10 @@ Let's define which are the mandatory fields that a VCF must contains for myVCF t
 
 .. Note::
   To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
-  (IMG example)
+  .... code-block:: shell
+
+  ##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
+  ##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
 
 How to annotate your VCF
 ------------------------
@@ -138,7 +141,7 @@ Load new data
    :alt: Upload page picture
    :align: center
 
-   New Project upload page example. :code:`mini_VEP.vcf` is the mutation file to upload into :code:`test` project using :code:`ENSEMBL75` as transcript reference.
+   New project upload page example. :code:`mini_VEP.vcf` is the mutation file to upload into :code:`test` project using :code:`ENSEMBL75` as transcript reference.
 
 .. Note:: If you don't find your VCF in the dropdown menu, please verify that you have copied the file into :code:`myVCF/data/VCFs` directory and restart the application
 
@@ -152,6 +155,3 @@ Load new data
    The storing process of very large VCF files (above 50 MB) will takes long time.
 
 .. warning:: Don't panic if the saving process takes very long time. Do **NOT refresh** the page until the **Upload completed** page will be showed.
-
-Notes
------
