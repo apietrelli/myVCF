@@ -20,6 +20,7 @@ myVCF can read VCF files coming from **Annovar** of **VEP** annotation systems. 
 Let's define which are the mandatory fields that a VCF must contains for myVCF tool
 
 - Since myVCF is a tool fro browse and visualize mutations genotyped with NGS technology, the VCF file **must** contain at least 1 genotyped sample
+See example below:
 
 .. code-block:: shell
 
@@ -37,9 +38,9 @@ Let's define which are the mandatory fields that a VCF must contains for myVCF t
   ##INFO=<ID=GeneDetail_ensGene,Number=.,Type=String,Description="GeneDetail_ensGene annotation provided by ANNOVAR">
   ##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
   #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
-  1	762273	rs3115849	G	A	37374.7	LowQual	AC=129;AF=0.806;AN=160;ANNOVAR_DATE=2015-12-14;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
+  1	762273	rs3115849	G	A	123.7	LowQual	AC=2;AF=1;AN=2;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
 
-In this example we have 1 genotyped sample (Sample1) for one mutation.
+This is a VCF part in which we have 1 genotyped sample (Sample1) for one mutation.
 
 - For **Annovar** annotated VCFs, the mandatory field within the file would be:
 
