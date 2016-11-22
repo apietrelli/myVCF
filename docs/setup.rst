@@ -56,8 +56,8 @@ In this example we have 1 sample (Sample1) genotyped for one mutation.
   To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
   .. code-block:: shell
 
-  ##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
-  ##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
+    ##INFO=<ID=Gene_ensGene,Number=.,Type=String,Description="Gene_ensGene annotation provided by ANNOVAR">
+    ##INFO=<ID=ExonicFunc_ensGene,Number=.,Type=String,Description="ExonicFunc_ensGene annotation provided by ANNOVAR">
 
   or copy the VCF in :code:`myVCF/data/VCFs/` directory and try to load the VCF through the :ref:`Upload page <load_vcf>`
 
