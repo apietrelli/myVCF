@@ -16,13 +16,6 @@ Once you are in a project homepage, you can query the database by searching for:
 3. dbSNP ID (rs324239)
 4. Variant (1-456783-456783-A-T)
 
-.. figure:: img/myVCF_search_SAMD11.png
-   :scale: 50 %
-   :alt: search samd11
-   :align: center
-
-In the example image, we searched for :code:`SAMD11` gene. The system will put wildcards (:code:`*`) at the edges of the gene name automatically and search for :code:`*SAMD11*`.
-
 Gene/Region view
 ^^^^^^^^^^^^^^^^
 
@@ -38,6 +31,13 @@ Example for **SAMD11** gene query:
 
 - Fill the text box with :code:`SAMD11` region you want and click **GO!**
 
+.. figure:: img/myVCF_search_SAMD11.png
+   :scale: 50 %
+   :alt: search samd11
+   :align: center
+
+We searched for :code:`SAMD11` gene. The system will put wildcards (:code:`*`) at the edges of the gene name automatically and search for :code:`*SAMD11*`.
+
 To display the mutation list for :code:`SAMD11 - ENSG00000187634` just click on the **ENSEMBL Gene ID** link and you will be directed to the **SAMD11 gene page**
 
 .. figure:: img/myVCF_results_SAMD11_part1.png
@@ -45,13 +45,16 @@ To display the mutation list for :code:`SAMD11 - ENSG00000187634` just click on 
    :alt: search samd11
    :align: center
 
-You can filter the mutations by using the buttons:
+You can filter the mutations by using the buttons |filter_buttons|
+
+.. |filter_buttons| image:: img/myVCF_results_filter_buttons.png
+
 
 - **PASS Filter** - Only PASS mutations will be showed. This filter acts on :code:`FILTER` field in VCF file
 - **MAF Threshold** - Only mutations with Allele Frequency (AF) lower than MAF selected will be selected. This filter acts on :code:`AF` field in VCF file.
 - **Reset Filters** - Reset all filters. All mutation will be displayed
 
-You can also modify the display element by 
+You can also modify the display element by
 
 Variant view
 ^^^^^^^^^^^^
