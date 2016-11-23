@@ -1,2 +1,5 @@
 myVCF features
 ==============
+
+Search
+------
