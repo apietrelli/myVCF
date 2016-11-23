@@ -45,16 +45,26 @@ To display the mutation list for :code:`SAMD11 - ENSG00000187634` just click on 
    :alt: search samd11
    :align: center
 
-You can filter the mutations by using the buttons |filter_buttons|
+You can filter the mutations by using the *Filter buttons* |filter_buttons|
 
 .. |filter_buttons| image:: img/myVCF_results_filter_buttons.png
-
 
 - **PASS Filter** - Only PASS mutations will be showed. This filter acts on :code:`FILTER` field in VCF file
 - **MAF Threshold** - Only mutations with Allele Frequency (AF) lower than MAF selected will be selected. This filter acts on :code:`AF` field in VCF file.
 - **Reset Filters** - Reset all filters. All mutation will be displayed
 
-You can also modify the display element by
+You can also modify the visualization aspect by using the *Display buttons* |display_buttons|
+
+.. |display_buttons| image:: img/myVCF_results_display_buttons.png
+
+- **Samples GT** - All the sample genotypes (stored from VCF file) will be available and showed in the table
+- **Column visibility** - Toggle On/Off the columns by selecting them from a dropdown menu
+- **Restore visibility** - Restore the default column visualization
+- **Export** - Save the table in different format including :code:`XLS`, :code:`PDF` and :code:`CSV`
+
+  .. hint:: The table export will recapitulate the browser visualization. If the Sample genotype columns are showed in the table, there will be exported in the file.
+
+
 
 Variant view
 ^^^^^^^^^^^^
