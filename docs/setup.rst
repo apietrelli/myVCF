@@ -92,7 +92,7 @@ Please follow the instructions below to install the software based on your opera
 
 **Unix (Ubuntu/Debian system)/MAC**
 
-For UNIX/MAC users, there is available this `tutorial <http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html>`_ that describe the download and the installation step ina a very easy way.
+For UNIX/MAC users, there is available this `tutorial <http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html>`_ that describe the download and the installation step in a very easy way.
 
 **Windows**
 
