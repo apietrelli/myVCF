@@ -78,20 +78,61 @@ You can also modify the visualization aspect by using the *Display buttons* |dis
 
   .. hint:: The table export will recapitulate the browser visualization. If the Sample genotype columns are showed in the table, there will be exported in the file.
 
-.. hint:: This visualization and all the entire features described before are available for **Gene** (as in the example), **Region** and **dbSNP ID** search
+.. Note:: This visualization and all the entire features described in this paragraph are available for **Gene** (as in the example), **Region** and **dbSNP ID** search
 
 Variant view
 ^^^^^^^^^^^^
 
 Variant view directly connected the single variant with the additional information contained in the VCF file uploaded and stored in myVCF databese.
-Moreover,
+
+The variant page links additional information about the frequency of the searched variation interrogatong the principal available population frequencies database:
+
+- **ExAC**
+- **ESP**
+- **1000Genomes**
+
+Data from those database will be automatically displayed in the page.
+
+Example for **variant** search:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- You can search directely for single variant by using the format:
+
+  **CHR-Position-Position-Ref-Alt**
+
+  from the project home page.
+
+  In this example we are going to search for **1-878314-878314-G-C** variant.
+
+.. figure:: img/myVCF_search_variant.png
+     :scale: 50 %
+     :alt: search variant
+     :align: center
+
+- If the variant exists in the VCF, the **variant page** retireve information from VCF regarding:
+
+  - **Variant quality**
+  - **Variant annotation**
+  - **Zigosity distribution** across samples
+
+.. figure:: img/myVCF_variant_page_1.png
+     :scale: 50 %
+     :alt: search variant
+     :align: center
+
+
+- In the bottom part of the page, will be available the frequency distribution of the same variant in the major public databases
+
+.. figure:: img/myVCF_variant_page_2.png
+     :scale: 50 %
+     :alt: search variant
+     :align: center
+
+.. important::
+  Since all the linked public database are mapped on **GRCh37/hg19** human assembly, if you load and query variation from GRCh38 assembly the frequency showed won't be correct!
 
 .. hint::
-  You can search directely for single variant by using the format: 
-
-  - CHR-Position-Position-Ref-Alt
-
-  from the project home page
+  Every variation in the **gene table view** (described before) is a link to its variant page.
 
 .. Note:: Internet connection is needed to retrieve the frequency information from public databases.
 
