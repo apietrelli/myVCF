@@ -145,11 +145,11 @@ You can generate this report by clicking on the *Summary button* |summary_button
 
 .. |summary_button| image:: img/myVCF_summary_button.png
 
-Cache will speed-up the process once is loaded for the first time.
-
-- metric 1
-- metric 2
-- metric N
+.. hint:: First statistics loading could takes some time (minutes), especially for exome/genome projects. All the next loadings will be very fast thanks to the system saving cache that speed-up the process. Cache memory will be clear once the application is closed.
 
 Change default columns view
 ---------------------------
+
+*DB settings* |dbcolview_button|
+
+.. |dbcolview_button| image:: img/myVCF_dbcolview_button.png
