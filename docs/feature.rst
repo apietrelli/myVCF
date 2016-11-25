@@ -24,10 +24,24 @@ Basic gene/region search will generate a **Gene page** composed by:
 - **Table** containing the mutation found in the gene/region
 - **Mutation plot** showing the distribution of the mutations grouped by their functional consequence.
 
-Here is described a gene search example
+Here we described a simple gene search example
 
-Example for **SAMD11** gene query:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example for **SAMD11** gene search:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Launch myVCF application (see how to :ref:`launch here <launch_app>`)
+
+.. figure:: img/myVCF_homepage.png
+   :scale: 50 %
+   :alt: Homepage myVCF
+   :align: center
+
+- Click on the project name you want to explore
+
+.. figure:: img/myVCF_project_homepage.png
+   :scale: 50 %
+   :alt: Homepage myVCF
+   :align: center
 
 - Fill the text box with :code:`SAMD11` region you want and click **GO!**
 
@@ -38,7 +52,7 @@ Example for **SAMD11** gene query:
 
 We searched for :code:`SAMD11` gene. The system will put wildcards (:code:`*`) at the edges of the gene name automatically and search for :code:`*SAMD11*`.
 
-To display the mutation list for :code:`SAMD11 - ENSG00000187634` just click on the **ENSEMBL Gene ID** link and you will be directed to the **SAMD11 gene page**
+- To display the mutation list for :code:`SAMD11 - ENSG00000187634` just click on the **ENSEMBL Gene ID** link and you will be directed to the **SAMD11 gene page**
 
 .. figure:: img/myVCF_results_SAMD11_part1.png
    :scale: 50 %
@@ -64,14 +78,22 @@ You can also modify the visualization aspect by using the *Display buttons* |dis
 
   .. hint:: The table export will recapitulate the browser visualization. If the Sample genotype columns are showed in the table, there will be exported in the file.
 
-
+.. hint:: This visualization and all the entire features described before are available for **Gene** (as in the example), **Region** and **dbSNP ID** search
 
 Variant view
 ^^^^^^^^^^^^
 
-Variant view directly connected with principal population frequency database
+Variant view directly connected the single variant with the additional information contained in the VCF file uploaded and stored in myVCF databese.
+Moreover,
 
-.. Note:: Internet connection is needed to retrieve the frequency information
+.. hint::
+  You can search directely for single variant by using the format: 
+
+  - CHR-Position-Position-Ref-Alt
+
+  from the project home page
+
+.. Note:: Internet connection is needed to retrieve the frequency information from public databases.
 
 VCF metrics summary
 -------------------
