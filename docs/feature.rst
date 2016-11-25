@@ -139,7 +139,12 @@ Example for **variant** search:
 VCF metrics summary
 -------------------
 
-Click on ...
+myVCF can also generate a global VCF summary report considering several metrics and information.
+
+You can generate this report by clicking on the *Summary button* |summary_button|
+
+.. |summary_button| image:: img/myVCF_summary_button.png
+
 Cache will speed-up the process once is loaded for the first time.
 
 - metric 1
