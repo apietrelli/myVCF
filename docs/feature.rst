@@ -188,3 +188,14 @@ By default myVCF visualize a set of columns in the gene/region view composed by 
 You can change the default view by accessing to the *DB settings page* |dbcolview_button|
 
 .. |dbcolview_button| image:: img/myVCF_dbcolview_button.png
+
+You will be redirected to the preferences page and you can select which columns will be displayed in the Gene/Region table.
+
+.. figure:: img/myVCF_column_preferences.png
+     :scale: 50 %
+     :alt: db columns
+     :align: center
+
+To save the column view modified by the user, click on *Save changes* |save_changes|
+
+.. |save_changes| image:: img/myVCF_save_changes.png
