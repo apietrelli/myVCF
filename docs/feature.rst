@@ -147,9 +147,44 @@ You can generate this report by clicking on the *Summary button* |summary_button
 
 .. hint:: First statistics loading could takes some time (minutes), especially for exome/genome projects. All the next loadings will be very fast thanks to the system saving cache that speed-up the process. Cache memory will be clear once the application is closed.
 
+The VCF quality report page consists of several statistics and plots all-in-one page. You can export separately each plot as single image.
+
+Here, some example of the statistics generated:
+
+- Number of variants and mutation distribution across samples
+
+.. figure:: img/myVCF_summary_1.png
+     :scale: 50 %
+     :alt: summary 1
+     :align: center
+
+- Variant quality distribution
+
+.. figure:: img/myVCF_summary_2.png
+     :scale: 50 %
+     :alt: summary 2
+     :align: center
+
+- Variants distribution across chromosomes stratified by functional consequence
+
+.. figure:: img/myVCF_summary_3.png
+     :scale: 50 %
+     :alt: summary 3
+     :align: center
+
+- Variant functional consequence distribution as pie chart
+
+.. figure:: img/myVCF_summary_4.png
+     :scale: 50 %
+     :alt: summary 4
+     :align: center
+
+
 Change default columns view
 ---------------------------
 
-*DB settings* |dbcolview_button|
+By default myVCF visualize a set of columns in the gene/region view composed by the principal annotation given by the VCF file.
+
+You can change the default view by accessing to the *DB settings page* |dbcolview_button|
 
 .. |dbcolview_button| image:: img/myVCF_dbcolview_button.png
