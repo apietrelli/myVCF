@@ -151,7 +151,7 @@ At the end of the process you will have file named :code:`example_VEP.vcf` with 
 Load new data
 -------------
 
-1. Copy/move the VCF files you want to load into the system in :code:`/path/to/myVCF/data/VCFs`
+1. Copy/move the VCF files you want to load into myVCF in :code:`/path/to/myVCF/data/VCFs`
 2. Launch the application (See how to :ref:`launch the app <launch_app>`) and load http://127.0.0.1:8000/ in your browser
 3. Click on the **Upload new project** link in the myVCF homepage
 4. Give a name to the project and select the VCF to load
