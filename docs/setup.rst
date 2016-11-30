@@ -146,10 +146,24 @@ Simplier than Annovar, once downloaded the tool and the human assembly containin
 
 At the end of the process you will have file named :code:`example_VEP.vcf` with all the information suitable for myVCF
 
+Load Data
+---------
+
+Load example VCF files
+~~~~~~~~~~~~~~~~~~~~~~
+
+In myVCF package are available 2 annotated VCFs and you can try to load them directely after myVCF installation:
+
+* mini_annovar.vcf
+* mini_vep.vcf
+
+They reported ~ 1000 mutations in 80 samples annotated respectively with *Annovar* and *VEP* and they are available into :code:`/path/to/myVCF/data/VCFs`
+
+
 .. _load_vcf:
 
 Load new data
--------------
+~~~~~~~~~~~~~
 
 1. Copy/move the VCF files you want to load into myVCF in :code:`/path/to/myVCF/data/VCFs`
 2. Launch the application (See how to :ref:`launch the app <launch_app>`) and load http://127.0.0.1:8000/ in your browser
