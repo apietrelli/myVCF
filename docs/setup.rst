@@ -12,18 +12,19 @@ To verify if your :code:`.vcf` file is compatible with myVCF, please read the fo
 VCF fields and requirements
 ---------------------------
 
-myVCF can read VCF files deriving from **Annovar** or **VEP** annotation systems. These software are the most common tool used for VCF annotation after the SNP call step.
+myVCF can read VCF files deriving from **Annovar** or **VEP** annotation systems. These software are the most common tools used for VCF annotation after the SNP calling step.
 
 .. Note::
   If you are not sure if your VCF file respect the mandatory field and requirements, try to load it by following the :ref:`Load new data section <load_vcf>`
 
-Let's define which are the mandatory fields that a VCF must contains for myVCF tool
+Let's define which are the mandatory fields that a VCF must contains for myVCF
 
-- Since myVCF is a tool for browse and visualize mutations genotyped with NGS technology, the VCF file **must** contain at least 1 genotyped sample
+- Since myVCF is a tool to browse and visualize mutations genotyped with NGS technologies, the VCF file **must** contain at least 1 genotyped sample
 See example below:
 
 .. code-block:: shell
 
+  ...
   ##contig=<ID=17,length=81195210,assembly=b37>
   ##contig=<ID=18,length=78077248,assembly=b37>
   ##contig=<ID=19,length=59128983,assembly=b37>
@@ -40,7 +41,7 @@ See example below:
   #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
   1	762273	rs3115849	G	A	123.7	LowQual	AC=2;AF=1;AN=2;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
 
-This is a VCF part in which we have 1 genotyped sample (Sample1) for one mutation.
+This is part of VCF file in which we have 1 genotyped sample (Sample1) for one mutation.
 
 - For **Annovar** annotated VCFs, the mandatory field within the file would be:
 
