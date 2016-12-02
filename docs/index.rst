@@ -3,9 +3,8 @@ myVCF
 
 Welcome to **myVCF** manual page
 
-myVCF is a user-friendly platform that helps end-users,
-without programming skills, to analyze and visualize mutations data
-to guide strategies for further downstream analysis.
+myVCF is a user-friendly platform that helps end-users, without programming skills, to analyze and visualize mutations in an easy and flexible manner.
+
 
 myVCF will manage `VCF (Variant Call Format)  <http://www.internationalgenome.org/wiki/Analysis/vcf4.0/>`_ file that is the standard format for storing mutation data coming from different sources that used NGS technology (Whole Exome/Genome sequencing, Public database...)
 
