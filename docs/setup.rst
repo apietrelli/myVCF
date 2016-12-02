@@ -12,7 +12,7 @@ To verify if your :code:`.vcf` file is compatible with myVCF, please read the fo
 VCF fields and requirements
 ---------------------------
 
-myVCF can read VCF files coming from **Annovar** or **VEP** annotation systems. Those softwares are the most common tool used for VCF annotation after the SNP call step.
+myVCF can read VCF files deriving from **Annovar** or **VEP** annotation systems. These software are the most common tool used for VCF annotation after the SNP call step.
 
 .. Note::
   If you are not sure if your VCF file respect the mandatory field and requirements, try to load it by following the :ref:`Load new data section <load_vcf>`
