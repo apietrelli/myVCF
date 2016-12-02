@@ -120,8 +120,7 @@ Example for **variant** search:
      :alt: search variant
      :align: center
 
-
-- In the bottom part of the **variant page**, the frequency of the variant will be available the distribution of the same variant in the major public databases
+- In the bottom part of the **variant page**, you will find the variant frequency distribution according to major public databases.
 
 .. figure:: img/myVCF_variant_page_2.png
      :scale: 50 %
@@ -145,13 +144,13 @@ You can generate this report by clicking on the *Summary button* |summary_button
 
 .. |summary_button| image:: img/myVCF_summary_button.png
 
-.. hint:: First statistics loading could takes some time (minutes), especially for exome/genome projects. All the next loadings will be very fast thanks to the system saving cache that speed-up the process. Cache memory will be clear once the application is closed.
+.. hint:: The first time you load the summary statistics the process will take several minutes, especially for exome/genome projects. All following loadings will be very fast thanks to the system saving in the cache that speeds-up the process. Cache memory will be removed once the application is closed.
 
-The VCF quality report page consists of several statistics and plots all-in-one page. You can export separately each plot as single image.
+The VCF quality report consists of several statistics and plots all-in-one page. You can export separately each plot as single images.
 
 Here, some example of the statistics generated:
 
-- Number of variants and mutation distribution across samples
+- Number of variants and the distribution of mutation across samples
 
 .. figure:: img/myVCF_summary_1.png
      :scale: 50 %
@@ -165,7 +164,7 @@ Here, some example of the statistics generated:
      :alt: summary 2
      :align: center
 
-- Variants distribution across chromosomes stratified by functional consequence
+- Variant distribution across chromosomes stratified by functional consequence
 
 .. figure:: img/myVCF_summary_3.png
      :scale: 50 %
@@ -183,7 +182,7 @@ Here, some example of the statistics generated:
 Change default columns view
 ---------------------------
 
-By default myVCF visualize a set of columns in the gene/region view composed by the principal annotation given by the VCF file.
+By default myVCF visualizes a set of columns in the gene/region view composed by the principal annotation given by the VCF file.
 
 You can change the default view by accessing to the *DB settings page* |dbcolview_button|
 
