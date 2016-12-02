@@ -14,7 +14,6 @@ You can download **myVCF** package from:
 2. Click on one of the buttons |download_buttons|
 
 .. |download_buttons| image:: img/myVCF_download_buttons.png
-
 3. Extract the compressed file in your working directory
 4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application
 
@@ -35,7 +34,7 @@ If you have GitHub installed on your computer, you can clone the project directl
 The command will create a directory named :code:`myVCF/` containing the desktop application
 
 .. note::
-    To download :code:`git` tool for Unix/MAC operating system
+    To download :code:`git` tool for Unix/MAC operating systems
 
     .. code:: shell
 
@@ -45,10 +44,10 @@ The command will create a directory named :code:`myVCF/` containing the desktop 
       $> brew install git
     for Windows users, you can download the git software from the `Git homepage <https://git-scm.com/download/win>`_ and use the same command as for Unix/MAC user by using `GitBASH <https://git-for-windows.github.io/>`_
 
-.. warning:: Remember the path to myVCF application because will be useful in requirements installation and :ref:`VCF file loading <load_vcf>`
+.. warning:: Remember the path to myVCF application, as it is necessary for installation and :ref:`VCF file loading <load_vcf>`
 
-Install requirements
---------------------
+Installation requirements
+-------------------------
 
 The application is developed using `Python/Django <https://www.djangoproject.com/>`_ framework and use `sqlite <https://sqlite.org/>`_ as database platform.
 Please verify the installation of :code:`python2.7` and :code:`sqlite` on your computer.
