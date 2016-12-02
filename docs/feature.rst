@@ -83,9 +83,9 @@ You can also modify the visualization aspect by using the following *Display but
 Variant view
 ^^^^^^^^^^^^
 
-Variant view directly connected the single variant with the additional information contained in the VCF file uploaded and stored in myVCF databese.
+Variant view directly connectes the single variant with the additional information contained in the VCF file uploaded and stored in myVCF database.
 
-The variant page links additional information about the frequency of the searched variation interrogatong the principal available population frequencies database:
+The variant page links additional information about the allele frequency of the searched variation by interrogating all the principal population frequency database:
 
 - **ExAC**
 - **ESP**
@@ -102,14 +102,14 @@ Example for **variant** search:
 
   from the project home page.
 
-  In this example we are going to search for **1-878314-878314-G-C** variant.
+  In this example we are going to search for the **1-878314-878314-G-C** variant.
 
 .. figure:: img/myVCF_search_variant.png
      :scale: 50 %
      :alt: search variant
      :align: center
 
-- If the variant exists in the VCF, the **variant page** retireve information from VCF regarding:
+- If the variant exists in the VCF file, the **variant page** will retireve information from the VCF regarding:
 
   - **Variant quality**
   - **Variant annotation**
@@ -121,7 +121,7 @@ Example for **variant** search:
      :align: center
 
 
-- In the bottom part of the page, will be available the frequency distribution of the same variant in the major public databases
+- In the bottom part of the **variant page**, the frequency of the variant will be available the distribution of the same variant in the major public databases
 
 .. figure:: img/myVCF_variant_page_2.png
      :scale: 50 %
