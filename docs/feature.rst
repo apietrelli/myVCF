@@ -63,22 +63,22 @@ You can filter the mutations by using the *Filter buttons* |filter_buttons|
 
 .. |filter_buttons| image:: img/myVCF_results_filter_buttons.png
 
-- **PASS Filter** - Only PASS mutations will be showed. This filter acts on :code:`FILTER` field in VCF file
-- **MAF Threshold** - Only mutations with Allele Frequency (AF) lower than MAF selected will be selected. This filter acts on :code:`AF` field in VCF file.
-- **Reset Filters** - Reset all filters. All mutation will be displayed
+- **PASS Filter** - Only PASS mutations will be showed. This filter acts on the :code:`FILTER` field in the VCF file
+- **MAF Threshold** - Only mutations with an Allele Frequency (AF) lower than the MAF threshold you have selected will be reported. This filter acts on the :code:`AF` field in the VCF file.
+- **Reset Filters** - Reset all filters. All mutations will be displayed.
 
-You can also modify the visualization aspect by using the *Display buttons* |display_buttons|
+You can also modify the visualization aspect by using the following *Display buttons* |display_buttons|
 
 .. |display_buttons| image:: img/myVCF_results_display_buttons.png
 
-- **Samples GT** - All the sample genotypes (stored from VCF file) will be available and showed in the table
+- **Samples GT** - All the genotypes of the semples (stored in the VCF file) will be showed in the table
 - **Column visibility** - Toggle On/Off the columns by selecting them from a dropdown menu
 - **Restore visibility** - Restore the default column visualization
-- **Export** - Save the table in different format including :code:`XLS`, :code:`PDF` and :code:`CSV`
+- **Export** - Save the table in different formats including :code:`XLS`, :code:`PDF` and :code:`CSV`
 
-  .. hint:: The table export will recapitulate the browser visualization. If the Sample genotype columns are showed in the table, there will be exported in the file.
+  .. hint:: The function to export the table will recapitulate the browser visualization. If the Sample genotype columns are showed in the table, they will be exported in the file.
 
-.. Note:: This visualization and all the entire features described in this paragraph are available for **Gene** (as in the example), **Region** and **dbSNP ID** search
+.. Note:: This visualization (Gene view) and all the entire features described in this paragraph are available to search for **Gene** (as in the example), **Region** and **dbSNP ID**
 
 Variant view
 ^^^^^^^^^^^^
