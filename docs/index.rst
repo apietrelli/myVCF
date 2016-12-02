@@ -36,4 +36,4 @@ How to cite myVCF
 
 Paper under review!!
 
-Update will be available soon. Finger crossed :)
+Update will be available soon. Fingers crossed :)
