@@ -1,9 +1,9 @@
 myVCF features
 ==============
 
-myVCF is designed as a tool for browsing and visualizing mutational data coming from NGS technology, including Whole-Exome and -Genome sequencing as well as target resequencing.
+myVCF is designed as a tool for browsing and visualizing mutational data coming from NGS technologies, including Whole-Exome and -Genome sequencing as well as target resequencing.
 
-Several features have been implemented to help the end user in the navigation and the exploration of his project. In the next paragraphs you will find the description of principal features available in myVCF.
+Several features have been implemented to help the end-user in the navigation and the exploration of his project. In the next paragraphs you will find the description of principal features available in myVCF.
 
 How to query a project database?
 --------------------------------
@@ -21,7 +21,7 @@ Gene/Region view
 
 Basic gene/region search will generate a **Gene page** composed by:
 
-- **Table** containing the mutation found in the gene/region
+- **Table** containing the mutations found in the gene/region
 - **Mutation plot** showing the distribution of the mutations grouped by their functional consequence.
 
 Here we described a simple gene search example
@@ -43,14 +43,14 @@ Example for **SAMD11** gene search:
    :alt: Homepage myVCF
    :align: center
 
-- Fill the text box with :code:`SAMD11` region you want and click **GO!**
+- Fill the text box with :code:`SAMD11` and click **GO!**
 
 .. figure:: img/myVCF_search_SAMD11.png
    :scale: 50 %
    :alt: search samd11
    :align: center
 
-We searched for :code:`SAMD11` gene. The system will put wildcards (:code:`*`) at the edges of the gene name automatically and search for :code:`*SAMD11*`.
+We searched for :code:`SAMD11` gene. The system will output all genes containing the name you searched for. So in this case, togheter with :code:`SAMD11`, the pseudogene :code:`SAMD11P1` is also reported.
 
 - To display the mutation list for :code:`SAMD11 - ENSG00000187634` just click on the **ENSEMBL Gene ID** link and you will be directed to the **SAMD11 gene page**
 
