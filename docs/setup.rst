@@ -175,9 +175,9 @@ Load new data
    :alt: Upload page picture
    :align: center
 
-   New project upload page example. :code:`mini_VEP.vcf` is the mutation file to upload into :code:`test` project using :code:`ENSEMBL75` as transcript reference.
+   New project upload page example. :code:`mini_VEP.vcf` is the mutation file to upload into :code:`test` project using :code:`ENSEMBL75` as the transcript reference.
 
-.. Note:: If you don't find your VCF in the dropdown menu, please verify that you have copied the file into :code:`myVCF/data/VCFs` directory and restart the application
+.. Note:: If you don't find your VCF in the dropdown menu, please verify that you have copied the file into the directory :code:`myVCF/data/VCFs` and restart the application
 
 5. Click on submit button for saving the project
 
@@ -186,6 +186,6 @@ Load new data
    :alt: Saving VCF..
    :align: center
 
-   The storing process of very large VCF files (above 50 MB) will takes long time.
+   The storing process of very large VCF files (above 50 MB) will take a long time.
 
-.. warning:: Don't panic if the saving process takes very long time. Do **NOT refresh** the page until the **Upload completed** page will be showed.
+.. warning:: Don't panic if the saving process takes very long time. Do **NOT refresh** the page until the **Upload completed** page will appear.
