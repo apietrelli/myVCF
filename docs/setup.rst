@@ -97,7 +97,7 @@ For UNIX/MAC users, there is a `tutorial <http://www.ensembl.org/info/docs/tools
 
 **Windows**
 
-Please follow this `instuctions <http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#windows>`_ to install and configure VEP for windows system.
+Please follow these `instuctions <http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#windows>`_ to install and configure VEP for Windows.
 
 .. Note:: The easiest way is the **Cygwin** installation procedure.
 
@@ -105,14 +105,14 @@ Please follow this `instuctions <http://www.ensembl.org/info/docs/tools/vep/scri
 Launch the code for annotation
 ------------------------------
 
-Here it is reported the *minimum code* to run for a correct annotation compatible with myVCF. The tutorial contains both the *Annovar* and *VEP* annotation procedure.
+Here we reported the *minimum code* to run a correct annotation thai is compatible with myVCF. The tutorial contains both the *Annovar* and *VEP* annotation procedure.
 
-For **Windows users** please launch the commands using **Cygwin** downloaded in previous section or **CMD shell** (:ref:`find CMD <cmd_label>`)
+For **Windows users** please launch the commands using **Cygwin** downloaded in the previous section or **CMD shell** (:ref:`find CMD <cmd_label>`)
 
 Annovar
 ^^^^^^^
 
-1. Download the ENSEMBL transcript reference database required for myVCF compatibility
+1. Download the ENSEMBL transcript reference database required for myVCF compatibility.
 
 .. code-block:: shell
 
@@ -134,12 +134,12 @@ Annovar
   # Launch the annotation
   table_annovar.pl example/ex2.vcf humandb/ -buildver hg19 -out myanno -remove -protocol ensGene,avsnp142,dbnsfp30a -operation g,f,f -nastring . -vcfinput
 
-.. Note:: To download additional databases to enrich the annotation for your mutations, please see `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/#additional-databases>`_ and modify the **Lunch the annotation** command line by adding the name of the database in :code:`-protocol` and an :code:`f` in :code:`-operation` for every database you want to add.
+.. Note:: To download additional databases to enrich the annotation for your mutations, please see `this link <http://annovar.openbioinformatics.org/en/latest/user-guide/download/#additional-databases>`_ and modify the **Launch the annotation** command line by adding the name of the database in :code:`-protocol` and an :code:`f` in :code:`-operation` for every database you want to add.
 
 VEP
 ^^^
 
-Simplier than Annovar, once downloaded the tool and the human assembly containing the annotations, launch this command to annotate your vcf
+A simpler than Annovar, once downloaded the tool and the human assembly containing the annotations, launch this command to annotate your vcf
 
 .. code-block:: shell
 
