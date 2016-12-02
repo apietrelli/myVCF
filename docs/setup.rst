@@ -160,11 +160,10 @@ In myVCF package there are two annotated VCF files that you can use for a trial 
 
 These files reported ~ 1000 mutations in 80 samples and they are stored in :code:`/path/to/myVCF/data/VCFs`
 
-
 .. _load_vcf:
 
 Load new data
-~~~~~~~~~~~~~
+^^^^^^^^^^^^^
 
 1. Copy/move the VCF files you want to load into myVCF in :code:`/path/to/myVCF/data/VCFs`
 2. Launch the application (See how to :ref:`launch the app <launch_app>`) and load http://127.0.0.1:8000/ in your browser
