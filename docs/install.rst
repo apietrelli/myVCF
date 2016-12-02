@@ -151,16 +151,16 @@ Please follow these instructions to install :code:`sqlite` according to your ope
   **Start** > **Control panel** > **System**
 
   and check the version.
-2. Unpack the :code:`.zip` file and follow the installation
+2. Unpack the :code:`.zip` file and follow the default installation instructions
 
 Python library dependecies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now that all the major components have been installed, lets proceed with the last step of installation regarding the Python library dependencies.
+Now that all the major components have been installed, lets proceed with the last step of the installation process regarding Python library dependencies.
 
-If the :code:`python2.7` installation doesn't fails, you should have also installed :code:`pip` which is the Python command for its library installation.
+If the :code:`python2.7` installation doesn't fail, you should have also installed :code:`pip` which is the Python command for library installation.
 
-Now we are going to install all the dependencies in one-shot using :code:`pip`
+Now we are going to install all the dependencies using just one command-line using :code:`pip`
 
 **Unix (Ubuntu/Debian system)/MAC**
 
