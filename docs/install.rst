@@ -55,7 +55,7 @@ Please verify the installation of :code:`python2.7` and :code:`sqlite` on your c
 Python 2.7
 ^^^^^^^^^^
 
-All the myVCF tool is based on **Python 2.7** language. Please verify the installation of python.
+myVCF tool is based on **Python 2.7** language. Please verify that you have :code:`python` installed.
 
 If you are not sure or you need to install it, please follow the notes below about the installation depending on your operating system.
 
