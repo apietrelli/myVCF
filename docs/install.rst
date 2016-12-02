@@ -104,9 +104,9 @@ By default Python2.7 will be installed in :code:`C:\Python27`. Please **DO NOT**
 sqlite
 ^^^^^^
 
-The storage of VCF data has been implemented by using :code:`sqlite` as backend database. This cross-platform solution allows the end-user to workaround some complex configuration setups which are mandatory with other database system.
+The storage of VCF file has been implemented by using :code:`sqlite` as the backend database. This cross-platform solution allows the end-user to workaround some complex configuration setups which are mandatory with other database system.
 
-Please following this instructions to install :code:`sqlite` depending on your operating system
+Please follow these instructions to install :code:`sqlite` according to your operating system
 
 **Unix (Ubuntu/Debian system)/MAC**
 
@@ -120,7 +120,7 @@ Please following this instructions to install :code:`sqlite` depending on your o
   # MAC OS
   $> brew install sqlite3
 
-3. Launch :code:`sqlite3` from shell
+3. Launch :code:`sqlite3` from the shell
 
 .. code-block:: shell
 
@@ -134,7 +134,7 @@ Please following this instructions to install :code:`sqlite` depending on your o
 
 **Windows**
 
-1. Go to sqlite web site https://sqlite.org/download.html and download precompiled binaries from Windows section.
+1. Go to the :code:`sqlite` web site https://sqlite.org/download.html and download precompiled binaries from the Windows section.
 
   * **sqlite-dll-win32-x86-\*.zip**
 
@@ -144,9 +144,9 @@ Please following this instructions to install :code:`sqlite` depending on your o
 
 .. warning::
 
-  Check your Windows version installed (32 or 64 bit) to correctely download the right :code:`sqlite3` package from the web site
+  Check what Windows version you have installed (32 or 64 bit) on your computer to correctely download the right :code:`sqlite3` package from the web site
 
-  To check your system click on:
+  To check your system version click on:
 
   **Start** > **Control panel** > **System**
 
