@@ -202,7 +202,7 @@ Now exit from the python shell.
 
   **Start** > type on the search box "**cmd**" > click on **cmd.exe**
 
-2. Go to :code:`myVCF/` directory
+2. Go to the :code:`myVCF/` directory
 3. Execute this command:
 
 .. code-block:: dos
@@ -211,7 +211,7 @@ Now exit from the python shell.
   $> C:\Python27\python.exe pip -m install -r requirements.txt
 
 .. warning::
-  If you followed the :ref:`Python 2.7 Windows installation chapter <install_python_win>`, you shold have the all Python command in :code:`C:/Python27/`
+  If you followed the :ref:`Python 2.7 Windows installation chapter <install_python_win>`, you should have all the Python command in :code:`C:/Python27/`
 
 .. _launch_app:
 
