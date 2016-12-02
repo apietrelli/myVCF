@@ -139,7 +139,7 @@ Annovar
 VEP
 ^^^
 
-A simpler than Annovar, once downloaded the tool and the human assembly containing the annotations, launch this command to annotate your vcf
+A simpler approach than Annovar, can be to use the following command. Once downloaded the tool and the human assembly containing the annotations, launch this command to annotate your VCF file
 
 .. code-block:: shell
 
@@ -151,14 +151,14 @@ Load Data
 ---------
 
 Load example VCF files
-~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
-In myVCF package are available 2 annotated VCFs and you can try to load them directely after myVCF installation:
+In myVCF package there are two annotated VCF files that you can use for a trial run. This can be done by loading these files directely from the myVCF upload page by clicking on the dropdown menu **VCF File**:
 
-* mini_annovar.vcf
-* mini_vep.vcf
+* mini_annovar.vcf (annotated with *Annovar*)
+* mini_vep.vcf (annotated with *VEP*)
 
-They reported ~ 1000 mutations in 80 samples annotated respectively with *Annovar* and *VEP* and they are available into :code:`/path/to/myVCF/data/VCFs`
+These files reported ~ 1000 mutations in 80 samples and they are stored in :code:`/path/to/myVCF/data/VCFs`
 
 
 .. _load_vcf:
