@@ -82,7 +82,7 @@ Annovar
 
 The installation of Annovar is very well-described on `ANNOVAR Manual pages <http://annovar.openbioinformatics.org/en/latest/user-guide/download/>`_
 
-Since is a :code:`perl` script, the software can be run on diverse operating systems including Unix and Windows.
+Since *Annovar* is a :code:`perl` script, the software can be run on different operating systems including Unix and Windows.
 
 VEP
 ^^^
@@ -93,7 +93,7 @@ Please follow the instructions below to install the software based on your opera
 
 **Unix (Ubuntu/Debian system)/MAC**
 
-For UNIX/MAC users, there is available this `tutorial <http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html>`_ that describe the download and the installation step in a very easy way.
+For UNIX/MAC users, there is a `tutorial <http://www.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html>`_ available that describes the download and the installation steps in a simple manner.
 
 **Windows**
 
