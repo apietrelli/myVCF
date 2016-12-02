@@ -184,7 +184,7 @@ If you see something like..
   Type "copyright", "credits" or "license" for more information.
   >>>
 
-..everithing went fine!
+..everything went well! :)
 Now exit from the python shell.
 
 .. code-block:: python
