@@ -61,7 +61,7 @@ If you are not sure or you need to install it, please follow the notes below abo
 
 **Unix (Ubuntu/Debian system)**
 
-Using terminal, install :code:`python2.7` using :code:`apt-get`
+Using the terminal, install :code:`python2.7` using :code:`apt-get`
 
 .. code-block:: shell
 
@@ -72,7 +72,7 @@ Using terminal, install :code:`python2.7` using :code:`apt-get`
 Open the terminal and install :code:`python2.7` with :code:`brew`
 
 .. Note::
-  You can find the shell terminal in MAC OS by typing :code:`terminal` in Spotlight textbox and click on the application.
+  You can find the shell terminal in MAC OS by typing :code:`terminal` in the Spotlight textbox and click on the application.
 
 .. code-block:: shell
 
@@ -94,7 +94,7 @@ You can test the installation in the terminal
 
 **Windows**
 
-You can download the :code:`python2.7` package from `Python project site <https://www.python.org/downloads/>`_
+You can download the :code:`python2.7` package from the `Python project site <https://www.python.org/downloads/>`_
 
 Follow the installation process.
 By default Python2.7 will be installed in :code:`C:\Python27`. Please **DO NOT** modify the Python path and leave the default installation destination directory.
