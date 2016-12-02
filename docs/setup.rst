@@ -41,21 +41,21 @@ See example below:
   #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
   1	762273	rs3115849	G	A	123.7	LowQual	AC=2;AF=1;AN=2;Func_ensGene=ncRNA_exonic;Gene_ensGene=ENSG00000225880;GeneDetail_ensGene=.;ExonicFunc_ensGene=.	GT:AD:DP:GQ:PL	1/1:0,63:63:99:1550,188,0
 
-This is part of VCF file in which we have 1 genotyped sample (Sample1) for one mutation.
+This is part of a VCF file in which one sample has been genotyped (Sample1) for one mutation.
 
-- For **Annovar** annotated VCFs, the mandatory field within the file would be:
+- For **Annovar** annotated VCF files, the mandatory fields would be:
 
   1. Gene_ensGene
   2. ExonicFunc_ensGene
 
-- For **VEP** annotated VCFs, the mandatory field within the file would be:
+- For **VEP** annotated VCF files, the mandatory field would be:
 
   1. CSQ
 
   This field is added by default during VEP annotation
 
 .. Note::
-  To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF those lines:
+  To verify the necessary fields for the annotation part, you should see in the HEADER part of the VCF file the following lines:
 
   .. code-block:: shell
 
