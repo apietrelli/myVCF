@@ -11,7 +11,10 @@ You can download **myVCF** package from:
 - **Compressed package**
 
 1. Go to `myVCF homepage <https://apietrelli.github.io/myVCF/>`_
-2. Click on one of the button present in the header of the page
+2. Click on one of the buttons |download_buttons|
+
+.. |download_buttons| image:: img/myVCF_download_buttons.png
+
 3. Extract the compressed file in your working directory
 4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application
 
