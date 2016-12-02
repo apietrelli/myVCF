@@ -20,12 +20,12 @@ You can download **myVCF** package from:
 
 - **GitHub**
 
-If you have GitHub installed in your computer, you can clone the project directly on your working directory
+If you have GitHub installed on your computer, you can clone the project directly on your working directory
 
 1. Open the terminal and type:
 
 .. note::
-  For MAC users, you can fin the terminal app by searching through Spotlight and type :code:`terminal` and click on the application
+  For MAC users, you can find the terminal app by searching through Spotlight and type :code:`terminal` and click on the application
 
 .. code-block:: shell
 
