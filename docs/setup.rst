@@ -3,11 +3,11 @@
 Setup the application
 =====================
 
-Now you are ready to load all your VCFs and start to analyze your data with myVCF
+Now you are ready to load all your VCF files and start to analyze your data with myVCF.
 
-myVCF manage **annotated VCF** files that contain some mandatory fields in order to load and visualize them correctely.
+myVCF manages **annotated VCF** files with specific fields that are mandatory in order to load and visualize the data correctely.
 
-To verify if your :code:`.vcf` file is compatible with myVCF, please read the following section
+To verify if your :code:`.vcf` file is compatible with myVCF, please read the following section.
 
 VCF fields and requirements
 ---------------------------
