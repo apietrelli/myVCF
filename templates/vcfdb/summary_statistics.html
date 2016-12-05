@@ -58,7 +58,7 @@ function get_qual_vcf() {
         },
 
         // handle a non-successful response
-        error : function(xhr,errmsg,err) {
+        error : function(xhr,errmsg,err,obj) {
             console.log(obj)
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
