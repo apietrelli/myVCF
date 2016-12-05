@@ -51,15 +51,14 @@ function get_qual_vcf() {
 
             chart.hideLoading('Loading...');
 
-            console.log(obj);
-            console.log(res);
+            //console.log(obj);
+            //console.log(res);
             console.log("Qual var: OK!"); // another sanity check
 
         },
 
         // handle a non-successful response
-        error : function(xhr,errmsg,err,obj) {
-            console.log(obj)
+        error : function(xhr,errmsg,err) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });

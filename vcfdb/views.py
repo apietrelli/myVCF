@@ -699,8 +699,7 @@ def get_qual_vcf(request, project_name, cache):
             tmp.append(qual_data[i])
             data.append(tmp)
 
-        cache[cache_key] = json.dumps({'quals': quals,
-                                       'qual_data': data,
+        cache[cache_key] = json.dumps({'qual_data': data,
                                        'qual_mean': qual_mean,
                                        'cache': cache})
 
