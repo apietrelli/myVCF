@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+# MAC library workaround
+import sys
+if sys.path[-1] == "/Library/Python/2.7/site-packages":
+    sys.path.insert(0,"/Library/Python/2.7/site-packages")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

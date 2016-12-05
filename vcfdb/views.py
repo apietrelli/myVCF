@@ -3,10 +3,7 @@ from django.shortcuts import render, render_to_response
 # Create your views here.
 # Generic view from django
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import RequestContext, loader
-from django.core import serializers
 from django.shortcuts import render, get_object_or_404
-from django.template import RequestContext
 from django.apps import apps
 import ast
 import json
@@ -15,7 +12,6 @@ from collections import Counter
 from collections import OrderedDict
 import numpy as np
 import requests
-import string
 
 # Generic view from django
 from django.views import generic
