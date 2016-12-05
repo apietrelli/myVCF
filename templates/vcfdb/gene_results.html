@@ -1,0 +1,268 @@
+
+{% extends "base_site.html" %}
+
+{% load vcfdb_extras %}
+{% load static %}
+
+{% block bootstrap_loading %}{% endblock %}
+
+{% block extra_head_content %}
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.10,b-1.1.0,b-colvis-1.1.0,b-flash-1.1.0,b-html5-1.1.0,cr-1.3.0,se-1.1.0/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.10,b-1.1.0,b-colvis-1.1.0,b-flash-1.1.0,b-html5-1.1.0,cr-1.3.0,se-1.1.0/datatables.min.js"></script>
+
+
+{# Highcharts library #}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.highcharttable/0.1/jquery.highcharttable.js"></script>
+
+
+{# Datatable script #}
+<script>
+$(document).ready( function() {
+  $(".dropdown-menu li a").click(function(){
+      var selText = $(this).text();
+      $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+  });
+
+  var table = $("#mutation_list").DataTable({
+    "dom": 'Bftlipr',
+    "columns": [
+        {"name" : 'Variant', "visible" : true},
+         {% for field in all_fields %}
+            {% if field in default_col %}
+                { "name": "{{ field }}", "visible" : true },
+            {% else %}
+                { "name": "{{ field }}", "visible" : false },
+            {% endif %}
+         {% endfor %}
+        ],
+    "buttons":{
+        name: 'primary',
+        buttons: [
+            {
+                extend: 'colvisGroup',
+                text: 'Samples GT',
+                show: [ {% for col in samples_col %}
+                            '{{ col|lower }}:name',
+                        {% endfor %} ],
+            },
+            'colvis',
+            'colvisRestore',
+            {
+                extend: 'collection',
+                text: 'Export',
+                buttons: [
+                    {
+                    extend: "excel",
+                    exportOptions: {
+                        columns: ':visible',
+                        },
+                    },
+                    {
+                    extend: "pdf",
+                    exportOptions: {
+                        columns: ':visible',
+                        },
+                    },
+                ]
+            },
+            ],
+        },
+    fade: true,
+    colReorder: false,
+    stateSave: false,
+    "bAutoWidth": false,
+  } );
+
+{# Row filtering buttons #}
+  $("#pass_filter").click(function() {
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+        var idx = table.column('filter:name').index()
+        return (data[idx] == "PASS")
+                ? true
+                : false
+        }
+    );
+    table.draw();
+    $.fn.dataTable.ext.search.pop();
+  });
+
+  $("#af_filter li a").click(function() {
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+        var idx = table.column('af:name').index()
+        return (Number(data[idx]) <= Number($('#button_af_filter').text()))
+                ? true
+                : false
+      }
+    );
+    table.draw();
+    $.fn.dataTable.ext.search.pop();
+  });
+
+  $("#reset_filter").click(function() {
+    $("#button_af_filter").html('MAF Threshold <span class="caret"></span>');
+    $.fn.dataTable.ext.search.pop();
+    table.draw();
+  });
+
+{# Highcharts script #}
+$(function () {
+    $('#mutation_plot_body').highcharts({
+        chart: {
+        type: 'column',
+        },
+
+        series: [{
+            name: 'Mutation #',
+            data: [
+                {% for value in values %}
+                    {{ value }},
+                {% endfor %}
+            ],
+        }],
+
+        title: {
+            {% if type == "gene" %}
+                text: '{{ gene_symbol.genename }}',
+            {% else %}
+                text: 'Region {{ query }}',
+            {% endif %}
+            x: -20 //center
+        },
+        subtitle: {
+            {% if type == "gene" %}
+                text: '{{ query }}',
+            {% else %}
+                text: '',
+            {% endif %}
+            x: -20
+        },
+        xAxis: {
+            categories: [
+                {% for cat in category %}
+                    '{{ cat }}',
+                {% endfor %}
+            ]
+        },
+        yAxis: {
+            title: {
+                text: '# Mutations'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valuePrefix: '#'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+
+    });
+});
+});
+</script>
+
+{% endblock %}
+
+{% block title %}Results {{ query }}{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">{{ project_name }}</h3>
+    </div>
+    <div class="row header">
+        {% if type == "gene" %}
+            <h2>Gene: <em>{{ gene_symbol.genename }}</em> ({{ query }})</h2>
+        {% else %}
+            <h2>Region: {{ query }} </h2>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="btn-group">
+        <button id="pass_filter" class="btn btn-small btn-success">
+            PASS Filter
+        </button>
+        </div>
+        <div class="btn-group">
+            <button id="button_af_filter" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">MAF Threshold<span class="caret"></span></button>
+            <ul id="af_filter" class="dropdown-menu">
+                <li><a href="#">0.1</a></li>
+                <li><a href="#">0.05</a></li>
+                <li><a href="#">0.01</a></li>
+                <li><a href="#">0.005</a></li>
+                <li><a href="#">0.001</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button id="reset_filter" class="btn btn-small btn-info">
+                Reset Filter
+            </button>
+        </div>
+    </div>
+    <div class="col-xs-12" style="height:20px;"></div>
+    <div class="row">
+        <div class="row" id="panel">
+            <table class="table table-condensed table-striped table-hover" id="mutation_list">
+                <!-- <button id="delete_row" class="btn btn-danger">Delete selected rows</button> -->
+                <thead>
+                <th class="small">Variant</th>
+                {% for field in all_fields %}
+                    <th class="small">{{ field|title }}</th>
+                {% endfor %}
+                </thead>
+                <tbody>
+                {% for mutation in mutations %}
+                    <tr>
+                        <td class="small">
+                            <a href="/vcfdb/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                                {{ mutation.chrom }}:{{ mutation.pos }} {{ mutation.ref }} / {{ mutation.alt }}
+                            </a>
+                        </td>
+                    {% for field in all_fields %}
+                        {% if field == "rs_id" and mutation|getattr:field != "None" %}
+                        <td class="small"><a href="http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs={{ mutation|getattr:field }}" target="_blank">{{ mutation|getattr:field }}</a></td>
+                        {% else %}
+                        <td class="small">{{ mutation|getattr:field }}</td>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <h4></h4>
+    </div>
+    <div class="panel panel-default">
+        <div id="mutation_plot_heading" class="panel-heading">Mutation distribution by type</div>
+        <div id="mutation_plot_body" class="panel-body">Plot Content</div>
+    </div>
+</div>
+{% endblock %}
+

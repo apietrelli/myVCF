@@ -1,0 +1,117 @@
+{% extends "base_site.html" %}
+
+{% load static %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">{{ project_name }}</h3>
+
+    </div>
+    <div class="jumbotron">
+
+        <h1>- {{ project_name }} -</h1>
+        <h2>VCF Browser</h2>
+        <p class="lead">Web application for delving into {{ project_name }} project mutations.</p>
+        <br>
+        <div class="row">
+            <form method="GET" action = "search/">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for.." name= "q">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Go!</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </form>
+        </div><!-- /.row -->
+        <p class="text-muted text-left" style="font-size:14px">
+            Examples - Gene :
+            <a href="/vcfdb/{{ project_name }}/gene/ENSG00000164362/"><em>TERT</em></a>
+            - Region:
+            <a href="/vcfdb/{{ project_name }}/region/2-1231221-1231500/">2:1231221-1231500</a>
+            - Variant:
+            <a href="/vcfdb/{{ project_name }}/variant/1-865628-865628-G-A">1-865628-865628-G-A</a>
+            - dbSNP:
+            <a href="/vcfdb/{{ project_name }}/search/?q=rs75062661">rs75062661</a>
+        </p>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-md-8">
+            <div class="page-header">
+                <h2 class="text-center">How to use</h2>
+            </div>
+            <h5 class="text-justify">
+                You can query the database by searching for:
+                <p>
+                <dl class="dl-horizontal">
+                    <dt>Gene name</dt>
+                    <dd>Use Official Gene Symbol. (ex. <i>SAMD11</i>)</dd>
+                    <dt>Genomic region</dt>
+                    <dd>Use the format Chr:Start-End to perform a correct search. (ex. 1:20000-200100)</dd>
+                    <dt>dbSNPID</dt>
+                    <dd>Search with dbSNP ID like <i>rs324239</i>.</dd>
+                    <dt>Variant</dt>
+                    <dd>Use the format Chr-Position-Position-Ref-Alt. (ex.<i>1-456783-456783-A-T</i>)</dd>
+                </dl>
+                </p>
+                <p>
+                    To visualize the VCF report, please click on the button below
+                </p>
+            </h5>
+            <a href="/vcfdb/{{ project_name }}/summary_statistics" class="btn btn-warning" role="button">
+                <i class="glyphicon glyphicon-cog"></i> Summary statistics
+            </a>
+            <hr>
+            <p>
+                For further information, please see the manual available by clicking on
+                <a href="http://myvcf.readthedocs.io">this link</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <div class="page-header">
+                <h2 class="text-center">Db info</h2>
+            </div>
+            <table class="table"><tbody>
+            <tr>
+                <td>ENSEMBL version</td>
+                <td>{{ gene_annotation }}</td>
+            </tr>
+            <tr>
+                <td>Annotation software</td>
+                <td>{% filter force_escape|upper %}{{ sw_annotation }}{% endfilter %}</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/vcfdb/{{ project_name }}/settings" class="btn btn-info" role="button">
+                        <i class="glyphicon glyphicon-cog"></i> DB Settings
+                    </a>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<footer>
+    <div class="nav navbar-default navbar-fixed-bottom">
+        <p class="navbar-text">Created with myVCF</p>
+    </div>
+</footer>
+
+{% endblock %}

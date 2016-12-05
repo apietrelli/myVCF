@@ -1,0 +1,67 @@
+{% extends "base_site.html" %}
+{% block extra_head_content %}
+<script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,dt-1.10.9/datatables.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css" />
+
+<script>
+$(document).ready( function() {
+  $("#gene_list").dataTable({
+       "dom" : 'ltpi'
+       } );
+   } );
+</script>
+
+{% endblock %}
+{% block title %}Search {% filter force_escape|upper %}{{ query }}{% endfilter %}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">{{ project_name }}</h3>
+    </div>
+    <div class="row">
+        {% if query %}
+        <h2>You searched for: <em>{% filter force_escape|upper %}{{ query }}{% endfilter %}</em></h2>
+        {% else %}
+        <h2>No gene requested!</h2>
+        {% endif %}
+    </div>
+
+    <!--<div class="row">-->
+        <!--<h2>JSON output</h2>-->
+        <!--{{ json_results }}-->
+    <!--</div>-->
+    <div class="row">
+        <table class="table table-striped table-bordered table-responsive h5" id="gene_list">
+            <thead>
+            <tr>
+                <th>Ensembl ID</th>
+                <th>Gene symbol</th>
+                <th>Description</th>
+                <th>Mutations count</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+            <tr>
+                <td><a href="/vcfdb/{{ project_name }}/gene/{{ result.ensgene }}">{{ result.ensgene }}</a></td>
+                <td>{{ result.genename }}</td>
+                <td>{{ result.description }}</td>
+                <td>{{ result.mut_count }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

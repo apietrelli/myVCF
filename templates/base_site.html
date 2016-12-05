@@ -1,0 +1,275 @@
+<html>
+<head>
+    <title>MyVCF - {% block title %}Home{% endblock %}</title>
+
+    {% load static %}
+    {% block jquery_loading %}
+    <script type="text/javascript" src="{% static 'vcfdb/js/jquery-1.11.3.js' %}"></script>
+    {% endblock %}
+
+    {# Load bootbox for modal windows #}
+    <script type="text/javascript" src="{% static 'vcfdb/js/bootbox.min.js' %}"></script>
+
+    {% block bootstrap_loading %}
+
+    {% load bootstrap3 %}
+    {% bootstrap_javascript %}
+    {% bootstrap_css %}
+
+    {% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vcfdb/css/jumbotron-narrow.css' %}"/>
+
+    {% block extra_head_content %}
+
+    <script>
+//Delete Modal script
+$(document).ready(function(){
+    $('#myModal').on('show.bs.modal', function(event) {
+    //catch the id for later deletion, and username to display on modal
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id') // Extract info from data-* attributes
+
+        //console.log('ok')
+
+        $('#myModal .modal-body').html("<p>Do you want to delete project: " + '<b>' + id + '</b>' + ' ?</p>');
+        // Pass the id of the project to the modal
+        $('#myModal').data('id', id);
+    });
+
+    $('#btnYes').on('click', function() {
+        $(this).button('loading');
+        var id = $('#myModal').data('id');
+        console.log(id);
+        $.ajax({
+            url: 'delete_db/',
+            type: 'POST',
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'project_name' : id}, // data sent with the post request
+            success: function(obj){
+                // Get the obj from django function
+                var res = JSON.parse(obj);
+
+                console.log(res.project_name); // sanity check
+
+                //removing entire row
+                $('[data-id='+id+']').parents('tr').remove();
+
+                console.log(res); // another sanity check
+                console.log("success"); // another sanity check
+
+                $('#myModal').modal('hide');
+                $('#deleting_modal').modal('hide');
+
+                // Delete confirmation
+                $('#title_confirm').html(res.project_name+" : "+res.msg_validate);
+                $('#myModal_confirm').modal('show');
+
+            }
+        });
+
+
+    return false;
+    });
+})
+    </script>
+
+    {% endblock %}
+
+</head>
+<body>
+{% block body %}
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">myVCF</h3>
+
+    </div>
+    <div class="jumbotron">
+        <h1>MyVCF Homepage</h1>
+        <p class="lead">web-based paltform for browsing VCF data</p>
+    </div>
+    <div class="row marketing">
+        <div>
+            <h2 class="">Upload page</h2>
+        </div>
+        <a href=upload/><h3><span class="glyphicon glyphicon-upload" aria-hidden="true"></span>Upload new project</h3></a>
+        <div>
+            <h2 class="">Available DB</h2>
+        </div>
+        <table class="table table-responsive" id="db_list_table">
+            {% if db_list %}
+            <thead>
+            <tr>
+                <th>Project name</th>
+                <th># Samples</th>
+                <th>Annotation software</th>
+                <th>ENSEMBL version</th>
+                <th>Delete?</th>
+            </tr>
+            {% for db in db_list %}
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <a href="vcfdb/{{ db.project_name }}">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        {{ db.project_name }}
+                    </a>
+                </td>
+                <td>
+                    {{ db.samples_len }}
+                </td>
+                <td>
+                    {{ db.sw_annotation }}
+                </td>
+                <td>
+                    {{ db.gene_annotation }}
+                </td>
+                <td>
+                    <button class="confirm-delete btn btn-danger" data-id="{{ db.project_name }}"
+                            data-toggle="modal"
+                            data-target="#myModal">
+                        <i class="glyphicon glyphicon-trash"></i> Delete
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tbody>
+            <h3>No DB uploaded yet!<br>Please Upload a new VCF</h3>
+            </tbody>
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Delete project</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger"
+                        id="btnYes"
+                        data-loading-text="<span class='glyphicon glyphicon-refresh'></span> Deleting..."
+                        onclick="waitingDialog.show('Deleting project...', {progressType: 'danger'})">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
+
+<!-- modal confirm -->
+<div class="modal fade" id="myModal_confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="title_confirm"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
+
+
+
+<footer>
+    <div class="nav navbar-default navbar-fixed-bottom">
+        <p class="navbar-text">Created by Alessandro Pietrelli</p>
+    </div>
+</footer>
+
+{% endblock %}
+</body>
+</html>
+{% block js %}
+<script>
+$('#btnYes[data-loading-text]')
+    .on('click', function () {
+        var btn = $(this)
+        btn.button('loading')
+    });
+
+var waitingDialog = waitingDialog || (function ($) {
+    'use strict';
+
+	// Creating modal dialog's DOM
+	var $dialog = $(
+		'<div id="deleting_modal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+		'<div class="modal-dialog modal-m">' +
+		'<div class="modal-content">' +
+			'<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+			'<div class="modal-body">' +
+				'<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+			'</div>' +
+		'</div></div></div>');
+
+	return {
+		/**
+		 * Opens our dialog
+		 * @param message Custom message
+		 * @param options Custom options:
+		 * 				  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+		 * 				  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+		 */
+		show: function (message, options) {
+			// Assigning defaults
+			if (typeof options === 'undefined') {
+				options = {};
+			}
+			if (typeof message === 'undefined') {
+				message = 'Loading';
+			}
+			var settings = $.extend({
+				dialogSize: 'm',
+				progressType: '',
+				onHide: null // This callback runs after the dialog was hidden
+			}, options);
+
+			// Configuring dialog
+			$dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+			$dialog.find('.progress-bar').attr('class', 'progress-bar');
+			if (settings.progressType) {
+				$dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+			}
+			$dialog.find('h3').text(message);
+			// Adding callbacks
+			if (typeof settings.onHide === 'function') {
+				$dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+					settings.onHide.call($dialog);
+				});
+			}
+			// Opening dialog
+			$dialog.modal();
+		},
+		/**
+		 * Closes dialog
+		 */
+		hide: function () {
+			$dialog.modal('hide');
+		}
+	};
+
+})(jQuery);
+
+</script>
+{% endblock %}

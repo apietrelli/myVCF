@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title>MyVCF - {% block title %}VCF submitted{% endblock %}</title>
+    {% block css %}
+    {% load bootstrap3 %}
+    {% load static %}
+
+    {# Load CSS and JavaScript #}
+    {# Load datatables JS #}
+    <script type="text/javascript" src="{% static 'vcfdb/js/jquery-1.11.3.js' %}"></script>
+
+
+    {% bootstrap_javascript %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vcfdb/css/jumbotron-narrow.css' %}">
+
+    {% block extra_head_content %}
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    {# Bootstrap Validator Form #}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.9.0/validator.min.js"></script>
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
+    <script>
+
+    </script>
+
+    {% endblock %}
+
+    {% endblock %}
+</head>
+
+<body>
+{% block body %}
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                <li role="presentation"><a href="#">About</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">myVCF</h3>
+    </div>
+    <div class="jumbotron">
+        <h1>UPLOAD PAGE</h1>
+        <p class="lead">Start page for VCF project</p>
+    </div>
+    <div class="row marketing">
+        <div>
+            <label class="btn btn-large btn-success">Your VCF has been uploaded!</label>
+        </div>
+    </div>
+    <div class="row well marketing">
+        <div class="col-md-7">
+            <p>{{ sanity_check }}</p>
+            <p>{{ project_name }}</p>
+            <p>{{ vcf_name }}</p>
+            <p>{{ sw_annotation }}</p>
+            <p>{{ annotation_version }}</p>
+            <p>Number of records {{ n_record }}</p>
+            <p>Record mean {{ record_store_time }} </p>
+            <p>VCF storing {{ vcf_store_time }} </p>
+            <p># of record per second {{ n_record_rate }} </p>
+            <p>Total loading in {{ loading_time }} seconds</p>
+            <p>
+                Click on the button below to go back and start to browsing the mutations
+            </p>
+        </div>
+    </div>
+   <div class="col-md-3">
+        <p></p>
+    </div>
+    <div class="col-md-3">
+        <a href="/"><button type="button" class="btn btn-primary">Back to myVCF homepage</button></a>
+    </div>
+</div>
+
+{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+Django==1.8.4
+dj-database-url==0.3.0
+dj-static==0.0.6
+django-bootstrap-form==3.2
+django-bootstrap-toolkit==2.15.0
+django-bootstrap3==6.2.2
+django-import-export==0.2.8
+static3==0.6.1
+wsgiref==0.1.2
+PyVCF==0.6.8
+numpy==1.11.0
+requests==2.11.1

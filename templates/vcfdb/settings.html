@@ -1,0 +1,263 @@
+{% extends "base_site.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block extra_head_content %}
+<script>
+function titleCase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+  }
+  return str.join(' ');
+}
+
+$(document).ready(function() {
+// Populate the input buttons with the column from "default_col" DB field
+    $.ajax({
+        url : "get_col_list/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj);
+            //console.log(res)
+            var visible_col = "";
+            var other_col = "";
+            var all_col = "";
+
+            // Columns already selected
+            for (col in res.default_cols) {
+                col_name = titleCase(res.default_cols[col]);
+                visible_col += "<label class='btn btn-primary active'><input type='checkbox' name=cols value='"+ res.default_cols[col] +"' autocomplete='off' checked>"+ col_name +"</label>"
+                //console.log(res.default_cols[col])
+            };
+
+            $('#value_visibility').append(visible_col);
+
+            // Available columns to be selected
+            for (col in res.other_cols) {
+                othercol_name = titleCase(res.other_cols[col])
+                other_col += "<label class='btn btn-primary'><input type='checkbox' name=cols value='"+ res.other_cols[col] +"' autocomplete='off'> "+othercol_name+"</label>";
+            };
+
+            $('#othercol_group').append(other_col);
+            console.log(res.mutation_col)
+            for (col in res.all_cols) {
+                allcol_name = titleCase(res.all_cols[col])
+                if (res.all_cols[col]==res.mutation_col){
+                    all_col += "<option selected value='"+res.all_cols[col]+"'>"+allcol_name+"</option>";
+                }
+                else {
+                    all_col += "<option value='"+res.all_cols[col]+"'>"+allcol_name+"</option>";
+                };
+            };
+
+            // All possilble field for mutation type
+            $('#mutation_col').append(all_col);
+            //console.log(visible_col); // another sanity check
+            console.log("success"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+
+
+    var frm = $('#editPreferences');
+    frm.submit(function () {
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (obj) {
+                var res = JSON.parse(obj);
+
+                bootbox.alert({
+                    size: 'medium',
+                    title: 'Changes confirmation: OK',
+                    message: 'Preferences has been changed!',
+                    callback: function(){ window.location.reload() }
+})
+
+            },
+            error: function(obj) {
+                bootbox.alert("no good!")
+            }
+        });
+        return false;
+    });
+})
+</script>
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">myVCF</h3>
+    </div>
+    <div class="jumbotron">
+        <h1>- {{ project_name }} -</h1>
+        <h2>VCF Browser</h2>
+        <p class="lead">Settings page</p>
+    </div>
+    <div class="row marketing">
+        <div>
+            <h2>Database preferences</h2>
+        </div>
+    </div>
+    <div class="row well marketing">
+        <form id="editPreferences" method="POST" action="save_preferences/">
+            {% csrf_token %}
+            <!-- VISIBILITY -->
+            <div class="center-block form-group row">
+                <div id="label_visibility" class="center-block col-md-2">
+                    <label>
+                        <a data-toggle="tooltip"
+                           title="Selected columns will be visible by default in gene view"
+                           data-placement="top">
+                            <strong>Default columns visibility</strong>
+                        </a>
+                    </label>
+                </div>
+                <div class="center-block col-md-9">
+                    <div id="value_visibility" class="btn-group btn-group-sm" data-toggle="buttons">
+                        <!-- Filled by AJAX -->
+                    </div>
+                    <button class="btn btn-sm btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">
+                        Add other columns
+                    </button>
+                    <!-- Other columns div -->
+                    <div class="collapse" id="collapseExample">
+                        <strong>Other columns available</strong>
+                        <div id="othercol_group" class="well btn-group btn-group-sm col-md-11" data-toggle="buttons">
+                            <!-- Filled by AJAX -->
+                        </div>
+                    </div>
+                    <!-- END Other columns div -->
+
+                </div>
+            </div>
+            <!-- END VISIBILITY -->
+
+            <!-- MUTATION TYPE -->
+            <div class="center-block form-group row">
+                <div id="mutation_type" class="center-block col-md-2 h5">
+                    <a data-toggle="tooltip"
+                       title="Select the field for mutation filtering button in gene view"
+                       data-placement="top">
+                        <label><strong>Set mutation type</strong></label>
+                    </a>
+                </div>
+                <div class="center-block col-md-6">
+                    <select class="form-control" name="mutation_col" id="mutation_col">
+                        <!-- Filled by AJAX -->
+                    </select>
+                    <small class="text-muted">This dropdown menu shows all the field in the VCF</small><br>
+                    <small class="text-muted">Annovar default: Exonicfunc_ensgene</small><br>
+                    <small class="text-muted">VEP default: Consequence</small>
+                </div>
+            </div>
+            <!-- END MUTATION TYPE -->
+
+            <!-- ALLELE FREQUENCY -->
+            <div class="center-block form-group row">
+                <div id="maf_project" class="center-block col-md-2 h5">
+                    <a data-toggle="tooltip"
+                       title="Select the field for MAF filtering button in gene view"
+                       data-placement="top">
+                        <label><strong>MAF Threshold</strong></label>
+                    </a>
+                </div>
+                <div class="center-block col-md-6">
+                    <select class="form-control" name="maf_col" id="maf_project_col">
+                        <option value='0.05'>MAF >= 0.05</option>
+                        <option value='0.01'>MAF >= 0.01</option>
+                        <option value='0.005'>MAF >= 0.005</option>
+                        <option value='0.001'>MAF >= 0.001</option>
+                    </select>
+                </div>
+            </div>
+            <!--AF public DB
+            &lt;!&ndash; 1000 G &ndash;&gt;
+            <div class="center-block form-group row">
+                <div id="maf_1000g" class="center-block col-md-2 h5">
+                    <a data-toggle="tooltip"
+                       title="Select the field for 1000G MAF filtering button in gene view"
+                       data-placement="top">
+                        <label><strong>1000G MAF</strong></label>
+                    </a>
+                </div>
+                <div class="center-block col-md-6">
+                    <select class="form-control" name="maf_col" id="maf_1000g_col">
+                        &lt;!&ndash; Filled by AJAX &ndash;&gt;
+                    </select>
+                    <small class="text-muted">...</small><br>
+                    <small class="text-muted">...</small><br>
+                    <small class="text-muted">...</small>
+                </div>
+            </div>
+            &lt;!&ndash; ESP &ndash;&gt;
+            <div class="center-block form-group row">
+                <div id="maf_esp" class="center-block col-md-2 h5">
+                    <a data-toggle="tooltip"
+                       title="Select the field for ESP MAF filtering button in gene view"
+                       data-placement="top">
+                        <label><strong>ESP MAF</strong></label>
+                    </a>
+                </div>
+                <div class="center-block col-md-6">
+                    <select class="form-control" name="maf_col" id="maf_esp_col">
+                        &lt;!&ndash; Filled by AJAX &ndash;&gt;
+                    </select>
+                    <small class="text-muted">...</small><br>
+                    <small class="text-muted">...</small><br>
+                    <small class="text-muted">...</small>
+                </div>
+            </div>
+            &lt;!&ndash; ExAC &ndash;&gt;
+            <div class="center-block form-group row">
+                <div id="maf_exac" class="center-block col-md-2 h5">
+                    <a data-toggle="tooltip"
+                       title="Select the field for ExAC MAF filtering button in gene view"
+                       data-placement="top">
+                        <label><strong>ExAC MAF</strong></label>
+                    </a>
+                </div>
+                <div class="center-block col-md-6">
+                    <select class="form-control" name="maf_col" id="maf_exac_col">
+                        &lt;!&ndash; Filled by AJAX &ndash;&gt;
+                    </select>
+                    <small class="text-muted">...</small><br>
+                    <small class="text-muted">...</small><br>
+                    <small class="text-muted">...</small>
+                </div>
+            </div>
+            -->
+            <!-- END ALLELE FREQUENCY -->
+            <div class="row center-block ">
+                <div class="col-md-offset-2 col-md-2">
+                    <a href="/vcfdb/{{ project_name }}/"><button type="button" class="btn btn-danger">Back</button></a>
+                </div>
+                <div class="col-md-offset-3 col-md-2">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

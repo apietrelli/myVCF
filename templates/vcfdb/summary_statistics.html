@@ -1,0 +1,614 @@
+{% extends "base_site.html" %}
+
+{% load static %}
+{% block extra_head_content %}
+
+{# Highcharts library #}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.highcharttable/0.1/jquery.highcharttable.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+
+<script>
+
+function get_qual_vcf() {
+    $.ajax({
+        url : "get_qual_vcf/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            var chart = $('#vcf_summary_body').highcharts();
+            var visible_value = ""
+            // Add quality values
+            chart.addSeries({
+                name: "Number of variants",
+                data: res.qual_data,
+                pointRange: 0.3,
+                borderWidth: .5,
+                borderColor: '#666',
+                pointPadding: .2,
+                groupPadding: 0.1,
+                color: {
+                    linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+                    stops: [
+                        [0, '#81CBF8'],
+                        [1, '#81FFFF']
+                    ]
+                }
+            });
+            // Add mean value
+            chart.xAxis[0].addPlotLine({
+                value: res.qual_mean,
+                color: 'red',
+                width: 2,
+                id: 'plot-line-mean'
+            });
+
+            chart.hideLoading('Loading...');
+
+            console.log(obj);
+            console.log(res);
+            console.log("Qual var: OK!"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+function get_mean_variations() {
+    $.ajax({
+        url : "get_mean_variations/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            var boxplot_chart = $('#mutation_boxplot_body').highcharts();
+            boxplot_chart.xAxis[0].setCategories('#',true);
+            boxplot_chart.addSeries({
+                name: "Mean variations",
+                data: [ res.boxplot_data ]
+            });
+            boxplot_chart.addSeries({
+                name: "Outliers",
+                data:  res.outlier_data ,
+                type: 'scatter',
+                color: Highcharts.getOptions().colors[0],
+                marker: {
+                    fillColor: 'white',
+                    lineWidth: 1,
+                    lineColor: Highcharts.getOptions().colors[0]
+                },
+                tooltip: {
+                    pointFormat: 'Mutations: {point.y}'
+                }
+            });
+
+            boxplot_chart.hideLoading('Loading...');
+
+            //console.log(obj);
+            //console.log(res.boxplot_data);
+            console.log("Mean_var: OK!"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+function get_chr_variations() {
+    $.ajax({
+        url : "get_chr_variations/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            var chart = $('#mutation_chr_body').highcharts();
+            var visible_value = ""
+            chart.xAxis[0].setCategories(res.chromosomes);
+            $.each(res.plot_data, function( key, value ) {
+                chart.addSeries({
+                    name: key,
+                    data: value
+                });
+            });
+            chart.hideLoading('Loading...');
+
+            //console.log(obj);
+            //console.log(res);
+            console.log("Chr var: OK!"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+
+// Get biotype statistics
+function get_biotype_variations() {
+    $.ajax({
+        url : "get_biotype_variations/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            var chart = $('#mutation_biotype_body').highcharts();
+
+            chart.series[0].setData(res.plot_data);
+            chart.hideLoading('Loading...');
+
+            //console.log(obj);
+            console.log("Biotype var: OK!"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+
+// Get exonic mutation type statistics
+function get_exonictype_variations() {
+    $.ajax({
+        url : "get_exonictype_variations/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            var chart = $('#mutation_exonictype_body').highcharts();
+
+            chart.series[0].setData(res.plot_data);
+
+            chart.hideLoading('Loading...');
+
+            //console.log(obj);
+            console.log("Exonic var: OK!"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+function get_top_genes() {
+    $.ajax({
+        url : "get_top_genes/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            var chart = $('#top_genes_body').highcharts();
+            chart.xAxis[0].setCategories(res.top_genes);
+            $.each(res.plot_data, function( key, value ) {
+                chart.addSeries({
+                    name: key,
+                    data: value
+                });
+            });
+            chart.hideLoading('Loading...');
+
+            //console.log(obj);
+            //console.log(res);
+            console.log("Top Genes: OK!"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+$(document).ready(function() {
+    // VCF quality
+    var qual_chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'vcf_summary_body',
+            type: 'column',
+            zoomType: 'x',
+            panning: true,
+            panKey: 'shift',
+            events: {
+                load: get_qual_vcf
+            },
+        },
+        credits: {
+            enabled: false,
+        },
+        title: {
+            text: 'Variation Site Quality'
+        },
+        subtitle: {
+            text: ''
+        },
+
+        xAxis: {
+            reversed: false,
+            type: 'logarithmic',
+            tickInterval: .1,
+            minorTickInterval: .0001,
+            labels: {
+                rotation: -45,
+                formatter: function() {
+                    return Number(this.value).toFixed(0);
+                },
+            },
+
+            title: {
+                enabled: true,
+                text: 'QUAL values'
+            },
+        },
+
+        yAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'Number of variants'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        series: []
+    });
+    qual_chart.showLoading('Loading data...');
+
+    // Load the Boxplot --> mean variation by sample
+     var boxplot_chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'mutation_boxplot_body',
+            type: 'boxplot',
+            events: {
+                load: get_mean_variations
+            }
+        },
+        credits: {
+            enabled: false,
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+             categories: [],
+             title: {
+                text: '{{ project_name }}'
+            }
+        },
+        yAxis: {
+            title: {
+                text: '# mutations',
+            }
+        },
+        series: []
+    });
+    boxplot_chart.showLoading('Loading data...');
+
+    // Mutation CHR plot
+    var chr_chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'mutation_chr_body',
+            type: 'column',
+            zoomType: 'x',
+            panning: true,
+            panKey: 'shift',
+            events: {
+                load: get_chr_variations
+            }
+        },
+        credits: {
+            enabled: false,
+        },
+        title: {
+            text: 'Chromosomes'
+        },
+        subtitle: {
+            text: 'Only the top 10 represented exonic categories are visualized.<br>Click and drag to zoom in. Hold down shift key to pan.'
+        },
+
+        xAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'Chromosomes'
+            },
+            labels: {
+                formatter: function () {
+                    return  'Chr' + this.value;
+                }
+            },
+            showLastLabel: true
+        },
+
+        yAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'Number of mutations'
+            },
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        series: []
+    });
+    chr_chart.showLoading('Loading data...');
+
+    // Mutation exonictype plot
+    var exonictype_chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'mutation_exonictype_body',
+            type: 'pie',
+            events: {
+                load: get_exonictype_variations
+            }
+        },
+        colors: ['#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99', '#a6cee3'],
+        credits: {
+            enabled: false,
+        },
+        title: {
+            text: 'Functional consequence'
+        },
+        tooltip: {
+            pointFormat: '{series.name} percentage: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.y}',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Mutation type',
+            colorByPoint: true,
+            data: []
+        }]
+    });
+    exonictype_chart.showLoading('Loading data...');
+
+    // Mutation biotype plot
+    var biotype_chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'mutation_biotype_body',
+            type: 'pie',
+            events: {
+                load: get_biotype_variations
+            }
+        },
+        credits: {
+            enabled: false,
+        },
+        title: {
+            text: 'Gene biotype'
+        },
+        tooltip: {
+            pointFormat: '{series.name} percentage: <b>{point.percentage:.1f}%</b>'
+        },
+        series: [{
+            name: 'Mutation Gene biotype',
+            colorByPoint: true,
+            data: []
+        }]
+    });
+    biotype_chart.showLoading('Loading data...');
+
+   // Top Genes plot
+    var top_chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'top_genes_body',
+            type: 'column',
+            zoomType: 'x',
+            panning: true,
+            panKey: 'shift',
+            events: {
+                load: get_top_genes
+            }
+        },
+        credits: {
+            enabled: false,
+        },
+        title: {
+            text: 'Top 20 genes'
+        },
+        subtitle: {
+            text: 'Only the top 20 represented exonic categories are visualized.<br>Click and drag to zoom in. Hold down shift key to pan.'
+        },
+        xAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'ENSEMBL Gene ID'
+            },
+            labels: {
+                formatter: function () {
+                    return '<a href="/vcfdb/{{ project_name }}/gene/' + this.value + '">' +
+                    this.value +'</a>';
+                },
+                useHTML: true
+            },
+            showLastLabel: true
+        },
+        yAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'Number of mutations'
+            },
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        series: []
+    });
+    top_chart.showLoading('Loading data...');
+});
+
+
+
+    </script>
+
+{% endblock %}
+
+{% block title %}Summary statistics for {{ project_name }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">{{ project_name }}</h3>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="page-header">
+            <h2 class="text-left">Summary statistics</h2>
+        </div>
+    </div>
+    <div class="row col-md-4" id="panel">
+        <table class="table table-condensed table-hover" id="statistics">
+            <thead>
+
+            </thead>
+            <tbody>
+            <tr>
+                <td class="small"><strong>Project name</strong></td>
+                <td class="small">{{ project_name }}</td>
+            </tr>
+            <tr>
+                <td class="small"><strong>Software annotation</strong></td>
+                <td class="small">{{ sw_annotation }}</td>
+            </tr>
+            <tr>
+                <td class="small"><strong>Number of samples</strong></td>
+                <td class="small">{{ n_samples }}</td>
+            </tr>
+            <tr>
+                <td class="small"><strong>Number of records</strong></td>
+                <td class="small">{{ n_mutations }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1">
+    </div>
+        <div class="panel panel-default col-md-6">
+        <div id="mutation_boxplot_heading" class="panel-heading">
+            <a data-toggle="collapse" data-target="#mutation_boxplot">Number of variations across samples</a>
+        </div>
+        <div id="mutation_boxplot" class="panel-collapse collapse in">
+            <div id="mutation_boxplot_body" class="panel-body"></div>
+        </div>
+    </div>
+    <div class="row col-md-12"></div>
+    <div class="row col-md-12">
+        <div class="page-header">
+            <a data-toggle="collapse" data-target="#vcf_summary_box">
+                <h2 class="text-left">Summary statistics VCF</h2>
+            </a>
+        </div>
+    </div>
+    <div id=vcf_summary_box class="panel panel-default panel-collapse collapse in col-md-6">
+        <div id="vcf_summary_heading" class="panel-heading">
+            <a data-toggle="collapse" data-target="#vcf_summary">Quality summary</a>
+        </div>
+        <div id="vcf_summary" class="panel-collapse collapse in">
+            <div id="vcf_summary_body" class="panel-body">Plot Content</div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <div class="page-header">
+             <a data-toggle="collapse" data-target="#mutation_summary_box">
+                 <h2 class="text-left">Mutation distribution plot</h2>
+             </a>
+        </div>
+    </div>
+    <div id="mutation_summary_box" class="panel-collapse collapse in">
+    <div class="panel panel-default col-md-12">
+        <div id="mutation_chr_heading" class="panel-heading">
+            <a data-toggle="collapse" data-target="#mutation_chr">Mutations distribution: by Chromosome</a>
+        </div>
+        <div id="mutation_chr" class="panel-collapse collapse in">
+            <div id="mutation_chr_body" class="panel-body">Plot Content</div>
+        </div>
+    </div>
+    <div class="panel panel-default col-md-12">
+        <div id="mutation_biotype_heading" class="panel-heading">
+            <a data-toggle="collapse" data-target="#mutation_biotype">Mutations distribution: Gene biotype</a>
+        </div>
+        <div id="mutation_biotype" class="panel-collapse collapse in">
+            <div id="mutation_biotype_body" class="panel-body">Plot Content 2</div>
+        </div>
+    </div>
+    <div class="panel panel-default col-md-12">
+        <div id="mutation_exonictype_heading" class="panel-heading">
+            <a data-toggle="collapse" data-target="#mutation_exonictype">Mutations distribution: Functional consequence</a>
+        </div>
+        <div id="mutation_exonictype" class="panel-collapse collapse in">
+            <div id="mutation_exonictype_body" class="panel-body">Large Plot Content</div>
+        </div>
+    </div>
+
+    <div class="panel panel-default col-md-12">
+        <div id="top_genes_heading" class="panel-heading">
+            <a data-toggle="collapse" data-target="#top_genes">Top mutated genes plot</a>
+        </div>
+        <div id="top_genes" class="panel-collapse collapse in">
+            <div id="top_genes_body" class="panel-body">Large Plot Content</div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,308 @@
+<head>
+    <title>MyVCF - {% block title %}Upload{% endblock %}</title>
+    {% block css %}
+    {% load bootstrap3 %}
+    {% load static %}
+
+    {# Load CSS and JavaScript #}
+    {# Load datatables JS #}
+    <script type="text/javascript" src="{% static 'vcfdb/js/jquery-1.11.3.js' %}"></script>
+
+    {% bootstrap_javascript %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vcfdb/css/jumbotron-narrow.css' %}">
+    {% block extra_head_content %}
+    {# Bootstrap Validator Form #}
+    <script type="text/javascript" src="{% static 'vcfdb/js/bootstrapValidator.min.js' %}"></script>
+
+    <!--Adjust glyph icon -->
+    <style type="text/css">
+    #setupNewProject .selectContainer .form-control-feedback {
+        top: 0;
+        right: -15px;
+    }
+    </style>
+
+    <script>
+$(document).ready(function() {
+// Populate the select with the file listing of data/VCFs
+    $.ajax({
+        url : "select_vcf/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'static_path' : '{% static "VCFs/" %}'}, // data sent with the post request
+
+        // handle a successful response
+        success : function(obj) {
+            $("#vcf_name option").remove();
+            var res = JSON.parse(obj)
+            //var list_html ="<option disabled selected value=0>Select VCF file from VCFs dir...</option>"
+            var list_html = "<optgroup label='VCF files'>"
+            //console.log(res.files)
+            for (file in res.files) {
+                list_html += "<option value='"+res.files[file]+"'>"+res.files[file]+"</option>";
+                //<li onclick=$('#upload_file_info').html('"+res.files[file]+"');><a>"+res.files[file]+"</a></li>";
+            }
+            $('#vcf_name').append(list_html)
+            //console.log(list_html); // another sanity check
+            console.log("success"); // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+})
+    </script>
+    <script>
+$(document).ready(function() {
+    $("#setupNewProject")
+    // On error in vcf_name, get the message from msg_validate object
+    .on('error.field.bv', function(e, data) {
+            if (data.field === 'vcf_name' && data.validator === 'remote') {
+                var msg = data.result.msg_validate;
+                // console.log("Check");
+                // Hide valid message if any
+                $("#validMsg_vcf_name").hide();
+                $("#sw_annotation").val("None");
+                // Update the message
+                msg
+                    ? data.bv.updateMessage('vcf_name', 'remote', msg)
+                    : data.bv.updateMessage('vcf_name', 'remote', 'The VCF is not valid');
+            }
+        })
+    .on('success.field.bv', function(e, data) {
+            var validator = data.validator,
+                field  = data.field,   // Get the field name
+                $field = data.element
+
+            if (field === 'vcf_name' && validator === 'remote') {
+                var msg = data.result.msg_validate;
+                var annotation = data.result.annotation;
+                // console.log("Check");
+                // Show a valid message
+                $("#validMsg_vcf_name").html("<p>The VCF is good!<br> Annotation system: "+ annotation + "</p>");
+                $("#validMsg_vcf_name").show();
+                $("#sw_annotation").val(annotation);
+            }
+        })
+
+    .bootstrapValidator({
+        excluded: ':disabled',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            project_name: {
+                validators: {
+                    remote: {
+                        message: 'The project name is not available',
+                        url: "check_project_name/",
+                        type: "POST",
+                        data: {'csrfmiddlewaretoken': '{{ csrf_token }}'}
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9]+$/,
+                        message: 'The Project name can only consist of alphabetical, number'
+                    },
+                    notEmpty: {
+                        message: 'The Project name is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 3,
+                        message: 'Your name should be longer than three characters'
+                    }
+                }
+            },
+            vcf_name: {
+                validators: {
+                    notEmpty: {
+                        message: 'The VCF file is required and cannot be empty'
+                    },
+                    remote: {
+                        url : 'preprocessing_vcf/', // the endpoint
+                        type : "POST", // http method
+                        data : {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                        message: 'The VCF is not suitable for loading'
+                        }
+                    }
+            } /* <&#45;&#45; removed comma */
+        } /* added closing brace */
+    });
+});
+
+
+
+    </script>
+
+    {% endblock %}
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
+    {% endblock %}
+</head>
+
+<body>
+{% block body %}
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="#">About</a></li>
+                <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
+                <li role="presentation"><a href="/">myVCF Page</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">myVCF</h3>
+    </div>
+    <div class="jumbotron">
+        <h1>UPLOAD PAGE</h1>
+        <p class="lead">Start page for VCF project</p>
+    </div>
+    <div class="row marketing">
+        <div>
+            <h2> Setup a new project</h2>
+        </div>
+    </div>
+    <div class="well">
+        <form id="setupNewProject" method="POST" action="submit_vcf/">
+            {% csrf_token %}
+            <div class="center-block form-group row">
+                <label for="project_name" class="center-block col-md-3 h5"><strong>Project name</strong></label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" style="width: 95%" id="project_name" placeholder="Project Name" name="project_name">
+                    <small class="text-muted">This will be the name showed in myVCF home page</small>
+                </div>
+            </div>
+
+            <div class="center-block form-group row">
+                <label class="center-block col-md-3 h5"><strong>VCF file</strong></label>
+                <div class="selectContainer col-md-7">
+                    <select class="form-control" name="vcf_name" id="vcf_name"></select>
+                    <small class="text-muted">This dropdown menu shows the VCFs directory listing</small>
+                    <small class="help-block validMessage" data-field="vcf_name" id="validMsg_vcf_name"></small>
+                </div>
+            </div>
+
+
+            <div class="center-block form-group row">
+                <label class="center-block col-md-3 h5"><strong>Annotation software</strong></label>
+                <div class="col-md-7 center-block">
+                    <input type="text" class="form-control"
+                           name="sw_annotation" id="sw_annotation"
+                           style="width: 50%" placeholder="Autodetect by VCF selection" readonly>
+                </div>
+            </div>
+            <div class="center-block form-group row">
+                <label class="col-md-3 h5"><strong>Annotation version</strong></label>
+                <div class="col-md-8">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="annotation_version" id="ensAnnotation_gridRadios1" value="75" checked>
+                            ENSEMBL 75
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="annotation_version" id="ensAnnotation_gridRadios2" value="84">
+                            ENSEMBL 84
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-2">
+                    <a href="/"><button type="button" class="btn btn-danger">Abort</button></a>
+                </div>
+                <div class="col-md-offset-3 col-md-2">
+                    <button id="upload_button" type="submit"
+                            class="btn btn-primary"
+                            data-loading-text="<span class='glyphicon glyphicon-refresh'></span> Uploading..."
+                            onclick="waitingDialog.show('Saving VCF...', {progressType: 'success'})">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+</body>
+</html>
+{% block js %}
+<script>
+$('#upload_button[data-loading-text]')
+    .on('click', function () {
+        var btn = $(this)
+        btn.button('loading')
+    });
+
+var waitingDialog = waitingDialog || (function ($) {
+    'use strict';
+
+	// Creating modal dialog's DOM
+	var $dialog = $(
+		'<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+		'<div class="modal-dialog modal-m">' +
+		'<div class="modal-content">' +
+			'<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+			'<div class="modal-body">' +
+				'<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+			'</div>' +
+		'</div></div></div>');
+
+	return {
+		/**
+		 * Opens our dialog
+		 * @param message Custom message
+		 * @param options Custom options:
+		 * 				  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+		 * 				  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+		 */
+		show: function (message, options) {
+			// Assigning defaults
+			if (typeof options === 'undefined') {
+				options = {};
+			}
+			if (typeof message === 'undefined') {
+				message = 'Loading';
+			}
+			var settings = $.extend({
+				dialogSize: 'm',
+				progressType: '',
+				onHide: null // This callback runs after the dialog was hidden
+			}, options);
+
+			// Configuring dialog
+			$dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+			$dialog.find('.progress-bar').attr('class', 'progress-bar');
+			if (settings.progressType) {
+				$dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+			}
+			$dialog.find('h3').text(message);
+			// Adding callbacks
+			if (typeof settings.onHide === 'function') {
+				$dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+					settings.onHide.call($dialog);
+				});
+			}
+			// Opening dialog
+			$dialog.modal();
+		},
+		/**
+		 * Closes dialog
+		 */
+		hide: function () {
+			$dialog.modal('hide');
+		}
+	};
+
+})(jQuery);
+</script>
+{% endblock %}
