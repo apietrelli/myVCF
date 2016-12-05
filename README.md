@@ -12,7 +12,17 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
 
 ### How do I get set up? ###
 
-You will find the instructions for installation and setup at http://myvcf.readthedocs.io/
+#### Quick start-up with example data
+
+``` shell
+# Clone myVCF GitHub project
+git clone https://github.com/apietrelli/myVCF.git
+cd myVCF
+# Run the server
+python manage.py runserver
+# Open the internet browser and go to http://localhost:8000/
+```
+You will find further instructions for installation and setup at http://myvcf.readthedocs.io/
 
 ### Who do I talk to? ###
 
