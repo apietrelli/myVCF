@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 # MAC library workaround
 import sys
-if sys.path[-1] == "/Library/Python/2.7/site-packages":
+if sys.path[0] != "/Library/Python/2.7/site-packages":
     sys.path.insert(0,"/Library/Python/2.7/site-packages")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
