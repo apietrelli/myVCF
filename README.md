@@ -17,18 +17,21 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
 ``` shell
 # Clone myVCF GitHub project
 git clone https://github.com/apietrelli/myVCF.git
+
+# Enter into myVCF directory
 cd myVCF
+
 # Run the server
 python manage.py runserver
-Performing system checks...
 
-System check identified no issues (0 silenced).
-December 05, 2016 - 17:30:09
-Django version 1.8.4, using settings 'myVCF_django.settings'
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CONTROL-C.
+> Performing system checks...
+> System check identified no issues (0 silenced).
+> December 05, 2016 - 17:30:09
+> Django version 1.8.4, using settings 'myVCF_django.settings'
+> Starting development server at http://127.0.0.1:8000/
+> Quit the server with CONTROL-C.
 
-> Open the internet browser and go to http://localhost:8000/
+Open the internet browser and go to http://localhost:8000/
 ```
 You will find further instructions for installation and setup at http://myvcf.readthedocs.io/
 
