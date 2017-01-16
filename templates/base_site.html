@@ -45,7 +45,7 @@ $(document).ready(function(){
             url: 'delete_db/',
             type: 'POST',
             data: {'csrfmiddlewaretoken': '{{ csrf_token }}',
-                    'project_name' : id}, // data sent with the post request
+                   'project_name' : id}, // data sent with the post request
             success: function(obj){
                 // Get the obj from django function
                 var res = JSON.parse(obj);

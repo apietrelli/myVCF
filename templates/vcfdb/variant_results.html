@@ -23,7 +23,7 @@
 $(document).ready(function() {
 
     if ({{ low_ac }} == 1) {
-        console.log({{low_ac}});
+        console.log("Alert Low_AC");
         $('#alert_ac').show()
     };
 
@@ -148,7 +148,6 @@ $(document).ready(function() {
                 $('#pop_table_exac').DataTable().clear().draw();
             },
         },
-
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
 
@@ -341,7 +340,7 @@ $(function () {
     </div>
         <div id="exac_data" class="col-md-6 row">
             <div class="row">
-            <strong>ExAC (GRCh37/hg19)</strong>
+            <strong>ExAC ({{ assembly_label }})</strong>
         </div>
              <table id="pop_table_exac" class="table small table-sm table-condensed">
                  <thead>
@@ -369,7 +368,7 @@ $(function () {
         <!-- END Separator -->
         <div id="esp_data" class="col-md-5 row">
             <div class="row">
-                <strong>ESP Database (GRCh37/hg19)</strong>
+                <strong>ESP Database ({{ assembly_label }})</strong>
             </div>
              <table id="pop_table_esp" class="table small table-sm table-condensed">
                  <thead>
@@ -383,7 +382,7 @@ $(function () {
             </table>
             <table id="pop_table_1000g" class="table small table-sm table-condensed">
                 <div class="row">
-                    <strong>1000G Phase 3 Database (GRCh37/hg19)</strong>
+                    <strong>1000G Phase 3 Database ({{ assembly_label }})</strong>
                 </div>
                  <thead>
                     <th>Populations</th>

@@ -356,6 +356,7 @@ def display_variant_results(request, variant, project_name):
         sw_annotation = dbinfo.sw_annotation
         gene_annotation = dbinfo.gene_annotation
         samples = ast.literal_eval(dbinfo.samples)
+        assembly_version = dbinfo.assembly_version
         default_col = ast.literal_eval(dbinfo.default_col)
         mutation_col = dbinfo.mutation_col
         n_samples = dbinfo.n_samples()
@@ -399,6 +400,12 @@ def display_variant_results(request, variant, project_name):
             zigosity_index = ["0", "1", "2"]
             zigosity_list = get_zigosity(samples, mutations)
 
+            # Assembly label
+            if assembly_version == "hg19":
+                assembly_label = "GRCh37/hg19"
+            else:
+                assembly_label = "GRCh38/hg38"
+
             context = {'mutations': mutations,
                        'low_ac': low_ac,
                        'n_samples': n_samples,
@@ -409,6 +416,7 @@ def display_variant_results(request, variant, project_name):
                        'zigosity_index': zigosity_index,
                        'zigosity_list': zigosity_list,
                        'project_name': project_name,
+                       'assembly_label' : assembly_label,
                        'variant': variant}
             template = 'variant_results.html'
 
@@ -424,32 +432,84 @@ def get_exac_data(request, variant, project_name):
     s = "-"
     v_split = variant.split(s)
 
-    v = s.join([v_split[0], v_split[1], v_split[3], v_split[4]])
-    url = "http://exac.hms.harvard.edu/rest/variant/variant/" + v
-    r = requests.get(url)
-    if r.ok:
-        response = r.ok
-        exac_data = r.json()
-        populations = exac_data["pop_ans"].keys()
+    # Get assembly version for the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    assembly_version = dbinfo.assembly_version
 
-        res_data = []
-        tmp = {}
-        for pop in populations:
+    if assembly_version == "hg19":
+        # Format variant for EXAC REST
+        v = s.join([v_split[0], v_split[1], v_split[3], v_split[4]])
+
+        url = "http://exac.hms.harvard.edu/rest/variant/variant/" + v
+        r = requests.get(url)
+        if r.ok:
+            response = r.ok
+            exac_data = r.json()
+            populations = exac_data["pop_ans"].keys()
+
+            res_data = []
             tmp = {}
-            tmp["population"] = pop
-            tmp["pop_acs"] = exac_data["pop_acs"][pop]
-            tmp["pop_ans"] = exac_data["pop_ans"][pop]
-            tmp["pop_homs"] = exac_data["pop_homs"][pop]
-            tmp["pop_af"] = float("{0:.6f}".format(exac_data["pop_acs"][pop] / float(exac_data["pop_ans"][pop])))
-            res_data.append(tmp)
+            for pop in populations:
+                tmp = {}
+                tmp["population"] = pop
+                tmp["pop_acs"] = exac_data["pop_acs"][pop]
+                tmp["pop_ans"] = exac_data["pop_ans"][pop]
+                tmp["pop_homs"] = exac_data["pop_homs"][pop]
+                tmp["pop_af"] = float("{0:.6f}".format(exac_data["pop_acs"][pop] / float(exac_data["pop_ans"][pop])))
+                res_data.append(tmp)
 
+        else:
+            response = False
+            res_data = {}
+
+        context = json.dumps({'response': response,
+                              'data': res_data,
+                              'url': url})
     else:
-        response = False
-        res_data = {}
+        # Format variant for VEP REST
+        v = v_split[0] + ':g.' + v_split[1] + v_split[3] + '>' + v_split[4]
 
-    context = json.dumps({'response': response,
-                          'data': res_data,
-                          'url': url})
+        url = "http://rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+        r = requests.get(url)
+        if r.ok:
+            response = r.ok
+            data = r.json()
+            res_data = []
+            val = 0
+            pop_dict = {"exac_nfe_maf": "European (Non-Finnish)",
+                        "exac_fin_maf": "European (Finnish)",
+                        "exac_afr_maf": "African",
+                        "exac_eas_maf": "East Asian",
+                        "exac_sas_maf": "South Asian",
+                        "exac_amr_maf": "Latino",
+                        "exac_oth_maf": "Other"}
+
+            # Tmp results
+            for pop in pop_dict.keys():
+                tmp = {}
+                pop_value = pop_dict[pop]
+                tmp["population"] = pop_value
+                # Set to 0 the allele number because in VEP there is no information on the number
+                tmp["pop_acs"] = "ND"
+                tmp["pop_ans"] = "ND"
+                tmp["pop_homs"] = "ND"
+                try:
+                    tmp["pop_af"] = data[0]['colocated_variants'][0][pop]
+                except:
+                    tmp["pop_af"] = None
+                    val = 1
+                res_data.append(tmp)
+
+            if val == 1:
+                return HttpResponse("")
+        else:
+            response = False
+            res_data = {}
+
+        context = json.dumps({'response': response,
+                              'data': res_data,
+                              'url': url})
+
     return HttpResponse(context)
 
 
@@ -463,8 +523,15 @@ def get_esp_data(request, variant, project_name):
 
     v = v_split[0] + ':g.' + v_split[1] + v_split[3] + '>' + v_split[4]
 
-    # ESP hg19
-    url = "http://grch37.rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+    # Get assembly version for the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    assembly_version = dbinfo.assembly_version
+
+    if assembly_version == "hg19":
+        # ESP hg19
+        url = "http://grch37.rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+    else:
+        url = "http://rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
 
     r = requests.get(url)
     if r.ok:
@@ -517,8 +584,15 @@ def get_1000g_data(request, variant, project_name):
 
     v = v_split[0] + ':g.' + v_split[1] + v_split[3] + '>' + v_split[4]
 
-    # 1000G hg19
-    url = "http://grch37.rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+    # Get assembly version for the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    assembly_version = dbinfo.assembly_version
+
+    if assembly_version == "hg19":
+        # 1000G hg19
+        url = "http://grch37.rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+    else:
+        url = "http://rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
 
     r = requests.get(url)
 
@@ -556,6 +630,65 @@ def get_1000g_data(request, variant, project_name):
                           'url': url})
     return HttpResponse(context)
 
+
+def get_exac_data_hg38(request, variant, project_name):
+    # reformat position from:
+    # CHR-POS-POS-REF-ALT
+    # in
+    # CHR:g.PosRef>ALT
+    s = "-"
+    v_split = variant.split(s)
+
+    v = v_split[0] + ':g.' + v_split[1] + v_split[3] + '>' + v_split[4]
+
+    # Get assembly version for the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    assembly_version = dbinfo.assembly_version
+
+    if assembly_version == "hg19":
+        # ExAC
+        url = "http://grch37.rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+    else:
+        url = "http://rest.ensembl.org/vep/human/hgvs/" + v + "?content-type=application/json"
+
+    r = requests.get(url)
+
+    if r.ok:
+        response = r.ok
+        data = r.json()
+        res_data = []
+        val = 0
+        pop_dict = {"exac_nfe_maf": "European (Non-Finnish)",
+                    "exac_fin_maf": "European (Finnish)",
+                    "exac_afr_maf": "African",
+                    "exac_eas_maf": "East Asian",
+                    "exac_sas_maf": "South Asian",
+                    "exac_amr_maf" : "Latino",
+                    "exac_oth_maf": "Other",
+                    "exac_maf" : "Total"}
+
+        # Tmp results
+        for pop in pop_dict.keys():
+            tmp = {}
+            pop_value = pop_dict[pop]
+            tmp["population"] = pop_value
+            try:
+                tmp["pop_af"] = data[0]['colocated_variants'][0][pop]
+            except:
+                tmp["pop_af"] = None
+                val = 1
+            res_data.append(tmp)
+
+        if val == 1:
+            return HttpResponse("")
+    else:
+        response = False
+        res_data = []
+
+    context = json.dumps({'response': response,
+                          'data': res_data,
+                          'url': url})
+    return HttpResponse(context)
 
 #
 # settings: Get the COL_LIST FROM the DB
