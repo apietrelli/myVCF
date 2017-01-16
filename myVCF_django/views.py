@@ -19,7 +19,12 @@ app_label = "vcfdb"
 project_db = "projects"
 
 def main_page(request):
-    db_list = DbInfo.objects.values("project_name", "gene_annotation", "sw_annotation", "samples", "samples_len")
+    db_list = DbInfo.objects.values("project_name",
+                                    "gene_annotation",
+                                    "sw_annotation",
+                                    "assembly_version",
+                                    "samples",
+                                    "samples_len")
     context = {'db_list': db_list}
     return render(request, 'base_site.html', context)
 
@@ -442,6 +447,7 @@ def submit_vcf(request):
     annotation_version = request.POST['annotation_version']
     vcf_name = request.POST['vcf_name']
     project_name = request.POST['project_name']
+    assembly_version = request.POST['assembly_version']
 
     # Preprocessing
     ## Get the absolute path
@@ -489,7 +495,8 @@ def submit_vcf(request):
                                samples = samples,
                                samples_len = samples_len,
                                default_col = default_col,
-                               mutation_col = mutation_col
+                               mutation_col = mutation_col,
+                               assembly_version = assembly_version
                                )
     db.save()
 
@@ -499,6 +506,7 @@ def submit_vcf(request):
     context = {'sanity_check': sanity_check,
                'vcf_name': vcf_name,
                'annotation_version': annotation_version,
+               'assembly_version' : assembly_version,
                'sw_annotation': sw_annotation,
                'project_name': project_name,
                'loading_time': loading_time,

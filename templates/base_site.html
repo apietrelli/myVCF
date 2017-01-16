@@ -109,6 +109,7 @@ $(document).ready(function(){
                 <th>Project name</th>
                 <th># Samples</th>
                 <th>Annotation software</th>
+                <th>Assembly version</th>
                 <th>ENSEMBL version</th>
                 <th>Delete?</th>
             </tr>
@@ -127,6 +128,9 @@ $(document).ready(function(){
                 </td>
                 <td>
                     {{ db.sw_annotation }}
+                </td>
+                <td>
+                    {{ db.assembly_version }}
                 </td>
                 <td>
                     {{ db.gene_annotation }}

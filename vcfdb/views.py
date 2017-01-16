@@ -57,7 +57,9 @@ def project_homepage(request, project_name):
     dbinfo = DbInfo.objects.filter(project_name=project_name).first()
     sw_annotation = dbinfo.sw_annotation
     gene_annotation = dbinfo.gene_annotation
+    assembly_version = dbinfo.assembly_version
     context = {'project_name': project_name,
+               'assembly_version' : assembly_version,
                'sw_annotation': sw_annotation,
                'gene_annotation': gene_annotation}
     return render(request, 'index.html', context)

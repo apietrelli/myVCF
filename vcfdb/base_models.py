@@ -60,6 +60,7 @@ class DbInfo(models.Model):
     project_name = models.TextField()
     sw_annotation = models.TextField()
     gene_annotation = models.TextField()
+    assembly_version = models.TextField()
     samples = models.TextField()
     samples_len = models.IntegerField()
     default_col = models.TextField()
