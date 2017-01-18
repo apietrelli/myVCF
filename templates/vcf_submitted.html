@@ -23,6 +23,22 @@
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
 
+    <style type="text/css">
+    .dl-horizontal.dl-horizontal-notrunc dt {
+        float: left;
+        width: 160px;
+        overflow: visible;
+        clear: left;
+        text-align: left;
+        text-overflow: clip;
+        white-space: normal;
+    }
+
+    .dl-horizontal dd {
+        margin-bottom: .5em;
+    }
+    </style>
+
     <script>
 
     </script>
@@ -55,25 +71,33 @@
             <label class="btn btn-large btn-success">Your VCF has been uploaded!</label>
         </div>
     </div>
-    <div class="row well marketing">
-        <div class="col-md-7">
-            <p>{{ sanity_check }}</p>
-            <p>{{ project_name }}</p>
-            <p>{{ vcf_name }}</p>
-            <p>{{ sw_annotation }}</p>
-            <p>{{ assembly_version }}</p>
-            <p>{{ annotation_version }}</p>
-            <p>Number of records {{ n_record }}</p>
-            <p>Record mean {{ record_store_time }} </p>
-            <p>VCF storing {{ vcf_store_time }} </p>
-            <p># of record per second {{ n_record_rate }} </p>
-            <p>Total loading in {{ loading_time }} seconds</p>
-            <p>
-                Click on the button below to go back and start to browsing the mutations
-            </p>
+    <div class="row well">
+        <div class="col-md-8">
+            <div class="row">
+                <p class="lead">VCF loading statistics</p>
+            </div>
+
+            <dl class="dl-horizontal dl-horizontal-notrunc">
+                <dt>Number of records</dt>
+                <dd>{{ n_record }}</dd>
+                <dt>Millisecond per record (average)</dt>
+                <dd>{{ record_store_time }}</dd>
+                <dt>VCF storing time</dt>
+                <dd>{{ vcf_store_time }}</dd>
+                <dt>Record loaded per second</dt>
+                <dd>{{ n_record_rate }}</dd>
+                <dt>VCF Total loading time</dt>
+                <dd>{{ loading_time }}</dd>
+            </dl>
+
         </div>
     </div>
-   <div class="col-md-3">
+    <div class="col-md-12">
+        <h4>
+            Click on the button below to go back and start to browsing the mutations
+        </h4>
+    </div>
+    <div class="col-md-3">
         <p></p>
     </div>
     <div class="col-md-3">

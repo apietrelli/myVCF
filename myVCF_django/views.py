@@ -424,7 +424,7 @@ def submit_vcf(request):
 
         # Vcf storing time
         vcf_store_time = (time.time() - start_time)
-        record_store_time=mean(record_time)
+        record_store_time=mean(record_time)*1000
 
         params = l=len(data[0])
         params = ("?," * l)[:-1]
