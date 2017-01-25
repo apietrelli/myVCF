@@ -26,8 +26,7 @@ class App:
   def run_app(self):
       print("Running myVCF...")
       if platform == "win32":
-          # Windows commands
-          pass
+          os.system("python manage.py runserver &") 
       else:
           os.system("python manage.py runserver &")
       print("myVCF page is opening in the browser...")
