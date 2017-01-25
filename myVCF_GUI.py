@@ -26,11 +26,12 @@ class App:
   def run_app(self):
       print("Running myVCF...")
       if platform == "win32":
-          os.system("START /B python manage.py runserver") 
+          os.system("START /B python manage.py runserver")
+          time.sleep(4)
       else:
           os.system("python manage.py runserver &")
+          time.sleep(2)
       print("myVCF page is opening in the browser...")
-      time.sleep(2)
       url = "http://localhost:8000/"
       webbrowser.open(url,new=2)
       return True
@@ -38,8 +39,7 @@ class App:
   def stop_app(self):
       print("Stopping myVCF...")
       if platform == "win32":
-          # Windows command to
-          pass
+          os.system("taskkill /F /IM python.exe")
       else:
           os.system('pkill -f "python manage.py runserver"')
       print "myVCF is shoutdown"
