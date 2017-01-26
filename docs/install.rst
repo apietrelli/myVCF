@@ -247,7 +247,7 @@ Finally, you're ready to start the application:
 
 - Open the **myVCF** GUI
 
-- Click on "Run myVCF"
+- Click on **"Run myVCF"**
 
 .. figure:: img/myVCF_GUI_run_app.png
    :scale: 30 %
