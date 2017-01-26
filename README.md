@@ -27,7 +27,7 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
 
 <img src="docs/img/myVCF_GUI.png" width="50%">
 
-* It will open a browser with myVCF homepage!
+* It will open a browser with **myVCF homepage**!
 
 #### Quick start-up on Terminal
 
@@ -50,6 +50,10 @@ python manage.py runserver
 
 Open the internet browser and go to http://localhost:8000/
 ```
+
+
+### Where I can find the documentation? ###
+
 You will find further instructions for installation and setup at http://myvcf.readthedocs.io/
 
 ### Who do I talk to? ###
