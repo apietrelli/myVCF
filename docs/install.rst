@@ -241,7 +241,24 @@ Now exit from the python shell.
 Launch the application
 ----------------------
 
-Finally, you're ready to start the webserver::
+Finally, you're ready to start the application:
+
+**With GUI**
+
+- Open the **myVCF** GUI
+
+- Click on "Run myVCF"
+
+.. figure:: img/myVCF_GUI_run_app.png
+   :scale: 50 %
+   :alt: Run th app GUI
+   :align: center
+
+- Wait few second for browser loading the homepage
+
+**With Terminal**
+
+::
 
     # UNIX on terminal
     $> cd path/to/myVCF/
