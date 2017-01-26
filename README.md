@@ -23,9 +23,9 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
   - **myVCF.desktop** for Linux
 
 
-* Click on "Run myVCF" from the GUI menu
+* Click on **"Run myVCF"** from the GUI menu
 
-<img src="docs/img/myVCF_GUI.png" width="400">
+<img src="docs/img/myVCF_GUI.png" width="80%">
 
 * It will open a browser with myVCF homepage!
 
