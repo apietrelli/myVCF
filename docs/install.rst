@@ -185,7 +185,7 @@ If the :code:`python2.7` installation doesn't fail, you should have also install
 
 Now we are going to install all the dependencies using just one command-line using :code:`pip`
 
-**Unix (Ubuntu/Debian system)/MAC**
+- **Unix (Ubuntu/Debian system)/MAC**
 
 1. Open the terminal
 2. Go to :code:`myVCF/` directory
@@ -216,7 +216,7 @@ Now exit from the python shell.
 
 .. _cmd_label:
 
-**Windows**
+- **Windows**
 
 1. Open the MS-DOS prompt (:code:`cmd.exe`)
 
