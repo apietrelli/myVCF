@@ -250,7 +250,7 @@ Finally, you're ready to start the application:
 - Click on "Run myVCF"
 
 .. figure:: img/myVCF_GUI_run_app.png
-   :scale: 50 %
+   :scale: 30 %
    :alt: Run th app GUI
    :align: center
 
