@@ -25,9 +25,9 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
 
 * Click on "Run myVCF" from the GUI menu
 
-[!myVCF_GUI image](docs/img/myVCF_GUI.png)
+![myVCF_GUI image](docs/img/myVCF_GUI.png)
 
-
+* It will open a browser with myVCF homepage!
 
 #### Quick start-up on Terminal
 
