@@ -96,10 +96,17 @@ You can test the installation in the terminal
 
 You can download the :code:`python2.7` package from the `Python project site <https://www.python.org/downloads/>`_
 
-Follow the installation process.
-By default Python2.7 will be installed in :code:`C:\Python27`. Please **DO NOT** modify the Python path and leave the default installation destination directory.
+Follow the installation process pointing out this two requirements to let myVCF full compatible with your system:
+
+- By default Python2.7 will be installed in :code:`C:\Python27`. Please **DO NOT** modify the Python path and leave the default installation destination directory.
 
 .. warning:: Please download the **Python2.7** package **NOT** Python3.x
+
+- Please select the option **"OPZIONE"** during installation. This will allow the **myVCF_GUI.py** launcher to be functional with no errors.
+
+|python_path|
+
+.. |python_path| image:: img/myVCF_python_path.png
 
 sqlite
 ^^^^^^
