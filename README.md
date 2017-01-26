@@ -12,7 +12,24 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
 
 ### How do I get set up? ###
 
-#### Quick start-up
+#### Quick start-up with GUI
+
+* Open myVCF directory
+
+* Double-Click to open myVCF GUI
+
+  - **myVCF_GUI.py** for Windows
+  - **myVCF icon** for MAC
+  - **myVCF.desktop** for Linux
+
+
+* Click on "Run myVCF" from the GUI menu
+
+[!myVCF_GUI image](docs/img/myVCF_GUI.png)
+
+
+
+#### Quick start-up on Terminal
 
 ``` shell
 # Clone myVCF GitHub project
@@ -37,5 +54,4 @@ You will find further instructions for installation and setup at http://myvcf.re
 
 ### Who do I talk to? ###
 
-* Alessandro Pietrelli pietrelli@ingm.org 
-
+* Alessandro Pietrelli pietrelli@ingm.org
