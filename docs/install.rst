@@ -165,6 +165,22 @@ Python library dependecies
 
 Now that all the major components have been installed, lets proceed with the last step of the installation process regarding Python library dependencies.
 
+**Install packages with myVCF_GUI**
+
+The easiest way to satisfy the myVCF Python dependencies is to use the myVCF GUI.
+
+1. Open the GUI menu by double-clicking the icon relative to your system for launching the GUI
+2. Click on the button **"Install packages"**
+
+.. figure:: img/myVCF_GUI_Install_packages.png
+   :scale: 70 %
+   :alt: Install packages with myVCF GUI
+   :align: center
+
+3. The system will install all the dipendencies to start **myVCF** properly
+
+**Install packages with terminal**
+
 If the :code:`python2.7` installation doesn't fail, you should have also installed :code:`pip` which is the Python command for library installation.
 
 Now we are going to install all the dependencies using just one command-line using :code:`pip`
