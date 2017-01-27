@@ -106,7 +106,7 @@ Follow the installation process pointing out this two requirements to let myVCF 
 
 |python_path|
 
-.. |python_path| image:: img/myVCF_python_path.png
+.. |python_path| image:: img/myVCF_python_install.png
 
 sqlite
 ^^^^^^
