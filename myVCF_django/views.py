@@ -10,6 +10,7 @@ import re
 import os
 from subprocess import check_output
 import vcf
+import sys
 
 import sqlite3
 from vcfdb.base_models import DbInfo
@@ -458,6 +459,7 @@ def submit_vcf(request):
     database = os.path.join(base_dir, "data/db/projects_DB.sqlite3")
     dbinfo = os.path.join(base_dir, "data/db/myVCF_DB.sqlite3")
     manage_script = os.path.join(base_dir, "manage.py")
+    python_bin = sys.executable
     # Read the VCF
     vcf_handler = vcf.Reader(open(filename, 'r'))
 
@@ -517,7 +519,7 @@ def submit_vcf(request):
                }
 
     # Modify model.py
-    command = ["python",
+    command = [python_bin,
                manage_script,
                "inspectdb",
                "--database",
