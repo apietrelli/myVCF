@@ -1,11 +1,17 @@
 from Tkinter import *
 import os
 import sys
-import pip
 import webbrowser
 import time
 
 platform = sys.platform
+
+try:
+    import pip
+except ImportError:
+    os.system("python lib/get-pip.py")
+    import pip
+
 
 class App:
   def __init__(self, master):
