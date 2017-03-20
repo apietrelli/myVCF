@@ -7,7 +7,8 @@ import time
 platform = sys.platform
 python_bin = sys.executable
 path = os.path.dirname(__file__)
-print(path)
+# Go to myVCF dir
+os.chdir(path)
 
 try:
     import pip
@@ -35,12 +36,12 @@ class App:
   def run_app(self):
       print("Running myVCF...")
       if platform == "win32":
-          os.system("START /B "+ python_bin +" "+ path +"\\manage.py runserver")
-          print("START /B "+ python_bin +" "+ path +"\\manage.py runserver")
+          os.system("START /B "+ python_bin + " manage.py runserver")
+          #print("START /B "+ python_bin +" manage.py runserver")
           time.sleep(4)
       else:
-          os.system("echo " + python_bin)
-          os.system(python_bin +" "+ path +"/manage.py runserver &")
+          #os.system("echo " + python_bin)
+          os.system(python_bin + " manage.py runserver &")
           time.sleep(2)
       print("myVCF page is opening in the browser...")
       url = "http://localhost:8000/"
