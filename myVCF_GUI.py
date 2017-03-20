@@ -6,6 +6,8 @@ import time
 
 platform = sys.platform
 python_bin = sys.executable
+path = os.path.dirname(__file__)
+print(path)
 
 try:
     import pip
@@ -33,11 +35,12 @@ class App:
   def run_app(self):
       print("Running myVCF...")
       if platform == "win32":
-          os.system("START /B "+ python_bin +" manage.py runserver")
+          os.system("START /B "+ python_bin +" "+ path +"\\manage.py runserver")
+          print("START /B "+ python_bin +" "+ path +"\\manage.py runserver")
           time.sleep(4)
       else:
           os.system("echo " + python_bin)
-          os.system(python_bin +" manage.py runserver &")
+          os.system(python_bin +" "+ path +"/manage.py runserver &")
           time.sleep(2)
       print("myVCF page is opening in the browser...")
       url = "http://localhost:8000/"
@@ -57,7 +60,10 @@ class App:
           pip.main(['install', '--user', '-r', requirements])
       try:
           print("Installing Python requirements...")
-          req = "requirements.txt"
+          if platform == "win32":
+            req = path + "\\requirements.txt"
+          else:
+            req = path + "/requirements.txt"
           install(req)
           print "All libraries are installed \nClick on Run myVCF button to run the App"
       except:
