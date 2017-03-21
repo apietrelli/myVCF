@@ -103,7 +103,12 @@ Follow the installation process pointing out this two requirements to let myVCF 
 
 .. warning:: Please download the **Python2.7** package **NOT** Python3.x
 
-- Please select the option **Add Python to PATH** during installation. This will allow the **myVCF_GUI.py** launcher to be functional with no errors.
+- Please verify that the options:
+1. **Add Python to PATH**
+2. **Tcl/Tk**
+are selected during the installation step.
+
+This will allow the **myVCF_GUI.py** launcher to be functional with no errors.
 
 |python_path|
 
