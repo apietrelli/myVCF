@@ -69,7 +69,7 @@ class App:
       if platform == "win32":
           os.system("taskkill /F /IM python.exe")
       else:
-          os.system('pkill -f "python manage.py runserver"')
+          os.system('pkill -f "'+python_bin+' manage.py runserver"')
       print "myVCF is shoutdown"
 
   def install_packages(self):
