@@ -8,16 +8,17 @@ Download myVCF
 
 You can download **myVCF** package from:
 
-- **Compressed package**
+- **Compressed ZIP package**
 
 1. Go to `myVCF homepage <https://apietrelli.github.io/myVCF/>`_
-2. Click on one of the buttons |download_buttons|
+2. Click on Clone or Download button
+3. Click on **Download ZIP**|github_button|
 
-.. |download_buttons| image:: img/myVCF_download_buttons.png
-3. Extract the compressed file in your working directory
-4. At the end of the process you will have a directory named :code:`myVCF/` containing the desktop application
+.. |github_button| image:: img/myVCF_github_download.png
+4. Extract the compressed file in your working directory
+5. At the end of the process you will have a directory named :code:`myVCF-master/` containing the desktop application
 
-- **GitHub**
+- **:code:`git` command line**
 
 If you have GitHub installed on your computer, you can clone the project directly on your working directory
 
