@@ -8,7 +8,7 @@ myVCF is a user-friendly platform that helps end-users, without programming skil
 
 ### Do you want to try with your own data? ###
 
-Download the myVCF package or clone the Github project - http://github.com/apietrelli/myVCF/
+Download the myVCF package or clone the Github project - [http://github.com/apietrelli/myVCF/](http://github.com/apietrelli/myVCF/)
 
 ### How do I get set up? ###
 
@@ -55,7 +55,7 @@ Open the internet browser and go to http://localhost:8000/
 
 ### Where I can find the documentation? ###
 
-You will find further instructions for installation and setup at http://myvcf.readthedocs.io/
+You will find further instructions for installation and setup at [http://myvcf.readthedocs.io/](http://myvcf.readthedocs.io/)
 
 ### Who do I talk to? ###
 
