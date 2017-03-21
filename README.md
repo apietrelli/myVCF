@@ -59,4 +59,4 @@ You will find further instructions for installation and setup at [http://myvcf.r
 
 ### Who do I talk to? ###
 
-* Alessandro Pietrelli pietrelli@ingm.org
+* Alessandro Pietrelli [pietrelli@ingm.org](mailto:pietrelli@ingm.org)
