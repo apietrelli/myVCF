@@ -1,1 +1,0 @@
-python myVCF_GUI.py
