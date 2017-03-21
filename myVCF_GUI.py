@@ -37,19 +37,32 @@ class App:
                          command=self.install_packages)
     self.slogan.pack(side=LEFT)
   def run_app(self):
+      def check_installation():
+          try:
+              import django
+              response = True
+          except ImportError:
+              print "[ERROR] myVCF dependencies are not indtalled yet! \
+                     Please clink on Install Packages before running myVCF"
+              response = False
+          return response
+
       print("Running myVCF...")
-      if platform == "win32":
-          os.system("START /B "+ python_bin + " manage.py runserver")
-          #print("START /B "+ python_bin +" manage.py runserver")
-          time.sleep(4)
+      if check_installation():
+        if platform == "win32":
+            os.system("START /B "+ python_bin + " manage.py runserver")
+            #print("START /B "+ python_bin +" manage.py runserver")
+            time.sleep(4)
+        else:
+            #os.system("echo " + python_bin)
+            os.system(python_bin + " manage.py runserver &")
+            time.sleep(2)
+        print("myVCF page is opening in the browser...")
+        url = "http://localhost:8000/"
+        webbrowser.open(url,new=2)
+        return True
       else:
-          #os.system("echo " + python_bin)
-          os.system(python_bin + " manage.py runserver &")
-          time.sleep(2)
-      print("myVCF page is opening in the browser...")
-      url = "http://localhost:8000/"
-      webbrowser.open(url,new=2)
-      return True
+        return False
 
   def stop_app(self):
       print("Stopping myVCF...")
