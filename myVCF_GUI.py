@@ -7,6 +7,9 @@ import time
 platform = sys.platform
 python_bin = sys.executable
 path = os.path.dirname(__file__)
+# Workaround for launching myVCF_Gui.py from terminal
+if path=="":
+    path="./"
 # Go to myVCF dir
 os.chdir(path)
 
