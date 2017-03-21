@@ -19,9 +19,7 @@ Download the myVCF package or clone the Github project - http://github.com/apiet
 * Double-Click to open myVCF GUI
 
   - **myVCF_GUI.py** for Windows
-  - **myVCF icon** for MAC
-  - **myVCF.desktop** for Linux
-
+  - **myVCF_launcher** for MAC and Linux
 
 * Click on **"Run myVCF"** from the GUI menu
 
