@@ -271,8 +271,12 @@ Finally, you're ready to start the application:
 
 - Wait few second for browser loading the homepage
 
-.. warning::
-  If you are on Windows and the double-click on **myVCF_GUI.py** does not open the application, try to open the file with :code:`Right mouse click -> Open with -> Choose default program` and browse the directory to find Python executable :code:`python.exe` in :code:`C:/Python27/`
+.. Note::
+  If you are on Windows and the double-click on **myVCF_GUI.py** does not open the application, try to open the file with
+
+  :code:`Right mouse click -> Open with -> Choose default program`
+
+  and browse the directory to find Python executable :code:`python.exe` in :code:`C:/Python27/`
 
   .. figure:: img/myVCF_open_with.png
      :scale: 70 %
