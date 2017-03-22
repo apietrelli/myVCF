@@ -149,6 +149,10 @@ Please follow these instructions to install :code:`sqlite` according to your ope
 
 **Windows**
 
+We tested different version of Windows (XP, 7, 10) and in all the Windows systems the :code:`sqlite` library was already installed by default.
+
+If you have troubles in launching myVCF application, follow this procedure to install the :code:`sqlite` necessary files.
+
 1. Go to the :code:`sqlite` web site https://sqlite.org/download.html and download precompiled binaries from the Windows section.
 
   * **sqlite-dll-win32-x86-\*.zip**
@@ -253,16 +257,27 @@ Finally, you're ready to start the application:
 
 **With GUI**
 
-- Open the **myVCF** GUI
+- Open the **myVCF** GUI:
+
+* Double-click on **myVCF_GUI.py** (Windows)
+* Double-click on **myVCF_launcher** (MAC/Unix)
 
 - Click on **"Run myVCF"**
 
 .. figure:: img/myVCF_GUI_run_app.png
    :scale: 30 %
-   :alt: Run th app GUI
+   :alt: Run the app GUI
    :align: center
 
 - Wait few second for browser loading the homepage
+
+.. warning::
+  If you are on Windows and the double-click on **myVCF_GUI.py** does not open the application, try to open the file with :code:`Right mouse click -> Open with -> Choose default program` and browse the directory to find Python executable :code:`python.exe` in :code:`C:/Python27/`
+
+  .. figure:: img/myVCF_open_with.png
+     :scale: 30 %
+     :alt: Open with in windows
+     :align: center
 
 **With Terminal**
 

@@ -42,8 +42,7 @@ class App:
               import django
               response = True
           except ImportError:
-              print "[ERROR] myVCF dependencies are not indtalled yet! \
-                     Please clink on Install Packages before running myVCF"
+              print "[ERROR] myVCF dependencies are not installed yet! \nPlease click on Install Packages before running myVCF"
               response = False
           return response
 
