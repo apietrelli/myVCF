@@ -48,5 +48,6 @@ urlpatterns = [
     #url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
 
+
 handler404 = views.error404
 handler500 = views.error500
