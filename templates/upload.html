@@ -110,17 +110,19 @@ $(document).ready(function() {
                     $("#warnMsg_vcf_name").show();
                     $("#warnMsg_vcf_name").html("<p>The VCF does not contain any annotation or is a non-human reference</p>");
                     var radios_assembly = document.getElementsByName("assembly_version");
-                    radios_assembly[2].checked = true;
                     // Disable assembly fields
                     for (var i=0, iLen=radios_assembly.length; i<iLen; i++) {
                         radios_assembly[i].disabled = true;
                     }
+                    radios_assembly[2].disabled = false;
+                    radios_assembly[2].checked = true;
                     // Disable transcript annotation fields
                     var radios_tx = document.getElementsByName("annotation_version");
-                    radios_tx[2].checked = true;
-                    for (var i=0, iLen=radios_tx.length; i<iLen; i++) {
+                    for (var i=0, iLen=radios_tx.length-1; i<iLen; i++) {
                         radios_tx[i].disabled = true;
                     }
+                    radios_tx[2].disabled = false;
+                    radios_tx[2].checked = true;
 
                 }
             $("#validMsg_vcf_name").show();

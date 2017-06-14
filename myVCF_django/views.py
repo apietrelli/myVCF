@@ -305,62 +305,52 @@ def submit_vcf(request):
 
         return 0
 
-    def populateTablesSQLite3(vcf_handler, database, annotation, project_name):
-        import string
-        import time
+    def generateTableFromVCF_other(vcf_handler, database, project_name):
         import sqlite3
+
+        table_name = ""
+        table_type = ""
+
+        Drop_query = "DROP TABLE IF EXISTS " + project_name + ";"
+        DefaultStatement = "CREATE TABLE " + project_name + "(ID INT PRIMARY KEY NOT NULL, CHROM TEXT NOT NULL, POS INT NOT NULL, RS_ID TEXT, REF TEXT NOT NULL, ALT TEXT, QUAL REAL, FILTER TEXT, "
+        TableIndex = []
+
+        for id in vcf_handler.infos.keys():
+            if vcf_handler.infos[id][2] == "String":
+                table_type = "TEXT"
+            elif vcf_handler.infos[id][2] == "Float":
+                table_type = "REAL"
+            elif vcf_handler.infos[id][2] == "Integer":
+                table_type = "INTEGER"
+            else:
+                table_type = "TEXT"
+            # print vcf_handler.infos[id][0]
+            if vcf_handler.infos[id][0][0].isdigit():
+                table_name = '"u' + vcf_handler.infos[id][0] + '"'
+            elif vcf_handler.infos[id][0].startswith("GERP"):
+                table_name = '"GERP_RS"'
+            else:
+                table_name = '"' + vcf_handler.infos[id][0] + '"'
+            DefaultStatement = DefaultStatement + table_name + " " + table_type + ", "
+            TableIndex.append(table_name)
+        # Samples columns
+        SampleStatement = ""
+        for sample in range(len(vcf_handler.samples)):
+            SampleStatement += '"' + vcf_handler.samples[sample] + '"' + " TEXT, "
+            TableIndex.append(vcf_handler.samples[sample])
+        query = DefaultStatement + SampleStatement[:-2] + ");"
+
+        # Create DB in sqlite3
 
         conn = sqlite3.connect(database)
         c = conn.cursor()
-
-        autoincremental_id = 1
-
-        query = ""
-        start_time = time.time()
-
-        for record in vcf_handler:
-            DefaultStatement = ""
-            coordinates = []
-            info = []
-            gt = []
-
-            ### Base information generation (CHR, POS, ALT ...) and ID
-            coordinates = [autoincremental_id, record.CHROM, str(record.POS), str(record.ID), record.REF,
-                           str(record.ALT[0]), str(record.QUAL)]
-            # print base
-            # coordinates=",".join(baseStr)
-
-            ### INFO generation
-            null = string.maketrans('', '')
-            for i in vcf_handler.infos.keys():
-                try:
-                    res = string.translate(str(record.INFO[i]), null, "[']")
-                except KeyError:
-                    res = "None"
-                # print i,res
-                if annotation == "annovar":
-                    info.append(res)
-                else:
-                    CSQ = ""
-                    if i == "CSQ":
-                        CSQ = res.split("|")
-                        info.append(CSQ)
-                    else:
-                        info.append(res)
-            ### Genotype generation
-            for i in range(len(record.samples)):
-                gt.append(str(record.samples[i].gt_type))
-
-            autoincremental_id += 1
-            DefaultStatement = coordinates + info + gt
-            query = "INSERT OR IGNORE INTO " + project_name + " VALUES(" + string.translate(str(DefaultStatement), null, "[]") + ");"
-            # if autoincremental_id % 1000 == 0:
-            # print "Written " + str(autoincremental_id) + " lines.."
-            c.execute(query)
+        c.execute(Drop_query)
+        #return(query)
+        c.execute(query)
         conn.commit()
-        conn.close()
-        loading_time = (time.time() - start_time)
-        return loading_time
+        c.close()
+
+        return 0
 
     def populateTablesSQLite3_executemany(vcf_handler, database, annotation, project_name):
         import string
@@ -405,7 +395,7 @@ def submit_vcf(request):
                 except KeyError:
                     res = "None"
                 # print i,res
-                if annotation == "annovar":
+                if (annotation == "annovar" or annotation == "other"):
                     info.append(res)
                 else:
                     CSQ = ""
@@ -481,10 +471,14 @@ def submit_vcf(request):
         generateTableFromVCF_annovar(vcf_handler, database, project_name)
         default_col = ['chrom', 'pos', 'rs_id', 'ref', 'alt', 'gene_refgene', 'ac', 'af', 'exonicfunc_ensgene']
         mutation_col = 'exonicfunc_ensgene'
-    else:
+    elif sw_annotation == "vep":
         generateTableFromVCF_VEP(vcf_handler, database, project_name)
         default_col = ['chrom', 'pos', 'rs_id', 'ref', 'alt', 'symbol', 'ac', 'af', 'consequence']
         mutation_col = 'consequence'
+    else:
+        generateTableFromVCF_VEP(vcf_handler, database, project_name)
+        default_col = ['chrom', 'pos', 'rs_id', 'ref', 'alt', 'ac', 'af']
+        mutation_col = 'chrom'
     #########
     ## Single execution for every set of values
     #loading_time = populateTablesSQLite3(vcf_handler, database, sw_annotation, project_name)
