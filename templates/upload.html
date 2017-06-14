@@ -102,8 +102,8 @@ $(document).ready(function() {
                     for (var i=0, iLen=radios_tx.length; i<iLen; i++) {
                         radios_tx[i].disabled = false;
                     }
-                    radios_tx[2].disable = true
-                    radios_assembly[2].disable = true
+                    //radios_tx[2].disabled = true
+                    //radios_assembly[2].disabled = true
                 }
                 else{
                     $("#validMsg_vcf_name").html("<p>The VCF is good!<br> Annotation system: "+ annotation + "</p>");
@@ -204,7 +204,7 @@ $(document).ready(function() {
     </div>
     <div class="jumbotron">
         <h1>Upload Page</h1>
-        <p class="lead">Start page for VCF project</p>
+        <p class="lead">Select a VCF file to start project</p>
     </div>
     <div class="row marketing">
         <div>
