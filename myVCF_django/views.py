@@ -141,13 +141,16 @@ def preprocessing_vcf(request):
         # VEP = CSQ field
         elif ( (annovar_field or annovar_exonic_field or annovar_genesymbol_field) not in vcf_handler.infos.keys()) and (vep_field not in vcf_handler.infos.keys()):
             msg = "This VCF is not annotated with Annovar or VEP software<br>" \
-                  "Please follow the manual to make a VCF suitable for myVCF!!"
+                  "The system consider this VCF as non-human file" \
+                  "Please follow the manual to make a human VCF suitable for myVCF, if the reference is human!!"
+            valid = True
+            annotation = "other"
             return valid, msg, annotation
 
         else:
             if annovar_field in vcf_handler.infos.keys():
                 annotation="annovar"
-            if vep_field in vcf_handler.infos.keys():
+            elif vep_field in vcf_handler.infos.keys():
                 annotation="vep"
 
         valid = True
