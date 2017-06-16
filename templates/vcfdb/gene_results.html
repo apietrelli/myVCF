@@ -174,6 +174,7 @@ $(function () {
     });
 });
 });
+
 </script>
 
 {% endblock %}
@@ -199,7 +200,7 @@ $(function () {
         {% if type == "gene" %}
             <h2>Gene: <em>{{ gene_symbol.genename }}</em> ({{ query }})</h2>
         {% else %}
-            <h2>Region: {{ query }} </h2>
+            <h2>Region: {{ query }}</h2>
         {% endif %}
     </div>
     <div class="row">
@@ -239,7 +240,11 @@ $(function () {
                 {% for mutation in mutations %}
                     <tr>
                         <td class="small">
+                            {% if sw_annotation != "other" %}
                             <a href="/vcfdb/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                            {% else %}
+                            <a href="/vcfdb/other/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                            {% endif %}
                                 {{ mutation.chrom }}:{{ mutation.pos }} {{ mutation.ref }} / {{ mutation.alt }}
                             </a>
                         </td>

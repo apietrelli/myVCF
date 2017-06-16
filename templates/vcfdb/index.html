@@ -9,7 +9,11 @@
     <div class="header clearfix">
         <nav>
             <ul class="nav nav-pills pull-right">
+                {% if sw_annotation != "other" %}
                 <li role="presentation"><a href="/vcfdb/{{ project_name }}/">Home</a></li>
+                {% else %}
+                <li role="presentation"><a href="/vcfdb/other/{{ project_name }}/">Home</a></li>
+                {% endif %}
                 <li role="presentation"><a href="mailto:pietrelli@ingm.org?subject=[myVCF] Issue">Contact Developer</a></li>
                 <li role="presentation"><a href="/">myVCF Page</a></li>
             </ul>
@@ -36,6 +40,7 @@
             </form>
         </div><!-- /.row -->
         <p class="text-muted text-left" style="font-size:14px">
+            {% if sw_annotation != "other" %}
             Examples - Gene :
             <a href="/vcfdb/{{ project_name }}/gene/ENSG00000164362/"><em>TERT</em></a>
             - Region:
@@ -44,6 +49,10 @@
             <a href="/vcfdb/{{ project_name }}/variant/1-865628-865628-G-A">1-865628-865628-G-A</a>
             - dbSNP:
             <a href="/vcfdb/{{ project_name }}/search/?q=rs75062661">rs75062661</a>
+            {% else %}
+            Examples - Region:
+            <a href="/vcfdb/other/{{ project_name }}/region/contig1-69500-70000/">contig1:69500-70000</a>
+            {% endif %}
         </p>
     </div>
 
@@ -56,6 +65,7 @@
                 You can query the database by searching for:
                 <p>
                 <dl class="dl-horizontal">
+                    {% if sw_annotation != "other" %}
                     <dt>Gene name</dt>
                     <dd>Use Official Gene Symbol. (ex. <i>SAMD11</i>)</dd>
                     <dt>Genomic region</dt>
@@ -64,13 +74,21 @@
                     <dd>Search with dbSNP ID like <i>rs324239</i>.</dd>
                     <dt>Variant</dt>
                     <dd>Use the format Chr-Position-Position-Ref-Alt. (ex.<i>1-456783-456783-A-T</i>)</dd>
+                    {% else %}
+                    <dt>Genomic region</dt>
+                    <dd>Use the format Chr:Start-End to perform a correct search. (ex. contig1:20000-200100)</dd>
+                    {% endif %}
                 </dl>
                 </p>
                 <p>
                     To visualize the VCF report, please click on the button below
                 </p>
             </h5>
+            {% if sw_annotation != "other" %}
             <a href="/vcfdb/{{ project_name }}/summary_statistics" class="btn btn-warning" role="button">
+            {% else%}
+            <a href="/vcfdb/other/{{ project_name }}/summary_statistics" class="btn btn-warning" role="button">
+            {% endif %}
                 <i class="glyphicon glyphicon-cog"></i> Summary statistics
             </a>
             <hr>
@@ -86,19 +104,25 @@
             <table class="table"><tbody>
             <tr>
                 <td>Assembly version</td>
-                <td>{{ assembly_version }}</td>
+                <td>{% filter force_escape|upper %}{{ assembly_version }}{% endfilter %}</td>
             </tr>
+            {% if sw_annotation != "other" %}
             <tr>
                 <td>ENSEMBL version</td>
                 <td>{{ gene_annotation }}</td>
             </tr>
+            {% endif %}
             <tr>
                 <td>Annotation software</td>
                 <td>{% filter force_escape|upper %}{{ sw_annotation }}{% endfilter %}</td>
             </tr>
             <tr>
                 <td>
+                    {% if sw_annotation != "other" %}
                     <a href="/vcfdb/{{ project_name }}/settings" class="btn btn-info" role="button">
+                    {% else %}
+                    <a href="/vcfdb/other/{{ project_name }}/settings" class="btn btn-info" role="button">
+                    {% endif %}
                         <i class="glyphicon glyphicon-cog"></i> DB Settings
                     </a>
                 </td>

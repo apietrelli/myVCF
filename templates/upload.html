@@ -118,7 +118,7 @@ $(document).ready(function() {
                     radios_assembly[2].checked = true;
                     // Disable transcript annotation fields
                     var radios_tx = document.getElementsByName("annotation_version");
-                    for (var i=0, iLen=radios_tx.length-1; i<iLen; i++) {
+                    for (var i=0, iLen=radios_tx.length; i<iLen; i++) {
                         radios_tx[i].disabled = true;
                     }
                     radios_tx[2].disabled = false;

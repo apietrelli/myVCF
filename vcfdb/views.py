@@ -316,6 +316,7 @@ def display_region_results(request, region, project_name):
                    'category': category,
                    'values': values,
                    'type': type,
+                   'sw_annotation': sw_annotation,
                    'project_name': project_name}
 
         return render(request, 'gene_results.html', context)
@@ -331,7 +332,7 @@ def display_variant_results(request, variant, project_name):
         v['alt'] = split_v[4]
         return v
 
-    def get_mutations(model, variant, project_db, mutation_col):
+    def get_mutations(model, variant, project_db):
         # return the mutation of a particular location
         try:
             mutations = model.objects.using(project_db).filter(chrom=variant['chrom'],
@@ -376,14 +377,20 @@ def display_variant_results(request, variant, project_name):
         model_ensembl = apps.get_model(app_label=app_label,
                                        model_name=model_name_ensembl)
 
-        mutations = get_mutations(model, v, project_db, mutation_col)
+        mutations = get_mutations(model, v, project_db)
         csq = getattr(mutations, mutation_col)
-        ensgene_id = getattr(mutations, gene_field)
-        # To fix
-        # Example: in annovar annotation, 1:865628 G / A SAMD11
-        gene = model_ensembl.objects.filter(ensgene=ensgene_id).values("genename", "description").distinct()
-        # To fix: Multiple ENSGID in gene
-        #return HttpResponse(gene)
+
+        # Workaround for "other" VCFs
+        if sw_annotation != "other":
+            ensgene_id = getattr(mutations, gene_field)
+            # To fix
+            # Example: in annovar annotation, 1:865628 G / A SAMD11
+            gene = model_ensembl.objects.filter(ensgene=ensgene_id).values("genename", "description").distinct()
+            # To fix: Multiple ENSGID in gene
+            # return HttpResponse(gene)
+        else:
+            ensgene_id = "Null"
+            gene = "Null"
 
 
         if mutations == 0:
@@ -417,6 +424,7 @@ def display_variant_results(request, variant, project_name):
                        'zigosity_list': zigosity_list,
                        'project_name': project_name,
                        'assembly_label' : assembly_label,
+                       'sw_annotation' : sw_annotation,
                        'variant': variant}
             template = 'variant_results.html'
 

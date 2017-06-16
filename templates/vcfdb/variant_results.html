@@ -297,6 +297,7 @@ $(function () {
                 <dd>{{ mutations.af }}</dd>
                 <dt>Allele count</dt>
                 <dd>{{ mutations.ac }} / {{ mutations.an }}</dd>
+                {% if sw_annotation != "other" %} <!-- 1. Start if other -->
                 <dt>UCSC</dt>
                 <dd><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?position=chr{{mutations.chrom}}%3A{{mutations.pos}}-{{mutations.pos}}" target="_blank">{{ variant }}</a></dd>
                 <dt>ClinVar</dt>
@@ -325,16 +326,29 @@ $(function () {
                 <dd>{{ g.description }}</dd>
             {% endfor %}
             </dl>
+                {% endif %} <!-- 1. End if other -->
         </div>
         <!-- Separator -->
+        {% if sw_annotation != "other" %} <!-- 2. Start if other -->
         <div class="col-md-1"></div>
+        {% else %}
+        <div class="col-md-1"></div>
+        {% endif %} <!-- 2. End if other -->
         <!-- END Separator -->
-        <div class="panel panel-default col-md-6">
+
+
+        <div class="panel panel-default col-md-5">
             <div id="zigosity_plot_heading" class="panel-heading">Zigosity</div>
             <div id="zigosity_plot_body" class="panel-body">No Data avaliable</div>
         </div>
-    </div>
+        {% if sw_annotation == "other" %} <!-- 3. Start if other -->
+        <div class="row header">
+            <h3></h3>
+        </div>
+        {% endif %} <!-- 3. End if other -->
 
+    </div>
+    {% if sw_annotation != "other" %} <!-- 4. Start if other -->
     <div class="row header">
         <h3>Population frequencies</h3>
     </div>
@@ -398,6 +412,7 @@ $(function () {
             </div>
          </div>
     </div>
+    {% endif %} <!-- 4. End if other -->
 
  </div>
 {% endblock %}
