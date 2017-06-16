@@ -71,7 +71,7 @@ urlpatterns = [
     url(r'^other/(?P<project_name>\w+)/summary_statistics/$', views.summary_statistics, name='summary_statistics'),
     url(r'^other/(?P<project_name>\w+)/summary_statistics/get_qual_vcf/$', views.get_qual_vcf, {'cache': cache} ),
     url(r'^other/(?P<project_name>\w+)/summary_statistics/get_mean_variations/$', views.get_mean_variations, {'cache': cache} ),
-    url(r'^(?P<project_name>\w+)/summary_statistics/get_chr_variations/$', views.get_chr_variations, {'cache': cache} )
+    url(r'^other/(?P<project_name>\w+)/summary_statistics/get_chr_variations/$', views.get_chr_variations, {'cache': cache} )
 
 ]
 
