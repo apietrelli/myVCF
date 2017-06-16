@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^(?P<project_name>\w+)/region/(?P<region>[0-9XY]{1,2}-[0-9]+-[0-9]+)/$', views.display_region_results, name='region'),
     # Variant page
     url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/$', views.display_variant_results, name='variant'),
+    url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/get_insilico_pred/$', views.get_insilico_pred, name='insilico' ),
     url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/get_exac_data/$', views.get_exac_data, name='exac'),
     url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/get_esp_data/$', views.get_esp_data, name='esp'),
     url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/get_1000g_data/$', views.get_1000g_data, name='1000g'),

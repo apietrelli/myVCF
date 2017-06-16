@@ -27,6 +27,19 @@ $(document).ready(function() {
         $('#alert_ac').show()
     };
 
+    $.ajax({
+        url : "get_insilico_pred/", // the endpoint
+        type : "POST", // http method
+        data : {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'variant' : '{{ variant }}',
+                'project_name' : '{{ project_name }}'},
+
+        // handle a successful response
+        success : function(obj) {
+            var res = JSON.parse(obj)
+            }
+        })
+
     {# 1000G REST script (VEP) #}
     $('#pop_table_1000g').dataTable({
         dom: 't',
@@ -305,6 +318,10 @@ $(function () {
                     <a href="http://www.ncbi.nlm.nih.gov/clinvar?term={{ mutations.rs_id }}%5BVariant%20ID%5D" target="_blank">
                         Click to search for variant in ClinVar <span  class="glyphicon glyphicon-search"></span>
                     </a>
+                </dd>
+                <dt>In Silico Predictors</dt>
+                <dd>
+
                 </dd>
             </dl>
             <div class="row header">

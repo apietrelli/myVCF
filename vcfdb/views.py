@@ -698,6 +698,33 @@ def get_exac_data_hg38(request, variant, project_name):
                           'url': url})
     return HttpResponse(context)
 
+def get_insilico_pred(request, variant, project_name):
+    # reformat position from:
+    # CHR-POS-POS-REF-ALT
+    # in
+    # CHR:g.PosRef>ALT
+    s = "-"
+    v_split = variant.split(s)
+    # Check "chr" at the beginning
+    if v_split[0].startswith("chr"):
+        v = v_split[0] + '%3Ag.' + v_split[1] + v_split[3] + '>' + v_split[4]
+    else:
+        v = 'chr' + v_split[0] + '%3Ag.' + v_split[1] + v_split[3] + '>' + v_split[4]
+
+    # Get assembly version for the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    assembly_version = dbinfo.assembly_version
+
+    url = "myvariant.info/v1/variant/"+ v +"?fields=dbnsfp.polyphen2%2Cdbnsfp.sift?content-type=application/json"
+
+    r = requests.get(url)
+    if r.ok:
+        response = r.ok
+        data = r.json()
+    context = json.dumps({'response': response,
+                          'data': data})
+    return HttpResponse(context)
+
 #
 # settings: Get the COL_LIST FROM the DB
 #
