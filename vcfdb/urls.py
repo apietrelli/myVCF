@@ -33,6 +33,7 @@ urlpatterns = [
     ## Settings
     url(r'^(?P<project_name>\w+)/settings/$', views.settings, name='settings'),
     url(r'^(?P<project_name>\w+)/settings/get_col_list/$', views.get_col_list, name='get_col_list'),
+    url(r'^(?P<project_name>\w+)/settings/get_sample_list/$', views.get_sample_list, name='get_sample_list'),
     url(r'^(?P<project_name>\w+)/settings/save_preferences/$', views.save_preferences, name='save_preferences'),
 
     ## Summary statistics

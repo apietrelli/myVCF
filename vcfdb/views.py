@@ -774,6 +774,29 @@ def get_col_list(request, project_name):
                           'sanity_check': sanity_check})
     return HttpResponse(context)
 
+#
+# get_sample_list: Get the COL_LIST FROM the DB
+#
+def get_sample_list(request, project_name):
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    sw_annotation = dbinfo.sw_annotation
+
+    # Transform string into PYTHON LIST (ast.literal_eval)
+    samples = ast.literal_eval(dbinfo.samples)
+
+    # Eliminate all special character in samples for column visibility
+    # django converts CAPITAL in small letter
+    # - from "-" to "-"
+    samples = [sample.replace('-', '_').lower() for sample in samples]
+
+    model = apps.get_model(app_label=app_label,
+                           model_name=project_name)
+    sanity_check = "OK"
+    context = json.dumps({'project_name': project_name,
+                          'sample_col': samples,
+                          'sanity_check': sanity_check})
+    return HttpResponse(context)
+
 
 #
 # save_preferences (AJAX): Modify the COL Visualization according to the user choice
