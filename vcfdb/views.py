@@ -715,7 +715,7 @@ def get_insilico_pred(request, variant, project_name):
     dbinfo = DbInfo.objects.filter(project_name=project_name).first()
     assembly_version = dbinfo.assembly_version
 
-    url = "myvariant.info/v1/variant/"+ v +"?fields=dbnsfp.polyphen2%2Cdbnsfp.sift?content-type=application/json"
+    url = "http://myvariant.info/v1/variant/"+ v +"?fields=dbnsfp.polyphen2%2Cdbnsfp.sift"
 
     r = requests.get(url)
     if r.ok:

@@ -36,7 +36,12 @@ $(document).ready(function() {
 
         // handle a successful response
         success : function(obj) {
-            var res = JSON.parse(obj)
+            var res = JSON.parse(obj);
+            d = res.data.dbnsfp;
+            console.log(d);
+            $('#polyphen_hdiv').html(d.polyphen2.hdiv.pred);
+            $('#polyphen_hvar').html(d.polyphen2.hvar.pred);
+            $('#sift').html(d.sift.pred[0]);
             }
         })
 
@@ -319,13 +324,22 @@ $(function () {
                         Click to search for variant in ClinVar <span  class="glyphicon glyphicon-search"></span>
                     </a>
                 </dd>
-                <dt>In Silico Predictors</dt>
-                <dd>
-
-                </dd>
+                <div class="row header">
+                </div>
             </dl>
-            <div class="row header">
+            <div class="row">
+                <p class="lead">In-silico predictors</p>
             </div>
+            <dl class="dl-horizontal">
+                <dt>Polyphen2 HDIV</dt>
+                <dd id="polyphen_hdiv">NA</dd>
+                <dt>Polyphen2 HVAR</dt>
+                <dd id="polyphen_hvar">NA</dd>
+                <dt>SIFT</dt>
+                <dd id="sift">NA</dd>
+                <div class="row header">
+                </div>
+            </dl>
             <div class="row">
                 <p class="lead">Annotations from VCF</p>
             </div>
