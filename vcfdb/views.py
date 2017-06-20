@@ -28,7 +28,7 @@ from django.views import generic
 # Vcf model
 app_label = "vcfdb"
 from vcfdb.models import *
-from vcfdb.base_models import Log, Gene84, Gene75, DbInfo
+from vcfdb.base_models import Log, Gene84, Gene75, DbInfo, Groups
 
 ## DB containing common data
 actual_db = "default"
@@ -698,6 +698,7 @@ def get_exac_data_hg38(request, variant, project_name):
                           'url': url})
     return HttpResponse(context)
 
+
 def get_insilico_pred(request, variant, project_name):
     # reformat position from:
     # CHR-POS-POS-REF-ALT
@@ -730,7 +731,9 @@ def get_insilico_pred(request, variant, project_name):
 #
 def settings(request, project_name):
     msg_validate = "OK"
+    groups = Groups.objects.filter(project_name__iexact=project_name)
     context = {'project_name': project_name,
+               'groups': groups,
                'msg_validate': msg_validate}
     return render(request, 'settings.html', context)
 
@@ -775,7 +778,7 @@ def get_col_list(request, project_name):
     return HttpResponse(context)
 
 #
-# get_sample_list: Get the COL_LIST FROM the DB
+# get_sample_list: Get the Sample_LIST FROM the DB
 #
 def get_sample_list(request, project_name):
     dbinfo = DbInfo.objects.filter(project_name=project_name).first()
@@ -795,6 +798,34 @@ def get_sample_list(request, project_name):
     context = json.dumps({'project_name': project_name,
                           'sample_col': samples,
                           'sanity_check': sanity_check})
+    return HttpResponse(context)
+
+def check_group_name(request, project_name):
+    group_name = request.POST['group_name']
+    # __iexact is case-insensitive
+    res = Groups.objects.filter(project_name__iexact=project_name)
+    isValid = True
+    for g in res:
+        if g.group_name == group_name:
+            isValid = False
+    if isValid:
+        context = json.dumps({'valid': True})
+    else:
+        context = json.dumps({'valid': False})
+    return HttpResponse(context)
+
+
+def delete_group(request, project_name):
+    # AJAX request
+    group_name = request.POST['g_name']
+
+    # Delete data
+    Groups.objects.filter(project_name__iexact=project_name).filter(group_name=group_name).delete()
+
+    msg_validate = "Group deleted"
+
+    context = json.dumps({'project_name': project_name,
+                          'msg_validate': msg_validate})
     return HttpResponse(context)
 
 
@@ -825,6 +856,36 @@ def save_preferences(request, project_name):
                           'new_col': new_col,
                           'mutation_col': mutation_col})
     return HttpResponse(context)
+
+
+#
+#
+#
+def save_groups(request, project_name):
+    # Get the user-defined cols
+    sample_list = request.POST.getlist("samples_list")
+    group_name = request.POST["new_group_name"]
+
+    # Join the single cols and convert the string into list
+    s = ','
+    samples = s.join(sample_list).split(',')
+
+    ## Get project_id
+    project_id = DbInfo.objects.get(project_name=project_name).id
+
+    ## Add group
+    g = Groups(id = project_id, project_name = project_name, group_name = group_name, samples = sample_list)
+    g.save()
+    context = json.dumps({'r': group_name,
+                          'p': project_id,
+                          's': sample_list})
+    return HttpResponse(context)
+
+    msg_validate = "OK"
+    context = json.dumps({'project_name': project_name,
+                          'msg_validate': msg_validate})
+    return HttpResponse(context)
+
 
 
 def summary_statistics(request, project_name):

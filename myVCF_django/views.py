@@ -13,7 +13,7 @@ import vcf
 import sys
 
 import sqlite3
-from vcfdb.base_models import DbInfo
+from vcfdb.base_models import DbInfo, Groups
 
 app_label = "vcfdb"
 ## DB containing mutations

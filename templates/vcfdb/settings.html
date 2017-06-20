@@ -13,6 +13,48 @@ function titleCase(str) {
 }
 
 $(document).ready(function() {
+// Modal script
+    $('#myModal').on('show.bs.modal', function(event) {
+    //catch the id for later deletion, and username to display on modal
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var g = button.data('id') // Extract info from data-* attributes
+
+        //console.log('ok')
+
+        $('#myModal .modal-body').html("<p>Do you want to delete group: " + '<b>' + g + '</b>' + ' ?</p>');
+        // Pass the id of the project to the modal
+        $('#myModal').data('id', g);
+    });
+
+    $('#btnYes').on('click', function() {
+        $(this).button('loading');
+        var g = $('#myModal').data('id');
+        console.log(g);
+        $.ajax({
+            url: 'delete_group/',
+            type: 'POST',
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                   'g_name' : g}, // data sent with the post request
+            success: function(obj){
+                // Get the obj from django function
+                var res = JSON.parse(obj);
+
+                console.log("success"); // another sanity check
+
+                $('#myModal').modal('hide');
+                $('#deleting_modal').modal('hide');
+
+                // Delete confirmation
+                $('#title_confirm').html(res.project_name+" : "+res.msg_validate);
+                $('#myModal_confirm').modal('show');
+
+            }
+        });
+
+
+    return false;
+    });
+
 // Populate the input buttons with the column from "default_col" DB field
     $.ajax({
         url : "get_sample_list/", // the endpoint
@@ -103,7 +145,7 @@ $(document).ready(function() {
                     title: 'Changes confirmation: OK',
                     message: 'Preferences has been changed!',
                     callback: function(){ window.location.reload() }
-})
+                })
 
             },
             error: function(obj) {
@@ -112,6 +154,33 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    var group_frm = $('#defineGroups');
+    console.log(group_frm.serialize())
+    group_frm.submit(function () {
+        $.ajax({
+            type: group_frm.attr('method'),
+            url: group_frm.attr('action'),
+            data: group_frm.serialize(),
+            success: function (obj) {
+                var res = JSON.parse(obj);
+                bootbox.alert({
+                    size: 'medium',
+                    title: 'Group saved: OK',
+                    message: res,
+                    callback: function(){ window.location.reload() }
+                })
+
+            },
+            error: function(obj,xhr,errmsg,err) {
+                bootbox.alert("no good!");
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                console.log(obj)
+            }
+        });
+        return false;
+    });
+
 })
 </script>
 
@@ -296,23 +365,92 @@ $(document).ready(function() {
                         <label><strong>Define group</strong></label>
                     </a>
                 </div>
-                <div class="center-block col-md-6">
+                <div class="center-block col-md-5">
+                    <label for="new_group_name">Group Name</label>
+                    <input id="new_group_name" name="new_group_name" type="text" class="form-control" />
+                    <br>
                     <label for="samples_list">Mutiple select list (hold shift to select more than one):</label>
-                    <select multiple class="form-control" id="samples_list">
+                    <select multiple size=10 class="form-control" name="samples_list" id="samples_list">
                         <!-- Filled by AJAX -->
                     </select>
                 </div>
-            </div>
-            <div class="col-md-offset-3 col-md-2">
-                <button class="btn btn-primary" onclick="add_group/">Add group</button>
-            </div>
-            <div class="col-md-offset-3 col-md-2">
-                <button type="submit" class="btn btn-primary">Save groups</button>
+                <div class="col-md-offset-3 col-md-2">
+                    <button type="submit" class="btn btn-primary">Save group</button>
+                </div>
             </div>
         </form>
+        <div id="group" class="center-block col-md-5">
+            <table id="group_table" class="table table-condensed table-striped table-hover">
+                <thead>
+                <th>Name</th>
+                <th>Sample number</th>
+                </thead>
+                <tbody>
+                {% for group in groups %}
+                <tr>
+                    <td class="small">
+                        {{ group.group_name }}
+                    </td>
+                    <td class="small">
+                        {{ group.samples }}
+                    </td>
+                    <td>
+                        <button class="confirm-delete btn btn-danger" data-id="{{ group.group_name }}"
+                                data-toggle="modal"
+                                data-target="#myModal">
+                            <i class="glyphicon glyphicon-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-
-
+</div>
 
 </div>
+
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Delete sample group</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger"
+                        id="btnYes"
+                        data-loading-text="<span class='glyphicon glyphicon-refresh'></span> Deleting..."
+                        onclick="waitingDialog.show('Deleting group...', {progressType: 'danger'})">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
+
+<!-- modal confirm -->
+<div class="modal fade" id="myModal_confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="title_confirm"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
 {% endblock %}
