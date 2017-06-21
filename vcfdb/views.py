@@ -873,7 +873,7 @@ def save_groups(request, project_name):
     project_id = DbInfo.objects.get(project_name=project_name).id
 
     ## Add group
-    g = Groups(p_id = project_id, project_name = project_name, group_name = group_name, samples = sample_list)
+    g = Groups(p_id = project_id, project_name = project_name, group_name = group_name, samples = samples)
     g.save()
     context = json.dumps({'r': group_name,
                           'p': project_id,
