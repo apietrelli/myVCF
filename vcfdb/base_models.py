@@ -89,7 +89,7 @@ class DbInfo(models.Model):
 
 class Groups(models.Model):
     # Classe per la creazione dei gruppi
-    id = models.IntegerField(db_column='id', blank=False, null=False, primary_key=True)
+    p_id = models.IntegerField(db_column='p_id', blank=False, null=False)
     project_name = models.TextField()
     group_name = models.TextField()
     samples = models.TextField()

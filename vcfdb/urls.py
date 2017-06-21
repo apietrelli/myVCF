@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^(?P<project_name>\w+)/settings/delete_group/$', views.delete_group, name='delete_group'),
     url(r'^(?P<project_name>\w+)/settings/save_preferences/$', views.save_preferences, name='save_preferences'),
     url(r'^(?P<project_name>\w+)/settings/save_groups/$', views.save_groups, name='save_groups'),
+    url(r'^(?P<project_name>\w+)/settings/check_group_name/$', views.check_group_name, name='check_group_name'),
 
     ## Summary statistics
     url(r'^(?P<project_name>\w+)/summary_statistics/$', views.summary_statistics, name='summary_statistics'),

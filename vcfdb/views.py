@@ -801,7 +801,7 @@ def get_sample_list(request, project_name):
     return HttpResponse(context)
 
 def check_group_name(request, project_name):
-    group_name = request.POST['group_name']
+    group_name = request.POST['new_group_name']
     # __iexact is case-insensitive
     res = Groups.objects.filter(project_name__iexact=project_name)
     isValid = True
@@ -813,7 +813,6 @@ def check_group_name(request, project_name):
     else:
         context = json.dumps({'valid': False})
     return HttpResponse(context)
-
 
 def delete_group(request, project_name):
     # AJAX request
@@ -874,7 +873,7 @@ def save_groups(request, project_name):
     project_id = DbInfo.objects.get(project_name=project_name).id
 
     ## Add group
-    g = Groups(id = project_id, project_name = project_name, group_name = group_name, samples = sample_list)
+    g = Groups(p_id = project_id, project_name = project_name, group_name = group_name, samples = sample_list)
     g.save()
     context = json.dumps({'r': group_name,
                           'p': project_id,

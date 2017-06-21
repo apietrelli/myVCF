@@ -1,8 +1,14 @@
 {% extends "base_site.html" %}
 
 {% block title %}Settings{% endblock %}
+{% load static %}
 
 {% block extra_head_content %}
+<link rel="stylesheet" type="text/css" href="{% static 'vcfdb/css/jumbotron-narrow.css' %}">
+
+{# Bootstrap Validator Form #}
+<script type="text/javascript" src="{% static 'vcfdb/js/bootstrapValidator.min.js' %}"></script>
+
 <script>
 function titleCase(str) {
   str = str.toLowerCase().split(' ');
@@ -14,21 +20,21 @@ function titleCase(str) {
 
 $(document).ready(function() {
 // Modal script
-    $('#myModal').on('show.bs.modal', function(event) {
+    $('#myModal_delete').on('show.bs.modal', function(event) {
     //catch the id for later deletion, and username to display on modal
         var button = $(event.relatedTarget) // Button that triggered the modal
         var g = button.data('id') // Extract info from data-* attributes
 
         //console.log('ok')
 
-        $('#myModal .modal-body').html("<p>Do you want to delete group: " + '<b>' + g + '</b>' + ' ?</p>');
+        $('#myModal_delete .modal-body').html("<p>Do you want to delete group: " + '<b>' + g + '</b>' + ' ?</p>');
         // Pass the id of the project to the modal
-        $('#myModal').data('id', g);
+        $('#myModal_delete').data('id', g);
     });
 
     $('#btnYes').on('click', function() {
         $(this).button('loading');
-        var g = $('#myModal').data('id');
+        var g = $('#myModal_delete').data('id');
         console.log(g);
         $.ajax({
             url: 'delete_group/',
@@ -41,8 +47,7 @@ $(document).ready(function() {
 
                 console.log("success"); // another sanity check
 
-                $('#myModal').modal('hide');
-                $('#deleting_modal').modal('hide');
+                $('#myModal_delete').modal('hide');
 
                 // Delete confirmation
                 $('#title_confirm').html(res.project_name+" : "+res.msg_validate);
@@ -184,6 +189,82 @@ $(document).ready(function() {
 })
 </script>
 
+<script>
+$(document).ready(function() {
+    $("#defineGroups")
+    // On error in group_name, get the message from msg_validate object
+    .on('error.field.bv', function(e, data) {
+        $("#validMsg_group_name").hide();
+            if (data.field === 'new_group_name' && data.validator === 'remote') {
+                var msg = data.result.msg_validate;
+                console.log("Check");
+                // Update the message
+                msg
+                    ? data.bv.updateMessage('new_group_name', 'remote', msg)
+                    : data.bv.updateMessage('new_group_name', 'remote', 'The Group name is already present');
+            }
+    })
+
+    .on('success.field.bv', function(e, data) {
+            if (data.bv.getInvalidFields().length > 0) {    // There is invalid field
+                data.bv.disableSubmitButtons(true);
+            };
+            var validator = data.validator,
+                field  = data.field,   // Get the field name
+                $field = data.element
+
+            if (field === 'new_group_name' && validator === 'remote') {
+                var msg = data.result.msg_validate;
+                $("#warnMsg_group_name").hide();
+                // console.log("Check");
+                // Show a valid message
+                $("#validMsg_group_name").html("<p>The Group name is good!</p>");
+                }
+            $("#validMsg_group_name").show();
+    })
+
+    .bootstrapValidator({
+        excluded: ':disabled',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            new_group_name: {
+                validators: {
+                    remote: {
+                        message: 'The Group name is not available',
+                        url: "check_group_name/",
+                        type: "POST",
+                        data: {'csrfmiddlewaretoken': '{{ csrf_token }}'}
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9]+$/,
+                        message: 'The Group name can only consist of alphabetical, number'
+                    },
+                    notEmpty: {
+                        message: 'The Group name is required and cannot be empty'
+                    },
+                }
+            }
+        }
+    })
+    .on('success.form.bv',function(e){
+      e.preventDefault(); // <----- THIS IS NEEDED
+    })
+});
+
+</script>
+<!--Adjust glyph icon -->
+<style type="text/css">
+    #defineGroups .selectContainer .form-control-feedback {
+        top: 0;
+        right: -15px;
+    }
+</style>
+
+
 {% endblock %}
 
 {% block body %}
@@ -281,63 +362,6 @@ $(document).ready(function() {
                     </select>
                 </div>
             </div>
-            <!--AF public DB
-            &lt;!&ndash; 1000 G &ndash;&gt;
-            <div class="center-block form-group row">
-                <div id="maf_1000g" class="center-block col-md-2 h5">
-                    <a data-toggle="tooltip"
-                       title="Select the field for 1000G MAF filtering button in gene view"
-                       data-placement="top">
-                        <label><strong>1000G MAF</strong></label>
-                    </a>
-                </div>
-                <div class="center-block col-md-6">
-                    <select class="form-control" name="maf_col" id="maf_1000g_col">
-                        &lt;!&ndash; Filled by AJAX &ndash;&gt;
-                    </select>
-                    <small class="text-muted">...</small><br>
-                    <small class="text-muted">...</small><br>
-                    <small class="text-muted">...</small>
-                </div>
-            </div>
-            &lt;!&ndash; ESP &ndash;&gt;
-            <div class="center-block form-group row">
-                <div id="maf_esp" class="center-block col-md-2 h5">
-                    <a data-toggle="tooltip"
-                       title="Select the field for ESP MAF filtering button in gene view"
-                       data-placement="top">
-                        <label><strong>ESP MAF</strong></label>
-                    </a>
-                </div>
-                <div class="center-block col-md-6">
-                    <select class="form-control" name="maf_col" id="maf_esp_col">
-                        &lt;!&ndash; Filled by AJAX &ndash;&gt;
-                    </select>
-                    <small class="text-muted">...</small><br>
-                    <small class="text-muted">...</small><br>
-                    <small class="text-muted">...</small>
-                </div>
-            </div>
-            &lt;!&ndash; ExAC &ndash;&gt;
-            <div class="center-block form-group row">
-                <div id="maf_exac" class="center-block col-md-2 h5">
-                    <a data-toggle="tooltip"
-                       title="Select the field for ExAC MAF filtering button in gene view"
-                       data-placement="top">
-                        <label><strong>ExAC MAF</strong></label>
-                    </a>
-                </div>
-                <div class="center-block col-md-6">
-                    <select class="form-control" name="maf_col" id="maf_exac_col">
-                        &lt;!&ndash; Filled by AJAX &ndash;&gt;
-                    </select>
-                    <small class="text-muted">...</small><br>
-                    <small class="text-muted">...</small><br>
-                    <small class="text-muted">...</small>
-                </div>
-            </div>
-            -->
-            <!-- END ALLELE FREQUENCY -->
             <div class="row center-block ">
                 <div class="col-md-offset-2 col-md-2">
                     <a href="/vcfdb/{{ project_name }}/"><button type="button" class="btn btn-danger">Back</button></a>
@@ -357,33 +381,43 @@ $(document).ready(function() {
         <!-- Define Groups -->
         <form id="defineGroups" method="POST" action="save_groups/">
             {% csrf_token %}
-            <div class="center-block form-group row">
-                <div id="define_groups" class="center-block col-md-2 h5">
+            <div class="center-block form-group row col-md-7">
+                <div id="define_groups" class="center-block col-md-4 h5">
                     <a data-toggle="tooltip"
                        title="Define groups"
                        data-placement="top">
                         <label><strong>Define group</strong></label>
                     </a>
                 </div>
-                <div class="center-block col-md-5">
-                    <label for="new_group_name">Group Name</label>
-                    <input id="new_group_name" name="new_group_name" type="text" class="form-control" />
-                    <br>
-                    <label for="samples_list">Mutiple select list (hold shift to select more than one):</label>
-                    <select multiple size=10 class="form-control" name="samples_list" id="samples_list">
-                        <!-- Filled by AJAX -->
-                    </select>
-                </div>
-                <div class="col-md-offset-3 col-md-2">
-                    <button type="submit" class="btn btn-primary">Save group</button>
+                <div class="center-block col-md-8">
+                    <div class="center-block col-md-12">
+                        <label for="new_group_name">Group Name</label>
+                        <input id="new_group_name" style="width: 95%" name="new_group_name" type="text" class="form-control" />
+                        <small class="help-block validMessage" data-field="new_group_name" id="validMsg_group_name"></small>
+                    </div>
+                    <div class="center-block col-md-12">
+                        <label for="samples_list">Mutiple select list (hold shift to select more than one):</label>
+                        <select multiple style="width: 95%" size=10 class="form-control" name="samples_list" id="samples_list">
+                            <!-- Filled by AJAX -->
+                        </select>
+                    </div>
+                    <div class="col-md-offset-3 col-md-2">
+                        <button type="submit" class="btn btn-primary">Save group</button>
+                    </div>
                 </div>
             </div>
         </form>
-        <div id="group" class="center-block col-md-5">
+
+        <div id="table_group" class="center-block col-md-4">
+            <div class="text-center col-md-12 h4">
+            Available group lists
+            </div>
+            <div class="text-center col-md-12">
             <table id="group_table" class="table table-condensed table-striped table-hover">
                 <thead>
                 <th>Name</th>
-                <th>Sample number</th>
+                <th>Samples list</th>
+                <th>Delete?</th>
                 </thead>
                 <tbody>
                 {% for group in groups %}
@@ -395,9 +429,9 @@ $(document).ready(function() {
                         {{ group.samples }}
                     </td>
                     <td>
-                        <button class="confirm-delete btn btn-danger" data-id="{{ group.group_name }}"
+                        <button class="confirm-delete btn btn-danger btn-sm" data-id="{{ group.group_name }}"
                                 data-toggle="modal"
-                                data-target="#myModal">
+                                data-target="#myModal_delete">
                             <i class="glyphicon glyphicon-trash"></i> Delete
                         </button>
                     </td>
@@ -405,16 +439,13 @@ $(document).ready(function() {
                 {% endfor %}
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>
 
-</div>
-
-</div>
-
 <!-- modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="myModal_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -427,9 +458,7 @@ $(document).ready(function() {
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-danger"
-                        id="btnYes"
-                        data-loading-text="<span class='glyphicon glyphicon-refresh'></span> Deleting..."
-                        onclick="waitingDialog.show('Deleting group...', {progressType: 'danger'})">
+                        id="btnYes">
                     Delete
                 </button>
             </div>
