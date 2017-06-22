@@ -21,8 +21,10 @@ urlpatterns = [
     ## Results
     # Gene page
     url(r'^(?P<project_name>\w+)/gene/(?P<gene_ensgene>ENSG[0-9]+)/$', views.display_gene_results, name='gene_list'),
+    url(r'^(?P<project_name>\w+)/gene/(?P<gene_ensgene>ENSG[0-9]+)/plink_gene/$', views.plink_gene, name='plink_g'),
     # Region page
     url(r'^(?P<project_name>\w+)/region/(?P<region>[0-9XY]{1,2}-[0-9]+-[0-9]+)/$', views.display_region_results, name='region'),
+    url(r'^(?P<project_name>\w+)/region/(?P<region>[0-9XY]{1,2}-[0-9]+-[0-9]+)/plink_region/$', views.plink_region, name='plink_r'),
     # Variant page
     url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/$', views.display_variant_results, name='variant'),
     url(r'^(?P<project_name>\w+)/variant/(?P<variant>[0-9XY]{1,2}-[0-9]+-[0-9]+-[Aa,Tt,Gg,Cc]+-[Aa,Tt,Gg,Cc]+)/get_insilico_pred/$', views.get_insilico_pred, name='insilico' ),

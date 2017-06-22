@@ -1218,3 +1218,11 @@ def get_top_genes(request, project_name, cache):
                                        'cache': cache})
     context = cache[cache_key]
     return HttpResponse(context)
+
+def plink_gene(request, project_name, gene_ensgene):
+    context = json.dumps({'results': "test"})
+    return HttpResponse(context)
+
+def plink_region(request, project_name, region):
+    context = json.dumps({'results': "test"})
+    return HttpResponse(context)
