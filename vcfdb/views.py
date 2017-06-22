@@ -195,6 +195,7 @@ def display_gene_results(request, gene_ensgene, project_name):
     samples = ast.literal_eval(dbinfo.samples)
     default_col = ast.literal_eval(dbinfo.default_col)
     mutation_col = dbinfo.mutation_col
+    groups = Groups.objects.filter(project_name__iexact=project_name)
 
     # Get gene symbol from ensembl table
     model_name_ensembl = "Gene" + gene_annotation
@@ -237,6 +238,7 @@ def display_gene_results(request, gene_ensgene, project_name):
                    'category': category,
                    'values': values,
                    'type': type,
+                   'groups': groups,
                    'project_name': project_name}
         return render(request, 'gene_results.html', context)
 
@@ -280,6 +282,7 @@ def display_region_results(request, region, project_name):
     samples = ast.literal_eval(dbinfo.samples)
     default_col = ast.literal_eval(dbinfo.default_col)
     mutation_col = dbinfo.mutation_col
+    groups = Groups.objects.filter(project_name__iexact=project_name)
 
     # Eliminate all special character in samples for clumn visibility
     # django converts CAPITAL in small letter
@@ -317,6 +320,7 @@ def display_region_results(request, region, project_name):
                    'values': values,
                    'type': type,
                    'sw_annotation': sw_annotation,
+                   'groups': groups,
                    'project_name': project_name}
 
         return render(request, 'gene_results.html', context)

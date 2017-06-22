@@ -129,8 +129,45 @@ $(document).ready( function() {
     $.fn.dataTable.ext.search.pop();
   });
 
+  $("#sample_group li a").click(function() {
+    var sample_string = $('#sample_group li a').data('id');
+    var sample_list = sample_string.split(",");
+    var g_sum = ""
+    $.each(sample_list, function(index, value){
+        console.log(value);
+        sample_genotype = table.rows().column(value+':name').data();
+        console.log(sample_genotype);
+        if (g_sum == ""){
+            g_sum = sample_genotype
+        }
+        else{
+            g_sum = g_sum.map(function (num, idx) {
+                return Number(num) + Number(sample_genotype[idx]);
+            });
+        };
+        console.log(g_sum);
+    })
+    $.each(g_sum, function(index, genotype){
+        if (g_sum[index]>0){
+            console.log(table.row(index).index())
+            }
+        })
+
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+        var idx = table.row().index()
+        return (Number(data[idx]) > 0)
+                ? true
+                : false
+      }
+    );
+    table.draw();
+    $.fn.dataTable.ext.search.pop();
+  });
+
   $("#reset_filter").click(function() {
     $("#button_af_filter").html('MAF Threshold <span class="caret"></span>');
+    $("#button_sample_group").html('Samples Group<span class="caret"></span>');
     $.fn.dataTable.ext.search.pop();
     table.draw();
   });
@@ -221,16 +258,16 @@ $(function () {
     </div>
     <div class="row header">
         {% if type == "gene" %}
-            <h2>Gene: <em>{{ gene_symbol.genename }}</em> ({{ query }})</h2>
+        <h2>Gene: <em>{{ gene_symbol.genename }}</em> ({{ query }})</h2>
         {% else %}
-            <h2>Region: {{ query }}</h2>
+        <h2>Region: {{ query }}</h2>
         {% endif %}
     </div>
     <div class="row">
         <div class="btn-group">
-        <button id="pass_filter" class="btn btn-small btn-success">
-            PASS Filter
-        </button>
+            <button id="pass_filter" class="btn btn-small btn-success">
+                PASS Filter
+            </button>
         </div>
         <div class="btn-group">
             <button id="button_af_filter" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">MAF Threshold<span class="caret"></span></button>
@@ -240,6 +277,14 @@ $(function () {
                 <li><a href="#">0.01</a></li>
                 <li><a href="#">0.005</a></li>
                 <li><a href="#">0.001</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button id="button_sample_group" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Samples group<span class="caret"></span></button>
+            <ul id="sample_group" class="dropdown-menu">
+                {% for group in groups %}
+                    <li><a href="#" data-id="{{ group.samples|list_to_text }}">{{ group.group_name }}</a></li>
+                {% endfor %}
             </ul>
         </div>
         <div class="btn-group">
@@ -256,38 +301,38 @@ $(function () {
                 <thead>
                 <th class="small">Variant</th>
                 {% for field in all_fields %}
-                    <th class="small">{{ field|title }}</th>
+                <th class="small">{{ field|title }}</th>
                 {% endfor %}
                 </thead>
                 <tfoot>
-                    <tr>
-                        <th class="small">Variant</th>
-                        {% for field in all_fields %}
-                        <th class="small">{{ field|title }}</th>
-                        {% endfor %}
-                    </tr>
+                <tr>
+                    <th class="small">Variant</th>
+                    {% for field in all_fields %}
+                    <th class="small">{{ field|title }}</th>
+                    {% endfor %}
+                </tr>
                 </tfoot>
                 <tbody>
                 {% for mutation in mutations %}
-                    <tr>
-                        <td class="small">
-                            {% if sw_annotation != "other" %}
-                            <a href="/vcfdb/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                <tr>
+                    <td class="small">
+                        {% if sw_annotation != "other" %}
+                        <a href="/vcfdb/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
                             {% else %}
                             <a href="/vcfdb/other/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
-                            {% endif %}
+                                {% endif %}
                                 {{ mutation.chrom }}:{{ mutation.pos }} {{ mutation.ref }} / {{ mutation.alt }}
                             </a>
-                        </td>
+                    </td>
                     {% for field in all_fields %}
-                        {% if field == "rs_id" and mutation|getattr:field != "None" %}
-                        <td class="small"><a href="http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs={{ mutation|getattr:field }}" target="_blank">{{ mutation|getattr:field }}</a></td>
-                        {% else %}
-                        <td class="small">{{ mutation|getattr:field }}</td>
-                        {% endif %}
+                    {% if field == "rs_id" and mutation|getattr:field != "None" %}
+                    <td class="small"><a href="http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs={{ mutation|getattr:field }}" target="_blank">{{ mutation|getattr:field }}</a></td>
+                    {% else %}
+                    <td class="small">{{ mutation|getattr:field }}</td>
+                    {% endif %}
                     {% endfor %}
-                {% endfor %}
-                    </tr>
+                    {% endfor %}
+                </tr>
                 </tbody>
             </table>
         </div>
