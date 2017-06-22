@@ -101,9 +101,10 @@ $(document).ready( function() {
             } );
         }
   } );
-
+var click_counter = 0
 {# Row filtering buttons #}
   $("#pass_filter").click(function() {
+    click_counter+=1;
     $.fn.dataTable.ext.search.push(
       function(settings, data, dataIndex) {
         var idx = table.column('filter:name').index()
@@ -117,6 +118,8 @@ $(document).ready( function() {
   });
 
   $("#af_filter li a").click(function() {
+    click_counter+=1;
+    console.log(click_counter)
     $.fn.dataTable.ext.search.push(
       function(settings, data, dataIndex) {
         var idx = table.column('af:name').index()
@@ -126,17 +129,21 @@ $(document).ready( function() {
       }
     );
     table.draw();
-    $.fn.dataTable.ext.search.pop();
+    if ($("#button_sample_group span") == "") {
+        $.fn.dataTable.ext.search.pop();
+    }
   });
 
   $("#sample_group li a").click(function() {
+    click_counter+=1;
+    console.log(click_counter)
     var sample_string = $('#sample_group li a').data('id');
     var sample_list = sample_string.split(",");
     var g_sum = ""
     $.each(sample_list, function(index, value){
-        console.log(value);
+        //console.log(value);
         sample_genotype = table.rows().column(value+':name').data();
-        console.log(sample_genotype);
+        //console.log(sample_genotype);
         if (g_sum == ""){
             g_sum = sample_genotype
         }
@@ -145,30 +152,40 @@ $(document).ready( function() {
                 return Number(num) + Number(sample_genotype[idx]);
             });
         };
-        console.log(g_sum);
+        //console.log(g_sum);
     })
+
+    var valid_rows = new Array();
+
     $.each(g_sum, function(index, genotype){
+        r_index = table.row(index).index()
         if (g_sum[index]>0){
-            console.log(table.row(index).index())
+            valid_rows.push(r_index)
             }
         })
-
+    //console.log(valid_rows);
     $.fn.dataTable.ext.search.push(
       function(settings, data, dataIndex) {
-        var idx = table.row().index()
-        return (Number(data[idx]) > 0)
+        //console.log(data);
+        //console.log(dataIndex);
+        return ($.inArray(dataIndex, valid_rows) != -1)
                 ? true
                 : false
       }
     );
     table.draw();
-    $.fn.dataTable.ext.search.pop();
+    if ($("#button_af_filter") == "") {
+        $.fn.dataTable.ext.search.pop();
+    }
   });
 
   $("#reset_filter").click(function() {
     $("#button_af_filter").html('MAF Threshold <span class="caret"></span>');
     $("#button_sample_group").html('Samples Group<span class="caret"></span>');
-    $.fn.dataTable.ext.search.pop();
+    for (i = 0; i < click_counter; i++) {
+        $.fn.dataTable.ext.search.pop();
+    };
+    click_counter = 0;
     table.draw();
   });
 

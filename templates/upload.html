@@ -114,15 +114,16 @@ $(document).ready(function() {
                     for (var i=0, iLen=radios_assembly.length; i<iLen; i++) {
                         radios_assembly[i].disabled = true;
                     }
-                    radios_assembly[2].disabled = false;
-                    radios_assembly[2].checked = true;
+                    radios_assembly[radios_assembly.length-1].disabled = false;
+                    radios_assembly[radios_assembly.length-1].checked = true;
+
                     // Disable transcript annotation fields
                     var radios_tx = document.getElementsByName("annotation_version");
                     for (var i=0, iLen=radios_tx.length; i<iLen; i++) {
                         radios_tx[i].disabled = true;
                     }
-                    radios_tx[2].disabled = false;
-                    radios_tx[2].checked = true;
+                    radios_tx[radios_tx.length-1].disabled = false;
+                    radios_tx[radios_tx.length-1].checked = true;
 
                 }
             $("#validMsg_vcf_name").show();
@@ -286,6 +287,12 @@ $(document).ready(function() {
                     <div class="radio">
                         <label>
                             <input type="radio" name="annotation_version" id="ensAnnotation_gridRadios3" value="84">
+                            RefSeq
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="annotation_version" id="ensAnnotation_gridRadios4" value="84">
                             Other
                         </label>
                     </div>
