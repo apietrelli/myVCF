@@ -275,13 +275,19 @@ $(document).ready( function() {
             {% endif %}
             success: function(obj) {
                 var data = JSON.parse(obj)
-                u = "data:text/plain," + data.results;
-                $("#plink_download").attr({
-                    "download" : "test.txt",
-                    "href" : u
+                console.log(data.ped);
+                u_map = "data:text/csv;charset=UTF-8," + encodeURIComponent(data.map);
+                $("#plink_map_download").attr({
+                    "download" : data.map_filename,
+                    "href" : u_map
                 }).get(0).click();
 
-                console.log(data);
+                u_ped = "data:text/csv;charset=UTF-8," + encodeURIComponent(data.ped);
+                $("#plink_ped_download").attr({
+                    "download" : data.ped_filename,
+                    "href" : u_ped
+                }).get(0).click();
+
             }
         });
     })
@@ -348,7 +354,8 @@ $(document).ready( function() {
                 PLINK Export
             </button>
         </div>
-        <a id="plink_download" download="" href="" hidden></a>
+        <a id="plink_map_download" download="" href="" hidden></a>
+        <a id="plink_ped_download" download="" href="" hidden></a>
     </div>
     <div class="col-xs-12" style="height:20px;"></div>
     <div class="row">

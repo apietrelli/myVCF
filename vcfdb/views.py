@@ -1220,9 +1220,134 @@ def get_top_genes(request, project_name, cache):
     return HttpResponse(context)
 
 def plink_gene(request, project_name, gene_ensgene):
-    context = json.dumps({'results': "test"})
+
+    def get_mutations_plink(model, sw_annotation, ensgene, project_db):
+        # return the mutations and default_col of a particular gene based on the sw_annotation
+        if sw_annotation == "annovar":
+            # exact match
+            mutations = model.objects.using(project_db).filter(gene_ensgene__iexact=ensgene)
+        else:
+            # exact match
+            mutations = model.objects.using(project_db).filter(gene__iexact=ensgene)
+        return mutations
+
+    # get the info of the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    sw_annotation = dbinfo.sw_annotation
+    samples = ast.literal_eval(dbinfo.samples)
+
+    model = apps.get_model(app_label=app_label,
+                           model_name=project_name)
+
+    mutations = get_mutations_plink(model, sw_annotation, gene_ensgene, project_db)
+
+    ## generate PED/MAP string
+    # MAP file
+    # The fields in a MAP file are:
+    #    Chromosome
+    #    Marker ID
+    #    Genetic distance
+    #    Physical position
+
+    map = ""
+    ped = ""
+    for m in mutations:
+        s_map = ",".join([str(m.chrom),
+                          str(m.rs_id),
+                          "0",
+                          str(m.pos),
+                          "\n"])
+        map=map + s_map
+    for s in samples:
+        # Inizialize with sample information
+        s_ped = ",".join([project_name, s , "0", "0", "0", "0"])
+        # Get genotype
+        gt = getattr(m, s.lower(), "notfound")
+        for m in mutations:
+            if gt == "0":
+                s_ped = s_ped + "," + ",".join([m.ref, m.ref])
+            elif gt == "1":
+                s_ped = s_ped + "," + ",".join([m.ref, m.alt])
+            elif gt == "2":
+                s_ped = s_ped + "," + ",".join([m.alt, m.alt])
+            else:
+                s_ped = s_ped + "," + ",".join(["0", "0"])
+        s_ped = s_ped + "\n"
+        ped = ped + s_ped
+
+    map_filename = "_".join([project_name,gene_ensgene]) + ".map"
+    ped_filename = "_".join([project_name,gene_ensgene]) + ".ped"
+
+    context = json.dumps({'map_filename': map_filename,
+                          'map': map,
+                          'ped_filename': ped_filename,
+                          'ped': ped,
+                          })
     return HttpResponse(context)
 
 def plink_region(request, project_name, region):
-    context = json.dumps({'results': "test"})
+
+    def get_mutations_plink(model, region, project_db):
+        # Split region in CHR, START, END
+        r = region.split("-")
+        chr = r[0]
+        start = r[1]
+        end = r[2]
+
+        # return the mutations of a region
+        mutations = model.objects.using(project_db).filter(chrom=chr).filter(pos__range=[start, end])
+
+        return mutations
+
+    # get the info of the project
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    samples = ast.literal_eval(dbinfo.samples)
+
+    model = apps.get_model(app_label=app_label,
+                           model_name=project_name)
+
+    mutations = get_mutations_plink(model, region, project_db)
+
+    ## generate PED/MAP string
+    # MAP file
+    # The fields in a MAP file are:
+    #    Chromosome
+    #    Marker ID
+    #    Genetic distance
+    #    Physical position
+
+    map = ""
+    ped = ""
+    for m in mutations:
+        s_map = ",".join([str(m.chrom),
+                          str(m.rs_id),
+                          "0",
+                          str(m.pos),
+                          "\n"])
+        map=map + s_map
+    for s in samples:
+        # Inizialize with sample information
+        s_ped = ",".join([project_name, s , "0", "0", "0", "0"])
+        # Get genotype
+        gt = getattr(m, s.lower(), "notfound")
+        for m in mutations:
+            if gt == "0":
+                s_ped = s_ped + "," + ",".join([m.ref, m.ref])
+            elif gt == "1":
+                s_ped = s_ped + "," + ",".join([m.ref, m.alt])
+            elif gt == "2":
+                s_ped = s_ped + "," + ",".join([m.alt, m.alt])
+            else:
+                s_ped = s_ped + "," + ",".join(["0", "0"])
+        s_ped = s_ped + "\n"
+        ped = ped + s_ped
+
+    map_filename = "_".join([project_name,region]) + ".map"
+    ped_filename = "_".join([project_name,region]) + ".ped"
+
+    context = json.dumps({'map_filename': map_filename,
+                          'map': map,
+                          'ped_filename': ped_filename,
+                          'ped': ped,
+                          })
     return HttpResponse(context)
