@@ -5,6 +5,10 @@ Setup the application
 
 Now you are ready to load all your VCF files and start to analyze your data with myVCF.
 
+myVCF is designed for human annotated VCF files, but it accepts any type VCF coming from different species with or without annotations.
+
+For more information about **not-annotated** or **non-human** VCF file, please follow this :doc:`link <faq/>`
+
 myVCF manages **annotated VCF** files with specific fields that are mandatory in order to load and visualize the data correctely.
 
 To verify if your :code:`.vcf` file is compatible with myVCF, please read the following section.
