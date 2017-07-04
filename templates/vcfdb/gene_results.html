@@ -336,6 +336,7 @@ $(document).ready( function() {
                 <li><a href="#">0.001</a></li>
             </ul>
         </div>
+        {% if sw_annotation != "other" %}
         <div class="btn-group">
             <button id="button_sample_group" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Samples group<span class="caret"></span></button>
             <ul id="sample_group" class="dropdown-menu">
@@ -344,11 +345,13 @@ $(document).ready( function() {
                 {% endfor %}
             </ul>
         </div>
+        {% endif %}
         <div class="btn-group">
             <button id="reset_filter" class="btn btn-small btn-info">
                 Reset Filter
             </button>
         </div>
+        {% if sw_annotation != "other" %}
         <div class="btn-group">
             <button id="plink" class="btn btn-small btn-info">
                 PLINK Export
@@ -356,6 +359,7 @@ $(document).ready( function() {
         </div>
         <a id="plink_map_download" download="" href="" hidden></a>
         <a id="plink_ped_download" download="" href="" hidden></a>
+        {% endif %}
     </div>
     <div class="col-xs-12" style="height:20px;"></div>
     <div class="row">

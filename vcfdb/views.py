@@ -736,8 +736,11 @@ def get_insilico_pred(request, variant, project_name):
 def settings(request, project_name):
     msg_validate = "OK"
     groups = Groups.objects.filter(project_name__iexact=project_name)
+    dbinfo = DbInfo.objects.filter(project_name=project_name).first()
+    sw_annotation = dbinfo.sw_annotation
     context = {'project_name': project_name,
                'groups': groups,
+               'sw_annotation': sw_annotation,
                'msg_validate': msg_validate}
     return render(request, 'settings.html', context)
 
