@@ -6,7 +6,7 @@ FAQ
 1. What if my VCF file is not annotated or is not human-based?
 --------------------------------------------------------------
 
-Don't worry! myVCF can handle VCF from any type.
+Don't worry! myVCF can handle VCF from any type and automatically detect the format of your file.
 
 You can still upload the VCF, create the project, query for available region according to your species chromosomes names and export the mutation and the genotype data.
 
