@@ -199,9 +199,12 @@ To define and add groups in specific project, follow these steps:
 
 4. Save group by clicking on **Save group** button
 
-5. You can verify the correct group definition by looking at the *Available group lists* table. |available_groups|
+5. You can verify the correct group definition by looking at the *Available group lists* table.
 
-.. |available_groups| image:: img/myVCF_available_groups.png
+.. figure:: img/myVCF_available_groups.png
+     :scale: 50 %
+     :alt: available_groups
+     :align: center
 
 Now you can apply filters on mutations/region results by your sample group definition.
 
