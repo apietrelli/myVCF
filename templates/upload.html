@@ -66,14 +66,19 @@ $(document).ready(function() {
                 // console.log("Check");
                 // Hide valid message if any
                 $("#validMsg_vcf_name").hide();
+                $("#warnMsg_vcf_name").hide();
                 $("#sw_annotation").val("None");
                 // Update the message
                 msg
                     ? data.bv.updateMessage('vcf_name', 'remote', msg)
                     : data.bv.updateMessage('vcf_name', 'remote', 'The VCF is not valid');
             }
-        })
+    })
+
     .on('success.field.bv', function(e, data) {
+            if (data.bv.getInvalidFields().length > 0) {    // There is invalid field
+                data.bv.disableSubmitButtons(true);
+            };
             var validator = data.validator,
                 field  = data.field,   // Get the field name
                 $field = data.element
@@ -81,14 +86,49 @@ $(document).ready(function() {
             if (field === 'vcf_name' && validator === 'remote') {
                 var msg = data.result.msg_validate;
                 var annotation = data.result.annotation;
+                $("#sw_annotation").val(annotation);
+                $("#warnMsg_vcf_name").hide();
                 // console.log("Check");
                 // Show a valid message
-                $("#validMsg_vcf_name").html("<p>The VCF is good!<br> Annotation system: "+ annotation + "</p>");
-                $("#validMsg_vcf_name").show();
-                $("#sw_annotation").val(annotation);
-            }
-        })
+                if (annotation != "other"){
+                    $("#validMsg_vcf_name").html("<p>The VCF is good! <br> Annotation system: "+ annotation + "</p>");
+                    var radios_assembly = document.getElementsByName("assembly_version");
+                    // Enable assembly fields
+                    for (var i=0, iLen=radios_assembly.length; i<iLen; i++) {
+                        radios_assembly[i].disabled = false;
+                    }
+                    // Enable transcript annotation fields
+                    var radios_tx = document.getElementsByName("annotation_version");
+                    for (var i=0, iLen=radios_tx.length; i<iLen; i++) {
+                        radios_tx[i].disabled = false;
+                    }
+                    //radios_tx[2].disabled = true
+                    //radios_assembly[2].disabled = true
+                }
+                else{
+                    $("#validMsg_vcf_name").html("<p>The VCF is good!<br> Annotation system: "+ annotation + "</p>");
+                    $("#warnMsg_vcf_name").show();
+                    $("#warnMsg_vcf_name").html("<p>The VCF does not contain any annotation or is a non-human reference</p>");
+                    var radios_assembly = document.getElementsByName("assembly_version");
+                    // Disable assembly fields
+                    for (var i=0, iLen=radios_assembly.length; i<iLen; i++) {
+                        radios_assembly[i].disabled = true;
+                    }
+                    radios_assembly[radios_assembly.length-1].disabled = false;
+                    radios_assembly[radios_assembly.length-1].checked = true;
 
+                    // Disable transcript annotation fields
+                    var radios_tx = document.getElementsByName("annotation_version");
+                    for (var i=0, iLen=radios_tx.length; i<iLen; i++) {
+                        radios_tx[i].disabled = true;
+                    }
+                    radios_tx[radios_tx.length-1].disabled = false;
+                    radios_tx[radios_tx.length-1].checked = true;
+
+                }
+            $("#validMsg_vcf_name").show();
+            }
+    })
     .bootstrapValidator({
         excluded: ':disabled',
         feedbackIcons: {
@@ -128,10 +168,15 @@ $(document).ready(function() {
                         type : "POST", // http method
                         data : {'csrfmiddlewaretoken': '{{ csrf_token }}'},
                         message: 'The VCF is not suitable for loading'
-                        }
                     }
-            } /* <&#45;&#45; removed comma */
-        } /* added closing brace */
+                } /* <&#45;&#45; removed comma */
+            } /* added closing brace */
+        }
+    })
+    .on('success.form.bv', function(e) {
+        var btn = $('#upload_button[data-loading-text]');
+        btn.button('loading');
+        waitingDialog.show('Saving VCF...', {progressType: 'success'})
     });
 });
 
@@ -161,8 +206,8 @@ $(document).ready(function() {
         <h3 class="text-muted">myVCF</h3>
     </div>
     <div class="jumbotron">
-        <h1>UPLOAD PAGE</h1>
-        <p class="lead">Start page for VCF project</p>
+        <h1>Upload Page</h1>
+        <p class="lead">Select a VCF file to start project</p>
     </div>
     <div class="row marketing">
         <div>
@@ -186,6 +231,7 @@ $(document).ready(function() {
                     <select class="form-control" name="vcf_name" id="vcf_name"></select>
                     <small class="text-muted">This dropdown menu shows the VCFs directory listing</small>
                     <small class="help-block validMessage" data-field="vcf_name" id="validMsg_vcf_name"></small>
+                    <small class="text-warning" data-field="vcf_name" id="warnMsg_vcf_name"></small>
                 </div>
             </div>
 
@@ -198,7 +244,7 @@ $(document).ready(function() {
                            style="width: 50%" placeholder="Autodetect by VCF selection" readonly>
                 </div>
             </div>
-             <!--Assembly Version-->
+            <!--Assembly Version-->
             <div class="center-block form-group row">
                 <label class="col-md-3 h5"><strong>Human Genome Assembly version</strong></label>
                 <div class="col-md-8">
@@ -212,6 +258,12 @@ $(document).ready(function() {
                         <label>
                             <input type="radio" name="assembly_version" id="assVersion_gridRadios2" value="hg38">
                             hg38
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="assembly_version" id="assVersion_gridRadios3" value="other">
+                            Non Human Reference
                         </label>
                     </div>
                 </div>
@@ -232,6 +284,18 @@ $(document).ready(function() {
                             ENSEMBL 84
                         </label>
                     </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="annotation_version" id="ensAnnotation_gridRadios3" value="84">
+                            RefSeq
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="annotation_version" id="ensAnnotation_gridRadios4" value="84">
+                            Other
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
@@ -241,8 +305,8 @@ $(document).ready(function() {
                 <div class="col-md-offset-3 col-md-2">
                     <button id="upload_button" type="submit"
                             class="btn btn-primary"
-                            data-loading-text="<span class='glyphicon glyphicon-refresh'></span> Uploading..."
-                            onclick="waitingDialog.show('Saving VCF...', {progressType: 'success'})">
+                            data-loading-text="<span class='glyphicon glyphicon-refresh'></span> Uploading...">
+                            <!--onclick="waitingDialog.show('Saving VCF...', {progressType: 'success'})">-->
                         Submit
                     </button>
                 </div>
@@ -256,12 +320,6 @@ $(document).ready(function() {
 </html>
 {% block js %}
 <script>
-$('#upload_button[data-loading-text]')
-    .on('click', function () {
-        var btn = $(this)
-        btn.button('loading')
-    });
-
 var waitingDialog = waitingDialog || (function ($) {
     'use strict';
 

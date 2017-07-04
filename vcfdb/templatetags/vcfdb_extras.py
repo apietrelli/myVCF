@@ -3,6 +3,7 @@ __author__ = 'pietrelli'
 from django import template
 from django.conf import settings
 import re
+import ast
 
 register = template.Library()
 numeric_test = re.compile("^\d+$")
@@ -103,4 +104,9 @@ def get_mutation_by_type(obj, args):
 
     return mutations
 
-
+@register.filter
+def list_to_text(obj):
+    # Obj is "group.samples" in settings page
+    list = ast.literal_eval(obj)
+    text = ','.join(list)
+    return text

@@ -87,3 +87,18 @@ class DbInfo(models.Model):
     def get_mutation_col(self):
         return self.mutation_col
 
+class Groups(models.Model):
+    # Classe per la creazione dei gruppi
+    p_id = models.IntegerField(db_column='p_id', blank=False, null=False)
+    project_name = models.TextField()
+    group_name = models.TextField()
+    samples = models.TextField()
+
+    def __unicode__(self):
+        return self.group_name
+
+    def n_samples(self):
+        return len(self.samples)
+
+    def get_samples(self):
+        return self.samples

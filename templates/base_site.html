@@ -118,9 +118,13 @@ $(document).ready(function(){
             <tbody>
             <tr>
                 <td>
+                    {% if db.sw_annotation != "other" %}
                     <a href="vcfdb/{{ db.project_name }}">
+                    {% else %}
+                    <a href="vcfdb/other/{{ db.project_name }}">
+                    {% endif %}
                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                        {{ db.project_name }}
+                            {{ db.project_name }}
                     </a>
                 </td>
                 <td>

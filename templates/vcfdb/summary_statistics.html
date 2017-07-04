@@ -583,6 +583,7 @@ $(document).ready(function() {
             <div id="mutation_chr_body" class="panel-body">Plot Content</div>
         </div>
     </div>
+    {% if sw_annotation != "other" %}
     <div class="panel panel-default col-md-12">
         <div id="mutation_biotype_heading" class="panel-heading">
             <a data-toggle="collapse" data-target="#mutation_biotype">Mutations distribution: Gene biotype</a>
@@ -608,6 +609,7 @@ $(document).ready(function() {
             <div id="top_genes_body" class="panel-body">Large Plot Content</div>
         </div>
     </div>
+    {% endif %}
     </div>
 </div>
 

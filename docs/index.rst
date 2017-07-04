@@ -29,6 +29,7 @@ Documentation contents
    Install the package <install>
    Setup a project <setup>
    myVCF features <feature>
+   FAQ <faq>
 
 
 How to cite myVCF

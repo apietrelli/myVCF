@@ -178,6 +178,36 @@ Here, some example of the statistics generated:
      :alt: summary 4
      :align: center
 
+Add sample groups
+-----------------
+
+Most of the times, exome and target sequencing projects, are performed to understand the genetic difference between two or more group of samples that belong to a particular phenotype or hold some features of interest according to clinical data.
+
+With myVCF you can easily define samples groups in order to filter and export mutations that are present only in certain samples defined by the group.
+
+.. hint:: This feature is available **only for human-based and annotated projects**
+
+To define and add groups in specific project, follow these steps:
+
+1. Click on *DB settings page* from the project homepage
+
+2. Go to **Setup Groups** section
+
+3. Define a *group name* and select the *sample ID* that you want to include in the group |select_groups|
+
+.. |select_groups| image:: img/myVCF_select_groups.png
+
+4. Save group by clicking on **Save group** button
+
+5. You can verify the correct group definition by looking at the *Available group lists* table.
+
+.. figure:: img/myVCF_available_groups.png
+     :scale: 50 %
+     :alt: available_groups
+     :align: center
+
+Now you can apply filters on mutations/region results by your sample group definition.
+
 
 Change default columns view
 ---------------------------

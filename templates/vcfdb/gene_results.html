@@ -77,10 +77,34 @@ $(document).ready( function() {
     colReorder: false,
     stateSave: false,
     "bAutoWidth": false,
-  } );
+    initComplete: function () {
+            console.log('init completed');
+            this.api().columns().every( function () {
+                var column = this;
+                var idx = column.index();
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+                if (idx != 0 & idx != 4 ){
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value='+d+'>'+d+'</option>' )
+                } );
+                }
+            } );
+        }
+  } );
+var click_counter = 0
 {# Row filtering buttons #}
   $("#pass_filter").click(function() {
+    click_counter+=1;
     $.fn.dataTable.ext.search.push(
       function(settings, data, dataIndex) {
         var idx = table.column('filter:name').index()
@@ -94,6 +118,8 @@ $(document).ready( function() {
   });
 
   $("#af_filter li a").click(function() {
+    click_counter+=1;
+    console.log(click_counter)
     $.fn.dataTable.ext.search.push(
       function(settings, data, dataIndex) {
         var idx = table.column('af:name').index()
@@ -103,12 +129,63 @@ $(document).ready( function() {
       }
     );
     table.draw();
-    $.fn.dataTable.ext.search.pop();
+    if ($("#button_sample_group span") == "") {
+        $.fn.dataTable.ext.search.pop();
+    }
+  });
+
+  $("#sample_group li a").click(function() {
+    click_counter+=1;
+    console.log(click_counter)
+    var sample_string = $('#sample_group li a').data('id');
+    var sample_list = sample_string.split(",");
+    var g_sum = ""
+    $.each(sample_list, function(index, value){
+        //console.log(value);
+        sample_genotype = table.rows().column(value+':name').data();
+        //console.log(sample_genotype);
+        if (g_sum == ""){
+            g_sum = sample_genotype
+        }
+        else{
+            g_sum = g_sum.map(function (num, idx) {
+                return Number(num) + Number(sample_genotype[idx]);
+            });
+        };
+        //console.log(g_sum);
+    })
+
+    var valid_rows = new Array();
+
+    $.each(g_sum, function(index, genotype){
+        r_index = table.row(index).index()
+        if (g_sum[index]>0){
+            valid_rows.push(r_index)
+            }
+        })
+    //console.log(valid_rows);
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+        //console.log(data);
+        //console.log(dataIndex);
+        return ($.inArray(dataIndex, valid_rows) != -1)
+                ? true
+                : false
+      }
+    );
+    table.draw();
+    if ($("#button_af_filter") == "") {
+        $.fn.dataTable.ext.search.pop();
+    }
   });
 
   $("#reset_filter").click(function() {
     $("#button_af_filter").html('MAF Threshold <span class="caret"></span>');
-    $.fn.dataTable.ext.search.pop();
+    $("#button_sample_group").html('Samples Group<span class="caret"></span>');
+    for (i = 0; i < click_counter; i++) {
+        $.fn.dataTable.ext.search.pop();
+    };
+    click_counter = 0;
     table.draw();
   });
 
@@ -174,6 +251,47 @@ $(function () {
     });
 });
 });
+
+</script>
+
+<script>
+$(document).ready( function() {
+    $('#plink').on('click', function() {
+        $.ajax({
+            {% if type == "gene" %}
+            url: 'plink_gene/',
+            type: 'POST',
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                   'project_name' : '{{ project_name }}', // data sent with the post request
+                   'gene_ensgene' : '{{ query }}',
+                   },
+            {% else %}
+            url: 'plink_region/',
+            type: 'POST',
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                   'project_name' : '{{project_name}}', // data sent with the post request
+                   'region' : '{{ query }}',
+                   },
+            {% endif %}
+            success: function(obj) {
+                var data = JSON.parse(obj)
+                console.log(data.ped);
+                u_map = "data:text/csv;charset=UTF-8," + encodeURIComponent(data.map);
+                $("#plink_map_download").attr({
+                    "download" : data.map_filename,
+                    "href" : u_map
+                }).get(0).click();
+
+                u_ped = "data:text/csv;charset=UTF-8," + encodeURIComponent(data.ped);
+                $("#plink_ped_download").attr({
+                    "download" : data.ped_filename,
+                    "href" : u_ped
+                }).get(0).click();
+
+            }
+        });
+    })
+})
 </script>
 
 {% endblock %}
@@ -197,16 +315,16 @@ $(function () {
     </div>
     <div class="row header">
         {% if type == "gene" %}
-            <h2>Gene: <em>{{ gene_symbol.genename }}</em> ({{ query }})</h2>
+        <h2>Gene: <em>{{ gene_symbol.genename }}</em> ({{ query }})</h2>
         {% else %}
-            <h2>Region: {{ query }} </h2>
+        <h2>Region: {{ query }}</h2>
         {% endif %}
     </div>
     <div class="row">
         <div class="btn-group">
-        <button id="pass_filter" class="btn btn-small btn-success">
-            PASS Filter
-        </button>
+            <button id="pass_filter" class="btn btn-small btn-success">
+                PASS Filter
+            </button>
         </div>
         <div class="btn-group">
             <button id="button_af_filter" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">MAF Threshold<span class="caret"></span></button>
@@ -219,10 +337,25 @@ $(function () {
             </ul>
         </div>
         <div class="btn-group">
+            <button id="button_sample_group" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Samples group<span class="caret"></span></button>
+            <ul id="sample_group" class="dropdown-menu">
+                {% for group in groups %}
+                    <li><a href="#" data-id="{{ group.samples|list_to_text }}">{{ group.group_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="btn-group">
             <button id="reset_filter" class="btn btn-small btn-info">
                 Reset Filter
             </button>
         </div>
+        <div class="btn-group">
+            <button id="plink" class="btn btn-small btn-info">
+                PLINK Export
+            </button>
+        </div>
+        <a id="plink_map_download" download="" href="" hidden></a>
+        <a id="plink_ped_download" download="" href="" hidden></a>
     </div>
     <div class="col-xs-12" style="height:20px;"></div>
     <div class="row">
@@ -232,26 +365,38 @@ $(function () {
                 <thead>
                 <th class="small">Variant</th>
                 {% for field in all_fields %}
-                    <th class="small">{{ field|title }}</th>
+                <th class="small">{{ field|title }}</th>
                 {% endfor %}
                 </thead>
+                <tfoot>
+                <tr>
+                    <th class="small">Variant</th>
+                    {% for field in all_fields %}
+                    <th class="small">{{ field|title }}</th>
+                    {% endfor %}
+                </tr>
+                </tfoot>
                 <tbody>
                 {% for mutation in mutations %}
-                    <tr>
-                        <td class="small">
-                            <a href="/vcfdb/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                <tr>
+                    <td class="small">
+                        {% if sw_annotation != "other" %}
+                        <a href="/vcfdb/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                            {% else %}
+                            <a href="/vcfdb/other/{{ project_name }}/variant/{{ mutation.chrom }}-{{ mutation.pos }}-{{ mutation.pos }}-{{ mutation.ref }}-{{ mutation.alt }}">
+                                {% endif %}
                                 {{ mutation.chrom }}:{{ mutation.pos }} {{ mutation.ref }} / {{ mutation.alt }}
                             </a>
-                        </td>
+                    </td>
                     {% for field in all_fields %}
-                        {% if field == "rs_id" and mutation|getattr:field != "None" %}
-                        <td class="small"><a href="http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs={{ mutation|getattr:field }}" target="_blank">{{ mutation|getattr:field }}</a></td>
-                        {% else %}
-                        <td class="small">{{ mutation|getattr:field }}</td>
-                        {% endif %}
+                    {% if field == "rs_id" and mutation|getattr:field != "None" %}
+                    <td class="small"><a href="http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?rs={{ mutation|getattr:field }}" target="_blank">{{ mutation|getattr:field }}</a></td>
+                    {% else %}
+                    <td class="small">{{ mutation|getattr:field }}</td>
+                    {% endif %}
                     {% endfor %}
-                {% endfor %}
-                    </tr>
+                    {% endfor %}
+                </tr>
                 </tbody>
             </table>
         </div>
