@@ -217,7 +217,8 @@ def submit_vcf(request):
                     # print field
                     if field in TableIndex:
                         # print TableIndex
-                        print "Jump " + table_name + " because was found DUPLICATED!"
+                        print "Adding _CSQ to " + table_name + " because was found DUPLICATED!"
+                        CSQ_Statement += '"' + field + '_CSQ" ' + "TEXT" + ", "
                     else:
                         CSQ_Statement += '"' + field + '" ' + "TEXT" + ", "
 
