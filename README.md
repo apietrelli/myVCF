@@ -1,5 +1,8 @@
 # myVCF: web-based platform for NGS data analysis management #
 
+[![DOI](https://zenodo.org/badge/73204035.svg)](https://zenodo.org/badge/latestdoi/73204035)
+
+
 Welcome to myVCF project page.
 
 ### What is this repository for? ###
