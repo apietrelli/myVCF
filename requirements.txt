@@ -9,4 +9,4 @@ static3==0.6.1
 wsgiref==0.1.2
 PyVCF==0.6.8
 numpy==1.11.0
-requests==2.11.1
+requests==2.20.0
